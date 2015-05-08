@@ -20,13 +20,26 @@
         font-style: normal;
     }
     
+    body { margin: 0px; padding: 0px; }
+    
+    .displayEntradas {
+        font-size: 2em;
+        height: 1.5em;
+        padding: auto 1em;
+        border: 1px solid #CCC;
+        border-radius: 4px;
+        text-align: left;
+    }
+    .displayCaracter {
+        background-color: #EEE;
+        text-align: center;
+        padding: 0px;
+    }
     .braillefont{
         /*font-family:'BrailleRegular'*/
         font-family:'BrailleANSI';
-    }    
+    }
     
-    body { margin: 0px; padding: 0px; }
-
     .absolute { position: absolute }
     .relative { position: relative }    
     .fullheight { position: absolute; top:0; bottom:0; }
@@ -48,16 +61,13 @@
 <section class="relative-fullheight fullwidth">
 	<div class="container-fluid text-center relative-fullheight" style="display:table; height: 100%; width: 100%;">
         <div class="row">
-    	    <h2><textarea rows="1" id="textoBraille" class="col-xs-offset-1 col-xs-10 braillefont"></textarea></h2>
-            <h2><textarea rows="1" id="textoLatino" class="col-xs-offset-1 col-xs-10"></textarea></h2>
+	        <span id="textoBraille" class="braillefont displayEntradas col-xs-offset-1 col-xs-9"></span>
+   	        <span id="valorBraille" class="braillefont displayEntradas displayCaracter col-xs-1"></span>
         </div>
         <div class="row">
-            <h1>
-                <span id="valorBraille" class="braillefont">&nbsp;</span>
-                &nbsp; &nbsp; &nbsp;
-                <span id="valorLatino">&nbsp;</span>
-            </h1>
-        </div>
+	        <span id="textoLatino" class="displayEntradas col-xs-offset-1 col-xs-9"></span>
+            <span id="valorLatino" class="displayEntradas displayCaracter col-xs-1"></span>
+        </div>     
         <div class="row vab" role="group" style="display: table-row; height: 100%">
           <div class="relative-fullheight container-fluid" role="group"  style="padding: 0px;">
 	        <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
@@ -86,7 +96,7 @@
 <script>
 var presiono = [0,0,0,0,0,0], solto = [0,0,0,0,0,0];
 var $valorBraille, $textoBraille, $valorLatino, $textoLatino, valor;
-var SALTO_LINEA=-1;
+var SALTO_LINEA=-1, modoMayuscula=0, modoNumerico=0, modoNumericoInterrupcion=0;
 
 function obtenerValor(){
     var resultado=0;
@@ -120,10 +130,9 @@ function limpiar(arrayA, arrayB) {
     }
 }
 
+
 function obtenerCaracterBraille(codigo) {
-    return String.fromCharCode(10240 + codigo);
-}
-function obtenerCaracterLatino(codigo) {
+    //Usando unicode que andaría genial: return String.fromCharCode(10240 + codigo);
     var caracter = "";
     switch(codigo){    
         // comandos
@@ -165,7 +174,14 @@ function obtenerCaracterLatino(codigo) {
         case 62: caracter = "ú"; break;
         case 51: caracter = "ü"; break;
 
-        // signos ortograficos
+        // modo mayúscula, puntos 46
+        case 40: caracter = "½"; break;
+        // modo numérico, puntos 3456
+        case 60: caracter = "#"; break;
+        // interrupción de modo numérico por un único caracter, punto 5
+        case 16: caracter = "~"; break;
+        
+        // signos ortograficos 
         case 4: caracter = "."; break;
         case 2: caracter = ","; break;
         case 6: caracter = ";"; break;
@@ -182,15 +198,34 @@ function obtenerCaracterLatino(codigo) {
         //case 21: caracter = "¡ !"; break;
         //case 38: caracter = "“ ”"; break;
     }
+    return caracter
+}
+
+function obtenerCaracterLatino(codigo) {
+    var caracter = obtenerCaracterBraille(codigo);
+
+    if(modoMayuscula) {
+        caracter = caracter.toUpperCase();
+    }
+
+    if(modoNumerico && !modoNumericoInterrupcion) {
+        if(caracter == "j") {
+            caracter = "0";
+        } else if(caracter>="a" && caracter<"j") {
+            caracter = String.fromCharCode("1".charCodeAt(0) + caracter.charCodeAt(0) - "a".charCodeAt(0));
+        }
+    }
     return caracter;
 }
+
+
 
 function presiona(btn) {
     var idx = btn.data('idx');
     presiono[idx] = 1;
     solto[idx] = 0;
     valor = obtenerValor(presiono);
-    $valorBraille.text(obtenerCaracterLatino(valor));
+    $valorBraille.text(obtenerCaracterBraille(valor));
     $valorLatino.text(obtenerCaracterLatino(valor));
 }
 function presionaBoton(evt) {
@@ -198,9 +233,52 @@ function presionaBoton(evt) {
 }
 
 function aceptarCaracter(valor) {
-    $textoBraille.val($textoBraille.val() + obtenerCaracterLatino(valor));
+    var caracterBraille = obtenerCaracterBraille(valor);
+    var caracterLatino = obtenerCaracterLatino(valor);
+
+    if(caracterLatino == "½") {
+        modoMayuscula++;
+        switch(modoMayuscula) {
+            case 1: console.log("modo mayuscula simple"); break;
+            case 2: console.log("modo mayuscula múltiple"); break;
+            default: 
+                modoMayuscula=0; 
+                console.log("quito modo mayuscula por abuso de signo");
+        }
+    } else if(modoMayuscula == 1) {
+        modoMayuscula=0;
+        console.log("finalizo modo mayuscula un caracter");
+    } else if(modoMayuscula == 2 && caracterLatino == caracterLatino.toLowerCase()) {
+        modoMayuscula=0;
+        console.log("finalizo modo mayuscula multiple, limita con: " + caracterLatino);
+    }
+    
+    if(caracterLatino == "#") {
+        modoNumerico++;
+        switch(modoNumerico) {
+            case 1: console.log("modo numérico"); break;
+            default: 
+                modoNumerico=0; 
+                modoNumericoInterrupcion=0;
+                console.log("quito modo numérico por abuso de signo");
+        }
+    } else if(modoNumerico) {    
+        if(caracterLatino == "~") {    
+            modoNumericoInterrupcion++
+            console.log("interrumpo modo numérico");
+        } else if(modoNumericoInterrupcion) {
+            modoNumericoInterrupcion=0;
+            console.log("reactivo modo numérico");
+        } else if(caracterLatino == " " || caracterLatino == "\n") {
+            modoNumerico=0;
+            modoNumericoInterrupcion=0;
+            console.log("desactivo modo numérico");
+        }
+    }
+    
+    $textoBraille.text($textoBraille.text() + caracterBraille);
     //$textoBraille.val($textoBraille.val() + obtenerCaracterBraille(valor));    
-    $textoLatino.val($textoLatino.val() + obtenerCaracterLatino(valor));
+    $textoLatino.text($textoLatino.text() + caracterLatino);
 }
 
 function suelta(btn) {
@@ -232,10 +310,10 @@ function agregaSaltoLinea() {
 }
 function borrarUltimoCaracter() {
     if(!obtenerValor()) {
-        var textoActual = $textoBraille.val();
-        $textoBraille.val(textoActual.substr(0,textoActual.length -1));
-        var textoActual = $textoLatino.val();
-        $textoLatino.val(textoActual.substr(0,textoActual.length -1));
+        var textoActual = $textoBraille.text();
+        $textoBraille.text(textoActual.substr(0,textoActual.length -1));
+        var textoActual = $textoLatino.text();
+        $textoLatino.text(textoActual.substr(0,textoActual.length -1));
     }
 }
 function eventoTeclaComando(evt) {
