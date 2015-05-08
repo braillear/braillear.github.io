@@ -1,20 +1,296 @@
 <!DOCTYPE html>
-<!--[if lte IE 6]><html class="preIE7 preIE8 preIE9"><![endif]-->
-<!--[if IE 7]><html class="preIE8 preIE9"><![endif]-->
-<!--[if IE 8]><html class="preIE9"><![endif]-->
-<!--[if gte IE 9]><!--><html><!--<![endif]-->
- <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="description" content="Teclado Braille digital. Alfabeto braille español y argentina.">
-    <meta name="keywords" content="braille braile teclado ceguera perkins alfabeto">
-    <meta name="author" content="Lucas Capalbo">
-    <title>Braillear - Entrenador Braille</title>
- </head>
- <body>
-     <h1>Braillear</h1>
-     <h2>Entrenador Braille</h2>
-     <p>El proyecto está apenas iniciando en <a href="https://github.com/braillear/braillear">GitHub</a>.</p>
-     <p>Mayo, 2015</p>
- </body>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width,height=device-height,user-scalable=no">
+<link rel="stylesheet" href="bootstrap.min.css">
+<style>
+    @font-face{
+        font-family:'BrailleRegular';
+        src:url('braille-webfont.eot');
+        src:url('braille-webfont.eot?#iefix') format('embedded-opentype'), url('braille-webfont.woff') format('woff'), url('braille-webfont.ttf') format('truetype'), url('braille-webfont.svg#BrailleRegular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face{
+        font-family:'BrailleANSI';
+        src:url('Braille6-ANSI.ttf');
+        src:urlBraille6-ANSI.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+    .braillefont{
+        /*font-family:'BrailleRegular'*/
+        font-family:'BrailleANSI';
+    }    
+    
+    body { margin: 0px; padding: 0px; }
+
+    .absolute { position: absolute }
+    .relative { position: relative }    
+    .fullheight { position: absolute; top:0; bottom:0; }
+    .relative-fullheight { position: relative; height: 100% }
+    .fullwidth { left:0; right:0; }
+    .vat { top: 0; }
+    .vab { margin-top: 1.5%; bottom: 0; }
+    .vac { margin-top: 1.5%; margin-bottom:0;}
+        
+    .btnTeclado {
+        height: 32%;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+</style>
+</head>
+<body class="fullheight fullwidth">
+<section class="relative-fullheight fullwidth">
+	<div class="container-fluid text-center relative-fullheight" style="display:table; height: 100%; width: 100%;">
+        <div class="row">
+    	    <h2><textarea rows="1" id="textoBraille" class="col-xs-offset-1 col-xs-10 braillefont"></textarea></h2>
+            <h2><textarea rows="1" id="textoLatino" class="col-xs-offset-1 col-xs-10"></textarea></h2>
+        </div>
+        <div class="row">
+            <h1>
+                <span id="valorBraille" class="braillefont">&nbsp;</span>
+                &nbsp; &nbsp; &nbsp;
+                <span id="valorLatino">&nbsp;</span>
+            </h1>
+        </div>
+        <div class="row vab" role="group" style="display: table-row; height: 100%">
+          <div class="relative-fullheight container-fluid" role="group"  style="padding: 0px;">
+	        <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
+		        <a class="vat col-xs-12 btn btn-info btn-lg btnTeclado btnBraile" data-valor="1" data-idx="0" id="btnQ">Q</a>
+		        <a class="vac col-xs-12 btn btn-info btn-lg btnTeclado btnBraile" data-valor="2" data-idx="1" id="btnA">A</a>
+		        <a class="vab col-xs-12 btn btn-info btn-lg btnTeclado btnBraile" data-valor="4" data-idx="2" id="btnZ">Z</a>
+	        </div>
+	        <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
+    	        <a id="btnBorrar" class="vat col-xs-12 btn btn-danger btn-lg btnTeclado">Borrar</a>
+    	        <a id="btnSaltoLinea" class="vac col-xs-12 btn btn-success btn-lg btnTeclado">Enter</a>
+    	        <a id="btnEspacio" class="vab col-xs-12 btn btn-primary btn-lg btnTeclado">Espacio</a>
+	        </div>
+	        <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
+                <a class="vat col-xs-12 btn btn-info btn-lg btnTeclado btnBraile" data-valor="8" data-idx="3" id="btnO">O</a>
+		        <a class="vac col-xs-12 btn btn-info btn-lg btnTeclado btnBraile" data-valor="16" data-idx="4" id="btnK">K</a>
+		        <a class="vab col-xs-12 btn btn-info btn-lg btnTeclado btnBraile" data-valor="32" data-idx="5" id="btnM">M</a>
+	        </div>
+          </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="jquery-2.1.1.min.js" ></script>
+<script src="thumbs.0.6.0.min.js" ></script>
+<script>
+var presiono = [0,0,0,0,0,0], solto = [0,0,0,0,0,0];
+var $valorBraille, $textoBraille, $valorLatino, $textoLatino, valor;
+var SALTO_LINEA=-1;
+
+function obtenerValor(){
+    var resultado=0;
+    for(var i=0; i<6; i++) {
+        if(presiono[i]) {
+           resultado += Math.pow(2,i);
+        }
+    }
+    return resultado;
+}
+
+function sumar(array){
+    var resultado=0;
+    for(var i=0; i<6; i++) resultado += array[i] * Math.pow(2,i);
+    return resultado;
+}
+
+function iguales(arrayA, arrayB) {
+    for(var i=0; i<6; i++) {
+        if(arrayA[i] != arrayB[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function limpiar(arrayA, arrayB) {
+    for(var i=0; i<6; i++) {
+        arrayA[i] = 0;
+        arrayB[i] = 0;
+    }
+}
+
+function obtenerCaracterBraille(codigo) {
+    return String.fromCharCode(10240 + codigo);
+}
+function obtenerCaracterLatino(codigo) {
+    var caracter = "";
+    switch(codigo){    
+        // comandos
+        case SALTO_LINEA: caracter = "\n"; break;
+        case 0: caracter = " "; break;
+        
+        // letras
+        case 1: caracter = "a"; break;
+        case 3: caracter = "b"; break;
+        case 9: caracter = "c"; break;
+        case 25: caracter = "d"; break;
+        case 17: caracter = "e"; break;
+        case 11: caracter = "f"; break;
+        case 27: caracter = "g"; break;
+        case 19: caracter = "h"; break;
+        case 10: caracter = "i"; break;
+        case 26: caracter = "j"; break;
+        case 5: caracter = "k"; break;
+        case 7: caracter = "l"; break;
+        case 13: caracter = "m"; break;
+        case 29: caracter = "n"; break;
+        case 59: caracter = "ñ"; break;
+        case 21: caracter = "o"; break;
+        case 15: caracter = "p"; break;
+        case 31: caracter = "q"; break;
+        case 23: caracter = "r"; break;
+        case 14: caracter = "s"; break;
+        case 30: caracter = "t"; break;
+        case 37: caracter = "u"; break;
+        case 39: caracter = "v"; break;
+        case 58: caracter = "w"; break;
+        case 45: caracter = "x"; break;
+        case 59: caracter = "y"; break;
+        case 53: caracter = "z"; break;
+        case 55: caracter = "á"; break;
+        case 46: caracter = "é"; break;
+        case 12: caracter = "í"; break;
+        case 44: caracter = "ó"; break;
+        case 62: caracter = "ú"; break;
+        case 51: caracter = "ü"; break;
+
+        // signos ortograficos
+        case 4: caracter = "."; break;
+        case 2: caracter = ","; break;
+        case 6: caracter = ";"; break;
+        case 18: caracter = ":"; break;
+        case 35: caracter = "("; break;
+        case 28: caracter = ")"; break;
+        case 55: caracter = "["; break;
+        case 62: caracter = "]"; break;
+        case 36: caracter = "-"; break;
+        case 20: caracter = "*"; break;
+
+        // signos emparejados, apertura y cierre
+        //case 34: caracter = "¿ ?"; break;
+        //case 21: caracter = "¡ !"; break;
+        //case 38: caracter = "“ ”"; break;
+    }
+    return caracter;
+}
+
+function presiona(btn) {
+    var idx = btn.data('idx');
+    presiono[idx] = 1;
+    solto[idx] = 0;
+    valor = obtenerValor(presiono);
+    $valorBraille.text(obtenerCaracterLatino(valor));
+    $valorLatino.text(obtenerCaracterLatino(valor));
+}
+function presionaBoton(evt) {
+    presiona($(this));
+}
+
+function aceptarCaracter(valor) {
+    $textoBraille.val($textoBraille.val() + obtenerCaracterLatino(valor));
+    //$textoBraille.val($textoBraille.val() + obtenerCaracterBraille(valor));    
+    $textoLatino.val($textoLatino.val() + obtenerCaracterLatino(valor));
+}
+
+function suelta(btn) {
+    var idx = btn.data('idx');
+    solto[idx] = 1;
+    if(iguales(presiono, solto)) {
+        aceptarCaracter(valor);
+        limpiar(presiono, solto);
+        valor=0;
+        $valorBraille.text('');
+        $valorLatino.text('');
+    }
+}
+function sueltaBoton(evt) {
+    suelta($(this))
+}
+
+function agregaEspacio() {
+    if(!obtenerValor()) {
+        aceptarCaracter(0);
+    }
+}
+function agregaSaltoLinea() {
+    if(!obtenerValor()){
+        aceptarCaracter(SALTO_LINEA);
+        $textoBraille.scrollTop(99999999);
+        $textoLatino.scrollTop(99999999);
+    }
+}
+function borrarUltimoCaracter() {
+    if(!obtenerValor()) {
+        var textoActual = $textoBraille.val();
+        $textoBraille.val(textoActual.substr(0,textoActual.length -1));
+        var textoActual = $textoLatino.val();
+        $textoLatino.val(textoActual.substr(0,textoActual.length -1));
+    }
+}
+function eventoTeclaComando(evt) {
+    if(obtenerValor()) return;
+    if(evt.key == " ") agregaEspacio();
+    if(evt.keyCode == 13) agregaSaltoLinea();
+    if(evt.keyCode == 8) borrarUltimoCaracter();
+}
+
+function eventoTecla(handler) {
+    return function(e) {
+        if(!e.key) return;
+        switch (e.key) {
+            case "Q": case "q": handler($('#btnQ')); break;
+            case "A": case "a": handler($('#btnA')); break;
+            case "Z": case "z": handler($('#btnZ')); break;
+            case "O": case "o": handler($('#btnO')); break;
+            case "K": case "k": handler($('#btnK')); break;
+            case "M": case "m": handler($('#btnM')); break;
+            break;
+        }
+        return;
+    }
+}
+
+function limpiarTodo() {
+    valor = 0;
+    $valorBraille.text('');
+    $textoBraille.val('');
+    $valorLatino.text('');
+    $textoLatino.val('');
+    return true;
+}
+
+$(function() {
+    $valorBraille = $('#valorBraille');
+    $valorLatino = $('#valorLatino');
+    $textoBraille = $('#textoBraille');
+    $textoLatino = $('#textoLatino');
+    limpiarTodo();
+    
+    $(window).keydown(eventoTecla(presiona));
+    $(window).keyup(eventoTecla(suelta));
+    $.each($('.btnBraile'), function(idx, btn){
+        btn.addEventListener('touchstart', presionaBoton, false);
+        btn.addEventListener('touchend', sueltaBoton, false);
+    });
+    
+    $(window).keyup(eventoTeclaComando);
+    $('#btnEspacio').click(agregaEspacio);
+    $('#btnSaltoLinea').click(agregaSaltoLinea);
+    $('#btnBorrar').click(borrarUltimoCaracter);
+//    $('#btnLimpiar').click(limpiarTodo);
+});
+</script>
+<!--<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
+</body>
 </html>
