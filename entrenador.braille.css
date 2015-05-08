@@ -1,0 +1,63 @@
+@font-face{
+    font-family:'BrailleANSI';
+    src:url('Braille6-ANSI.ttf');
+    src:urlBraille6-ANSI.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body { margin: 0px; padding: 0px; }
+
+.displayEntradas {
+    font-size: 2em;
+    line-height: 1.4em;
+    height: 1.5em;
+    padding: 0px;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.displayCaracter {
+    background-color: #EEE;
+    text-align: center;
+    padding: 0px;
+}
+.fuenteBraille{
+    /*font-family:'BrailleRegular'*/
+    font-family:'BrailleANSI';
+}
+.fuenteLatina {
+    font-family: mono;
+    letter-spacing: 0.105em;
+}
+
+.absolute { position: absolute }
+.relative { position: relative }    
+.fullheight { position: absolute; top:0; bottom:0; }
+.relative-fullheight { position: relative; height: 100% }
+.fullwidth { left:0; right:0; }
+.vat { top: 0; }
+.vab { margin-top: 1.5%; bottom: 0; }
+.vac { margin-top: 1.5%; margin-bottom:0;}
+    
+.btnTeclado {
+    height: 32%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 2em;
+    text-align: left;
+}
+.btnAccion {
+    vertical-align: bottom;
+    text-align: right;
+}
+.btnAccion img {
+    display: block;
+    position: absolute;
+    height: 2em;
+    bottom: 14px;
+    right: 16px;
+}
