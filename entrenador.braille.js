@@ -1,6 +1,4 @@
 var SALTO_LINEA=-1;
-var ESPACIO_BRAILLE = '<span class="fuenteLatina">&nbsp;</span>';
-var ENTER = '<span><br/>' + ESPACIO_BRAILLE + '</span>';
 
 var presiono = [0,0,0,0,0,0], solto = [0,0,0,0,0,0];
 var $valorBraille, $textoBraille, $valorLatino, $textoLatino, valor;
@@ -190,11 +188,36 @@ function aceptarCaracter(valor) {
         }
     }
     
+    var colorLatino = "", titulo = "";
     if(caracterBraille == " ") {
-        caracterLatino = caracterBraille = ESPACIO_BRAILLE;
-    } else if(caracterBraille == "\n") {
-        caracterBraille = caracterLatino = ENTER;
+        caracterLatino = caracterBraille = '&nbsp;'; //podría dejar el espacio, total uso width fijo..
+    } else if(caracterBraille == "½") { // mayús
+        caracterLatino = "^";
+        if(modoMayuscula == 1) {
+            titulo = "Modo mayúscula";
+            colorLatino = "colorMayus";
+        } else {
+            titulo = "Modo capital";
+            colorLatino = "colorCapital";
+        }
+    } else if(caracterBraille == "#") { // num
+        colorLatino = "colorNum";
+        titulo = "Modo numérico";
+    } else if(caracterBraille == "~") { // escape num
+        caracterLatino = "#";
+        colorLatino = "colorEscapeNum";
+        titulo = "Escape modo numérico";
+    } 
+
+    if(titulo) titulo = ' title="' + titulo + '" ';
+    
+    if(caracterBraille == "\n") {
+        caracterBraille = caracterLatino = '<span><br/><span class="spanCaracter">&nbsp;</span></span>';
+    } else {
+        caracterBraille = '<span class="spanCaracter">' + caracterBraille + '</span>';
+        caracterLatino = '<span ' + titulo + ' class="spanCaracter ' + colorLatino + '">' + caracterLatino + '</span>';
     }
+
     
     $textoBraille.append(caracterBraille);
     $textoLatino.append(caracterLatino);

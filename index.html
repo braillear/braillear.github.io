@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html>
+<!--[if lte IE 6]><html class="preIE7 preIE8 preIE9"><![endif]-->
+<!--[if IE 7]><html class="preIE8 preIE9"><![endif]-->
+<!--[if IE 8]><html class="preIE9"><![endif]-->
+<!--[if gte IE 9]><!--><html><!--<![endif]-->
 <head>
+    <title>Braillear - Entrenador Braille</title>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no">
-    <link rel="stylesheet" href="bootstrap.min.css">
+    <meta name="description" content="Teclado Braille digital. Alfabeto braille español y argentina.">
+    <meta name="keywords" content="braille braile teclado ceguera perkins alfabeto">
+    <meta name="author" content="Lucas Capalbo">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="entrenador.braille.css">
-    <title>Entrenador Braille v2</title>
 </head>
 <body class="fullheight fullwidth">
     <section class="relative-fullheight fullwidth">
 	    <div class="container-fluid text-center relative-fullheight" style="display:table; height: 100%; width: 100%; padding-top: 1em;">
+	    
             <div class="row">
-	          <div id="textoBrailleContainer" class="fuenteBraille displayEntradas col-xs-offset-1 col-xs-9">
+	          <div id="textoBrailleContainer" class="fuenteBraille displayEntradas col-xs-offset-1 col-xs-8 col-md-9">
 	            <span id="textoBraille"></span>
               </div>
-       	      <span id="valorBraille" class="fuenteBraille displayEntradas displayCaracter col-xs-1"></span>
+       	      <span id="valorBraille" class="fuenteBraille displayEntradas displayCaracter col-xs-2 col-md-1"></span>
             </div>
+
             <div class="row">
-              <div id="textoLatinoContainer" class="fuenteLatina displayEntradas col-xs-offset-1 col-xs-9">
+              <div id="textoLatinoContainer" class="fuenteLatina displayEntradas col-xs-offset-1 col-xs-8 col-md-9">
 	            <span id="textoLatino"></span>
               </div>
-              <span id="valorLatino" class="fuenteLatina displayEntradas displayCaracter col-xs-1"></span>
-            </div>     
+              <span id="valorLatino" class="fuenteLatina displayEntradas displayCaracter col-xs-2 col-md-1"></span>
+            </div>
+
             <div class="row vab" role="group" style="display: table-row; height: 100%">
               <div class="relative-fullheight container-fluid" role="group"  style="padding: 0px;">
 	            <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
@@ -30,11 +40,13 @@
                   <div class="vac col-xs-12 btn btn-info btn-lg btnTeclado btnBraile" data-valor="2" data-idx="1" id="btnA">A</div>
                   <div class="vab col-xs-12 btn btn-info btn-lg btnTeclado btnBraile" data-valor="4" data-idx="2" id="btnZ">Z</div>
 	            </div>
+	            
 	            <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
         	      <div id="btnBorrar"     class="vat col-xs-12 btn btn-danger  btn-lg btnTeclado btnAccion"><img src="img/erase.svg"></div>
         	      <div id="btnSaltoLinea" class="vac col-xs-12 btn btn-success btn-lg btnTeclado btnAccion"><img src="img/keyboard-return.svg"></div>
         	      <div id="btnEspacio"    class="vab col-xs-12 btn btn-primary btn-lg btnTeclado btnAccion"><img src="img/remove.svg"></div>
 	            </div>
+	            
 	            <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
                   <div class="vat col-xs-12 btn btn-info btn-lg btnTeclado btnBraile" data-valor="8" data-idx="3" id="btnO">O</div>
                   <div class="vac col-xs-12 btn btn-info btn-lg btnTeclado btnBraile" data-valor="16" data-idx="4" id="btnK">K</div>
@@ -42,11 +54,12 @@
 	            </div>
               </div>
             </div>
+
         </div>
     </section>
 
-    <script src="jquery-2.1.1.min.js" ></script>
-    <script src="thumbs.0.6.0.min.js" ></script>
+    <script src="lib/jquery-2.1.1.min.js" ></script>
+    <script src="lib/thumbs.0.6.0.min.js" ></script>
     <script src="entrenador.braille.js" ></script>
 </body>
 </html>

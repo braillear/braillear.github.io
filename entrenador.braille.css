@@ -1,7 +1,7 @@
 @font-face{
     font-family:'BrailleANSI';
-    src:url('Braille6-ANSI.ttf');
-    src:urlBraille6-ANSI.ttf') format('truetype');
+    src:url('fonts/Braille6-ANSI.ttf');
+    src:url('fonts/Braille6-ANSI.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -25,12 +25,28 @@ body { margin: 0px; padding: 0px; }
     padding: 0px;
 }
 .fuenteBraille{
-    /*font-family:'BrailleRegular'*/
     font-family:'BrailleANSI';
 }
 .fuenteLatina {
     font-family: mono;
     letter-spacing: 0.105em;
+}
+.spanCaracter {
+    width: 0.6em;
+    display: inline-block;
+}
+
+.colorMayus {
+    color: lightblue;
+}
+.colorCapital {
+    color: blue;
+}
+.colorNum {
+    color: gray;
+}
+.colorEscapeNum {
+    color: lightgray;
 }
 
 .absolute { position: absolute }
@@ -40,7 +56,7 @@ body { margin: 0px; padding: 0px; }
 .fullwidth { left:0; right:0; }
 .vat { top: 0; }
 .vab { margin-top: 1.5%; bottom: 0; }
-.vac { margin-top: 1.5%; margin-bottom:0;}
+.vac { margin-top: 1.5%; }
     
 .btnTeclado {
     height: 32%;
@@ -49,6 +65,7 @@ body { margin: 0px; padding: 0px; }
     margin-right: 0;
     font-size: 2em;
     text-align: left;
+    overflow: hidden;
 }
 .btnAccion {
     vertical-align: bottom;
@@ -57,7 +74,7 @@ body { margin: 0px; padding: 0px; }
 .btnAccion img {
     display: block;
     position: absolute;
-    height: 2em;
+    width: 2em;
     bottom: 14px;
     right: 16px;
 }
