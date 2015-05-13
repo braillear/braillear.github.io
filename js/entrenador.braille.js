@@ -1,9 +1,10 @@
-var SALTO_LINEA=-1;
-
-var presiono = [0,0,0,0,0,0], solto = [0,0,0,0,0,0];
 var $valorBraille, $textoBraille, $valorLatino, $textoLatino, valor;
-var modoMayuscula=0, modoNumerico=0, modoNumericoInterrupcion=0;
 
+/////////////////////////////////////////////////
+// simplificar esto, aunque sea multitouch se procesa
+// secuencialmente en JS así que no hay race conditions
+// podría usar int nomas, esto fue una prueba y quedó así
+var presiono = [0,0,0,0,0,0], solto = [0,0,0,0,0,0];
 function obtenerValor(){
     var resultado=0;
     for(var i=0; i<6; i++) {
@@ -35,98 +36,16 @@ function limpiar(arrayA, arrayB) {
         arrayB[i] = 0;
     }
 }
+///////////////////////////////////////////////// 
 
-
+/**
+ * Devuelve el caracter Unicode del set Braille (desde \u2800).
+ * Uso solo los primeros 64 caracteres, luego siguen de 8 puntos (para japonés/chino).
+ */
 function obtenerCaracterBraille(codigo) {
-    //Usando unicode que andaría genial: return String.fromCharCode(10240 + codigo);
-    var caracter = "";
-    switch(codigo){    
-        // comandos
-        case SALTO_LINEA: caracter = "\n"; break;
-        case 0: caracter = " "; break;
-        
-        // letras
-        case 1: caracter = "a"; break;
-        case 3: caracter = "b"; break;
-        case 9: caracter = "c"; break;
-        case 25: caracter = "d"; break;
-        case 17: caracter = "e"; break;
-        case 11: caracter = "f"; break;
-        case 27: caracter = "g"; break;
-        case 19: caracter = "h"; break;
-        case 10: caracter = "i"; break;
-        case 26: caracter = "j"; break;
-        case 5: caracter = "k"; break;
-        case 7: caracter = "l"; break;
-        case 13: caracter = "m"; break;
-        case 29: caracter = "n"; break;
-        case 59: caracter = "ñ"; break;
-        case 21: caracter = "o"; break;
-        case 15: caracter = "p"; break;
-        case 31: caracter = "q"; break;
-        case 23: caracter = "r"; break;
-        case 14: caracter = "s"; break;
-        case 30: caracter = "t"; break;
-        case 37: caracter = "u"; break;
-        case 39: caracter = "v"; break;
-        case 58: caracter = "w"; break;
-        case 45: caracter = "x"; break;
-        case 59: caracter = "y"; break;
-        case 53: caracter = "z"; break;
-        case 55: caracter = "á"; break;
-        case 46: caracter = "é"; break;
-        case 12: caracter = "í"; break;
-        case 44: caracter = "ó"; break;
-        case 62: caracter = "ú"; break;
-        case 51: caracter = "ü"; break;
-
-        // modo mayúscula, puntos 46
-        case 40: caracter = "½"; break;
-        // modo numérico, puntos 3456
-        case 60: caracter = "#"; break;
-        // interrupción de modo numérico por un único caracter, punto 5
-        case 16: caracter = "~"; break;
-        
-        // signos ortograficos 
-        case 4: caracter = "."; break;
-        case 2: caracter = ","; break;
-        case 6: caracter = ";"; break;
-        case 18: caracter = ":"; break;
-        case 35: caracter = "("; break;
-        case 28: caracter = ")"; break;
-        case 55: caracter = "["; break;
-        case 62: caracter = "]"; break;
-        case 36: caracter = "-"; break;
-        case 20: caracter = "*"; break;
-
-        // signos emparejados, apertura y cierre
-        //case 34: caracter = "¿ ?"; break;
-        //case 21: caracter = "¡ !"; break;
-        //case 38: caracter = "“ ”"; break;
-    }
-    return caracter
-}
-
-
-function obtenerCaracterLatino(codigo) {
-    var caracter = obtenerCaracterBraille(codigo);
-
-    if(caracter == "  ") {
-        caracter = " ";
-    }
-    
-    if(modoMayuscula) {
-        caracter = caracter.toUpperCase();
-    }
-
-    if(modoNumerico && !modoNumericoInterrupcion) {
-        if(caracter == "j") {
-            caracter = "0";
-        } else if(caracter>="a" && caracter<"j") {
-            caracter = String.fromCharCode("1".charCodeAt(0) + caracter.charCodeAt(0) - "a".charCodeAt(0));
-        }
-    }
-    return caracter;
+    return codigo == SALTO_LINEA 
+            ? "\n" 
+            : String.fromCharCode(10240 + codigo);
 }
 
 
@@ -148,21 +67,21 @@ function aceptarCaracter(valor) {
     var caracterBraille = obtenerCaracterBraille(valor);
     var caracterLatino = obtenerCaracterLatino(valor);
 
-    if(caracterLatino == "½") {
+    if(caracterLatino == "^") {
         modoMayuscula++;
         switch(modoMayuscula) {
-            case 1: console.log("modo mayuscula simple"); break;
-            case 2: console.log("modo mayuscula múltiple"); break;
+            case 1: console.log("modo mayúscula simple"); break;
+            case 2: console.log("modo mayúscula múltiple"); break;
             default: 
                 modoMayuscula=0; 
-                console.log("quito modo mayuscula por abuso de signo");
+                console.log("quito modo mayúscula por abuso de signo");
         }
     } else if(modoMayuscula == 1) {
         modoMayuscula=0;
-        console.log("finalizo modo mayuscula un caracter");
+        console.log("finalizo modo mayúscula un caracter");
     } else if(modoMayuscula == 2 && caracterLatino == caracterLatino.toLowerCase()) {
         modoMayuscula=0;
-        console.log("finalizo modo mayuscula multiple, limita con: " + caracterLatino);
+        console.log("finalizo modo mayúscula múltiple, limita con: " + caracterLatino);
     }
     
     if(caracterLatino == "#") {
@@ -189,10 +108,9 @@ function aceptarCaracter(valor) {
     }
     
     var colorLatino = "", titulo = "";
-    if(caracterBraille == " ") {
-        caracterLatino = caracterBraille = '&nbsp;'; //podría dejar el espacio, total uso width fijo..
-    } else if(caracterBraille == "½") { // mayús
-        caracterLatino = "^";
+    if(caracterLatino == " ") { // mayús
+        caracterLatino = "&nbsp;";
+    } else if(caracterLatino == "^") { // mayús
         if(modoMayuscula == 1) {
             titulo = "Modo mayúscula";
             colorLatino = "colorMayus";
@@ -200,24 +118,27 @@ function aceptarCaracter(valor) {
             titulo = "Modo capital";
             colorLatino = "colorCapital";
         }
-    } else if(caracterBraille == "#") { // num
+    } else if(caracterLatino == "#") { // num
         colorLatino = "colorNum";
         titulo = "Modo numérico";
-    } else if(caracterBraille == "~") { // escape num
-        caracterLatino = "#";
+    } else if(caracterLatino == "~") { // escape num
+        caracterLatino = "#";          // lo mostramos como # más claro
         colorLatino = "colorEscapeNum";
         titulo = "Escape modo numérico";
-    } 
+    } else if(caracterLatino == "") {  // no mapeado, desconocido
+        caracterLatino = "?";
+        titulo = "Carater braille desconocido";
+        colorLatino = "colorDesconocido";
+    }
 
     if(titulo) titulo = ' title="' + titulo + '" ';
     
-    if(caracterBraille == "\n") {
+    if(caracterLatino == "\n") {
         caracterBraille = caracterLatino = '<span><br/><span class="spanCaracter">&nbsp;</span></span>';
     } else {
         caracterBraille = '<span class="spanCaracter">' + caracterBraille + '</span>';
         caracterLatino = '<span ' + titulo + ' class="spanCaracter ' + colorLatino + '">' + caracterLatino + '</span>';
     }
-
     
     $textoBraille.append(caracterBraille);
     $textoLatino.append(caracterLatino);
@@ -332,7 +253,7 @@ $(function() {
     $textoBraille = $('#textoBraille');
     $textoLatino = $('#textoLatino');
     limpiarTodo();
-    
+
     $(window).keydown(eventoTecla(presiona));
     $(window).keyup(eventoTecla(suelta));
     $.each($('.btnBraile'), function(idx, btn){
@@ -347,5 +268,5 @@ $(function() {
 //    $('#btnLimpiar').click(limpiarTodo);
     aceptarCaracter(0);
     
-   $valorBraille.click(toggleFullScreen);
+    $valorBraille.click(toggleFullScreen);
 });

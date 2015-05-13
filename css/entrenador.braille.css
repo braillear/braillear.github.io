@@ -1,12 +1,17 @@
 @font-face{
-    font-family:'BrailleANSI';
-    src:url('fonts/Braille6-ANSI.ttf');
-    src:url('fonts/Braille6-ANSI.ttf') format('truetype');
+    /* http://dejavu-fonts.org */ 
+    font-family: 'DejaVuSerif';
+    src: url('../fonts/DejaVuSerif.ttf');
+    src: url('../fonts/DejaVuSerif.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
-body { margin: 0px; padding: 0px; }
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'DejaVuSerif';
+}
 
 .displayEntradas {
     font-size: 2em;
@@ -23,31 +28,23 @@ body { margin: 0px; padding: 0px; }
     background-color: #EEE;
     text-align: center;
     padding: 0px;
+    font-family: 'DejaVuSerif';
 }
-.fuenteBraille{
-    font-family:'BrailleANSI';
+.fuenteBraille {
 }
 .fuenteLatina {
-    font-family: mono;
-    letter-spacing: 0.105em;
 }
 .spanCaracter {
-    width: 0.6em;
+    width: 0.8em;
     display: inline-block;
+    text-align: center;
 }
 
-.colorMayus {
-    color: lightblue;
-}
-.colorCapital {
-    color: blue;
-}
-.colorNum {
-    color: gray;
-}
-.colorEscapeNum {
-    color: lightgray;
-}
+.colorMayus { color: lightblue;}
+.colorCapital { color: blue;}
+.colorNum { color: gray;}
+.colorEscapeNum { color: lightgray;}
+.colorDesconocido { color: red;}
 
 .absolute { position: absolute }
 .relative { position: relative }    
