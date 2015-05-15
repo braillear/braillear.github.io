@@ -1,5 +1,5 @@
 @font-face{
-    /* http://dejavu-fonts.org */ 
+    /* http://dejavu-fonts.org */
     font-family: 'DejaVuSerif';
     src: url('../fonts/DejaVuSerif.ttf');
     src: url('../fonts/DejaVuSerif.ttf') format('truetype');
@@ -47,14 +47,14 @@ body {
 .colorDesconocido { color: red;}
 
 .absolute { position: absolute }
-.relative { position: relative }    
+.relative { position: relative }
 .fullheight { position: absolute; top:0; bottom:0; }
 .relative-fullheight { position: relative; height: 100% }
 .fullwidth { left:0; right:0; }
 .vat { top: 0; }
 .vab { margin-top: 1.5%; bottom: 0; }
 .vac { margin-top: 1.5%; }
-    
+
 .btnTeclado {
     height: 32%;
     width: 100%;
