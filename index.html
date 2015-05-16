@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<!--[if lte IE 6]><html class="preIE7 preIE8 preIE9"><![endif]-->
-<!--[if IE 7]><html class="preIE8 preIE9"><![endif]-->
-<!--[if IE 8]><html class="preIE9"><![endif]-->
-<!--[if gte IE 9]><!--><html><!--<![endif]-->
+<!doctype html>
+<!--[if lte IE 6]><html class="preIE7 preIE8 preIE9" manifest="braillear.manifest" lang="es"><![endif]-->
+<!--[if IE 7]><html class="preIE8 preIE9" manifest="braillear.manifest" lang="es"><![endif]-->
+<!--[if IE 8]><html class="preIE9" manifest="braillear.manifest" lang="es"><![endif]-->
+<!--[if gte IE 9]><!--><html manifest="braillear.manifest" lang="es"><!--<![endif]-->
     <head>
         <title>Braillear - Entrenador Braille</title>
         <meta charset="utf-8">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no">
         <meta name="description" content="Teclado Braille digital. Alfabeto braille español y argentina.">
@@ -42,40 +41,61 @@
                 </div>
 
 
-                <div class="row vab" role="group" style="display: table-row; height: 100%">
+                <div class="row vab relative-fullheight" role="group" style="display: table-row; height: 100%">
                     <div class="relative-fullheight container-fluid" role="group"  style="padding: 0px;">
                         <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
-                            <div class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnBraile" data-valor="1" data-idx="0" id="btnQ">
-                                <div class="referenciaTeclaPunto">Q</div>
+                            <div id="btnQ" title="Braille - Punto 1"
+                                 data-valor="1" data-idx="0"
+                                 class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto" title="Shortcut">Q</div>&nbsp;
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02801;</div>
                             </div>
-                            <div class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnBraile" data-valor="2" data-idx="1" id="btnA">
-                                <div class="referenciaTeclaPunto">A</div>
+                            <div id="btnA" title="Braille - Punto 2"
+                                 data-valor="2" data-idx="1"
+                                 class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto" title="Shortcut">A</div>&nbsp;
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02802;</div>
                             </div>
-                            <div class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnBraile" data-valor="4" data-idx="2" id="btnZ">
-                                <div class="referenciaTeclaPunto">Z</div>
+                            <div id="btnZ" title="Braille - Punto 3"
+                                 data-valor="4" data-idx="2"
+                                 class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto" title="Shortcut">Z</div>&nbsp;
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02804;</div>
                             </div>
                         </div>
 
                         <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
-                            <div id="btnBorrar"     class="vat col-xs-12 btn btn-default  btn-lg btnTeclado btnAccion"><img src="img/erase.svg"></div>
-                            <div id="btnSaltoLinea" class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnAccion"><img src="img/keyboard-return.svg"></div>
-                            <div id="btnEspacio"    class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnAccion"><img src="img/remove.svg"></div>
+                            <div id="btnBorrar"     title="Borrar último caracter"
+                                 class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
+                                &nbsp;
+                            </div>
+                            <div id="btnSaltoLinea" title="Salto de linea"
+                                 class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
+                                &nbsp;
+                            </div>
+                            <div id="btnEspacio"    title="Espacio"
+                                 class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
+                                <div class="fuenteLatina">&nbsp;</div>
+                            </div>
                         </div>
 
                         <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
-                            <div class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnBraile" data-valor="8" data-idx="3" id="btnO">
-                                <div class="referenciaTeclaPunto">O</div>
+                            <div id="btnO" title="Braille - Punto 4"
+                                 data-valor="8" data-idx="3"
+                                 class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto" title="Shortcut">O</div>&nbsp;
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02808;</div>
                             </div>
-                            <div class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnBraile" data-valor="16" data-idx="4" id="btnK">
-                                <div class="referenciaTeclaPunto">K</div>
+                            <div  id="btnK" title="Braille - Punto 5"
+                                  data-valor="16" data-idx="4"
+                                  class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto" title="Shortcut">K</div>&nbsp;
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02810;</div>
                             </div>
-                            <div class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnBraile" data-valor="32" data-idx="5" id="btnM">
-                                <div class="referenciaTeclaPunto">M</div>
+                            <div  id="btnM" title="Braille - Punto 6"
+                                  data-valor="32" data-idx="5"
+                                  class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto" title="Shortcut">M</div>&nbsp;
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02820;</div>
                             </div>
                         </div>
@@ -90,7 +110,7 @@
 
         <script src="js/lib/jquery-2.1.1.min.js"></script>
         <script src="js/lib/thumbs.0.6.0.min.js"></script>
-        <script src="js/maps/es.js" ></script>
+        <script src="js/maps/es.js"></script>
         <script src="js/entrenador.braille.js"></script>
     </body>
 </html>

@@ -70,7 +70,12 @@ body {
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-    font-size: 2em;
+    /*font-size: 2em;
+    ver como hacer que se agrande segun el tamaño del boton
+    por js podria acceder al stylesheet del documento y de ahi a esta regla para
+    cambiarlo en runtime, por ej en un handler de resize del window...
+    debe haber algo mejor
+    */
     text-align: left;
     overflow: hidden;
     border-width: 3px;
@@ -79,15 +84,8 @@ body {
     /* se utiliza sólo para $('.btnBraile') */
 }
 .btnAccion {
-    vertical-align: bottom;
-    text-align: right;
-}
-.btnAccion img {
-    display: block;
-    position: absolute;
-    width: 2em;
-    bottom: 14px;
-    right: 16px;
+    background-position: center;
+    background-size: 80%;
 }
 
 /* caracter braille de referencia para los botones del teclado */
@@ -101,12 +99,24 @@ body {
 .referenciaTeclaPunto {
     display: none;
 }
-
+/* referencias de botones de acción */
+#btnBorrar {
+    background-image: url("../img/erase.svg");
+}
+#btnSaltoLinea {
+    background-image: url("../img/keyboard-return.svg");
+}
+#btnEspacio {
+    background-image: url("../img/space.svg")
+}
 
 /* Pantallas medianas ------------------------------------------------------- */
 @media only screen and (min-width: 480px) {
     .displayEntradas {
         font-size: 2em;
+    }
+    .btnAccion {
+        background-size: 40%;
     }
 }
 
@@ -114,6 +124,6 @@ body {
 /* Pantallas grandes -------------------------------------------------------- */
 @media only screen and (min-width: 768px) {
     .referenciaTeclaPunto {
-        display: block;
+        display: inline-block;
     }
 }

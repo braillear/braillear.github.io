@@ -3,12 +3,14 @@ var INICIO_TABLA_BRAILLE_UNICODE = 0x2800;
 var SALTO_LINEA = -1;
 var SALTO_LINEA_CHAR = "\n";
 var SALTO_LINEA_CHARCODE = SALTO_LINEA_CHAR.charCodeAt(0);
+
 // Mapa con valores estandar (se completa en archivos de maps)
 var map = [];
 map[SALTO_LINEA] = SALTO_LINEA_CHAR;
 map[0] = " ";
 // Mapa inverso (se inicializa solo)
 var invertedMap = {};
+
 // Modos de ingreso segun caracteres de comandos ingresados
 var modoMayuscula = 0, modoNumerico = 0, modoNumericoInterrupcion = 0;
 
@@ -385,7 +387,8 @@ $(function () {
     $btnBorrarUltimoCaracter.bind('touchstart', presionaBorrarUltimoCaracter);
     $btnBorrarUltimoCaracter.bind('touchend', sueltaBorrarUltimoCaracter);
 
-    $valorBraille.click(toggleFullScreen); // TODO: prueba para ver si funciona
+    // TODO: agregar boton propio para esto, o sugerir si la pantalla es muy chica
+    $valorBraille.click(toggleFullScreen);
 
     limpiarTodo();
     aceptarCaracter(0);
