@@ -75,6 +75,8 @@ function toggleFullScreen() {
 
 // Variables propias de la interfaz
 var $valorBraille, $textoBraille, $valorLatino, $textoLatino, valor;
+var $btnBorrarUltimoCaracter, $btnSaltoLinea, $btnEspacio;
+
 
 /////////////////////////////////////////////////
 // simplificar esto, aunque sea multitouch se procesa
@@ -119,9 +121,10 @@ function limpiar(arrayA, arrayB) {
  * Devuelve el caracter Unicode del set Braille (desde \u2800).
  * Uso solo los primeros 64 caracteres, luego siguen de 8 puntos (para japonés/chino).
  *
- * @param int valor     Código braille del caracter; suma del valor de cada
+ * @param {Integer} valor   Código braille del caracter; suma del valor de cada
  * punto activo (punto p1=1, p2=2, p3=4, p4=8, p5=16, p6=32), o valor especial
  * SALTO_LINEA para retorno de carro.
+ * @returns {String}        Caracter braille unicode o salto de línea
  */
 function obtenerCaracterBraille(valor) {
     return valor === SALTO_LINEA
@@ -133,6 +136,7 @@ function obtenerCaracterBraille(valor) {
 
 function presiona(btn) {
     var idx = btn.data('idx');
+    $(btn).addClass('btn-info');
     presiono[idx] = 1;
     solto[idx] = 0;
     valor = obtenerValor(presiono);
@@ -141,6 +145,23 @@ function presiona(btn) {
 }
 function presionaBoton() {
     presiona($(this));
+}
+
+
+function suelta(btn) {
+    var idx = btn.data('idx');
+    solto[idx] = 1;
+    if (iguales(presiono, solto)) {
+        aceptarCaracter(valor);
+        limpiar(presiono, solto);
+        valor = 0;
+        $valorBraille.text('');
+        $valorLatino.text('');
+        $('.btnBraile').removeClass('btn-info');
+    }
+}
+function sueltaBoton() {
+    suelta($(this));
 }
 
 
@@ -233,56 +254,59 @@ function aceptarCaracter(valor) {
 }
 
 
-function suelta(btn) {
-    var idx = btn.data('idx');
-    solto[idx] = 1;
-    if (iguales(presiono, solto)) {
-        aceptarCaracter(valor);
-        limpiar(presiono, solto);
-        valor = 0;
-        $valorBraille.text('');
-        $valorLatino.text('');
-    }
+function presionaEspacio() {
+    $btnEspacio.addClass('btn-primary');
 }
-function sueltaBoton() {
-    suelta($(this));
-}
-
-
-function agregaEspacio() {
+function sueltaEspacio() {
     if (!obtenerValor()) {
         aceptarCaracter(0);
     }
+    $btnEspacio.removeClass('btn-primary');
 }
 
 
-function agregaSaltoLinea() {
+function presionaSaltoLinea() {
+    $btnSaltoLinea.addClass('btn-success');
+}
+function sueltaSaltoLinea() {
     if (!obtenerValor()) {
         aceptarCaracter(SALTO_LINEA);
         //TODO: podría enlazar el handler scroll de uno e invocar al otro? para mantenerlo siempre sinc.
         $('#textoBrailleContainer').animate({scrollTop: $textoBraille.height()});
         $('#textoLatinoContainer').animate({scrollTop: $textoLatino.height()});
     }
+    $btnSaltoLinea.removeClass('btn-success');
 }
 
 
-function borrarUltimoCaracter() {
+
+function presionaBorrarUltimoCaracter() {
+    $btnBorrarUltimoCaracter.addClass('btn-danger');
+}
+function sueltaBorrarUltimoCaracter() {
     if (!obtenerValor() && $textoBraille.contents().length > 1) {
         $textoBraille.contents().last().remove();
         $textoLatino.contents().last().remove();
     }
+    $btnBorrarUltimoCaracter.removeClass('btn-danger');
 }
 
 
-function eventoTeclaComando(evt) {
-    if (obtenerValor())
-        return;
+function eventoTeclaComandoPresiona(evt) {
     if (evt.key === " ")
-        agregaEspacio();
+        presionaEspacio();
     if (evt.keyCode === 13)
-        agregaSaltoLinea();
+        presionaSaltoLinea();
     if (evt.keyCode === 8)
-        borrarUltimoCaracter();
+        presionaBorrarUltimoCaracter();
+}
+function eventoTeclaComandoSuelta(evt) {
+    if (evt.key === " ")
+        sueltaEspacio();
+    if (evt.keyCode === 13)
+        sueltaSaltoLinea();
+    if (evt.keyCode === 8)
+        sueltaBorrarUltimoCaracter();
 }
 
 
@@ -339,23 +363,32 @@ $(function () {
     $valorLatino = $('#valorLatino');
     $textoBraille = $('#textoBraille');
     $textoLatino = $('#textoLatino');
-    limpiarTodo();
 
-    $(window).keydown(eventoTecla(presiona));
-    $(window).keyup(eventoTecla(suelta));
+    $btnEspacio = $('#btnEspacio');
+    $btnSaltoLinea = $('#btnSaltoLinea');
+    $btnBorrarUltimoCaracter = $('#btnBorrar');
+    //$('#btnLimpiar').click(limpiarTodo);
+
     $.each($('.btnBraile'), function (idx, btn) {
         btn.addEventListener('touchstart', presionaBoton, false);
         btn.addEventListener('touchend', sueltaBoton, false);
     });
+    $(window).keydown(eventoTecla(presiona));
+    $(window).keyup(eventoTecla(suelta));
+    $(window).keydown(eventoTeclaComandoPresiona);
+    $(window).keyup(eventoTeclaComandoSuelta);
 
-    $(window).keyup(eventoTeclaComando);
-    $('#btnEspacio').click(agregaEspacio);
-    $('#btnSaltoLinea').click(agregaSaltoLinea);
-    $('#btnBorrar').click(borrarUltimoCaracter);
-//    $('#btnLimpiar').click(limpiarTodo);
-    aceptarCaracter(0);
+    $btnEspacio.bind('touchstart', presionaEspacio);
+    $btnEspacio.bind('touchend', sueltaEspacio);
+    $btnSaltoLinea.bind('touchstart', presionaSaltoLinea);
+    $btnSaltoLinea.bind('touchend', sueltaSaltoLinea);
+    $btnBorrarUltimoCaracter.bind('touchstart', presionaBorrarUltimoCaracter);
+    $btnBorrarUltimoCaracter.bind('touchend', sueltaBorrarUltimoCaracter);
 
     $valorBraille.click(toggleFullScreen); // TODO: prueba para ver si funciona
+
+    limpiarTodo();
+    aceptarCaracter(0);
 
     $('.inicializable').hide().removeClass("inicializable").addClass("inicializado").fadeIn("fast");
     $('#msgCargando').fadeOut("fast");

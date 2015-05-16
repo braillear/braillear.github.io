@@ -2,7 +2,7 @@
  * Inicializa el mapeo de valores (suma del valor de los puntos braille p1..p6
  * como binario 1..32) al caracter latino equivalente.
  *
- * @param array map Mapa valor braille->caracter latino inicial.
+ * @param {Array} map   Mapa valor braille->caracter latino inicial.
  */
 function inicializarMapa(map) {
     // comandos
@@ -77,6 +77,9 @@ function inicializarMapa(map) {
 /**
  * Devuelve el caracter latino asociado al código braille, según el modo de
  * entrada actual.
+ *
+ * @param {Integer} valor   Codigo braille del caracter
+ * @returns {String}        Caracter latino asociado
  */
 function obtenerCaracterLatino(valor) {
     var caracter = map[valor] || "";

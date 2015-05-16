@@ -73,6 +73,7 @@ body {
     font-size: 2em;
     text-align: left;
     overflow: hidden;
+    border-width: 3px;
 }
 .btnBraile {
     /* se utiliza sólo para $('.btnBraile') */
