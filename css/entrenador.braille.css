@@ -7,14 +7,38 @@
     font-style: normal;
 }
 
+
+.colorMayus { color: lightblue;}
+.colorCapital { color: blue;}
+.colorNum { color: gray;}
+.colorEscapeNum { color: lightgray;}
+.colorDesconocido { color: red;}
+.colorSombra { color: gray;}
+
+
+/* clases utilitarias */
+.inicializable {
+    display: none !important;
+}
+.inicializado {}
+
+.fullheight { position: absolute; top:0; bottom:0; }
+.relative-fullheight { position: relative; height: 100% }
+.fullwidth { left:0; right:0; }
+.vat { top: 0; }
+.vab { margin-top: 1.5%; bottom: 0; }
+.vac { margin-top: 1.5%; }
+
+
+
+/* Mobile first, pantallas chicas ------------------------------------------- */
 body {
-    margin: 0px;
-    padding: 0px;
+    padding: 1em .5em 0em .5em;
     font-family: 'DejaVuSerif';
 }
 
 .displayEntradas {
-    font-size: 2em;
+    font-size: 1.5em;
     line-height: 1.4em;
     height: 1.5em;
     padding: 0px;
@@ -24,37 +48,23 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
 }
+
 .displayCaracter {
     background-color: #EEE;
     text-align: center;
     padding: 0px;
-    font-family: 'DejaVuSerif';
 }
-.fuenteBraille {
-}
-.fuenteLatina {
-}
+
+.fuenteBraille {}
+.fuenteLatina {}
+
 .spanCaracter {
     width: 0.8em;
     display: inline-block;
     text-align: center;
 }
 
-.colorMayus { color: lightblue;}
-.colorCapital { color: blue;}
-.colorNum { color: gray;}
-.colorEscapeNum { color: lightgray;}
-.colorDesconocido { color: red;}
-
-.absolute { position: absolute }
-.relative { position: relative }
-.fullheight { position: absolute; top:0; bottom:0; }
-.relative-fullheight { position: relative; height: 100% }
-.fullwidth { left:0; right:0; }
-.vat { top: 0; }
-.vab { margin-top: 1.5%; bottom: 0; }
-.vac { margin-top: 1.5%; }
-
+/* botones del teclado */
 .btnTeclado {
     height: 32%;
     width: 100%;
@@ -63,6 +73,9 @@ body {
     font-size: 2em;
     text-align: left;
     overflow: hidden;
+}
+.btnBraile {
+    /* se utiliza sólo para $('.btnBraile') */
 }
 .btnAccion {
     vertical-align: bottom;
@@ -74,4 +87,32 @@ body {
     width: 2em;
     bottom: 14px;
     right: 16px;
+}
+
+/* caracter braille de referencia para los botones del teclado */
+.btnTeclado .fuenteBraille {
+    font-size: 2em;
+    position: absolute;
+    top: 0px; bottom: 0px; left: 0px; right: 0px;
+    text-align: center;
+}
+/* letras de referencia para los botones del teclado (q,a,z-o,k,m) */
+.referenciaTeclaPunto {
+    display: none;
+}
+
+
+/* Pantallas medianas ------------------------------------------------------- */
+@media only screen and (min-width: 480px) {
+    .displayEntradas {
+        font-size: 2em;
+    }
+}
+
+
+/* Pantallas grandes -------------------------------------------------------- */
+@media only screen and (min-width: 768px) {
+    .referenciaTeclaPunto {
+        display: block;
+    }
 }

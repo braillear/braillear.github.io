@@ -355,5 +355,8 @@ $(function () {
 //    $('#btnLimpiar').click(limpiarTodo);
     aceptarCaracter(0);
 
-    $valorBraille.click(toggleFullScreen);
+    $valorBraille.click(toggleFullScreen); // TODO: prueba para ver si funciona
+
+    $('.inicializable').hide().removeClass("inicializable").addClass("inicializado").fadeIn("fast");
+    $('#msgCargando').fadeOut("fast");
 });
