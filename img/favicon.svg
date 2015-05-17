@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32px"
+   height="32px"
+   id="svg2985"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="favicon.svg">
+  <title
+     id="title3027">Braillear favicon</title>
+  <defs
+     id="defs2987" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.197802"
+     inkscape:cx="-14.229147"
+     inkscape:cy="16"
+     inkscape:current-layer="text2993"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1307"
+     inkscape:window-height="744"
+     inkscape:window-x="53"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata2990">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Braillear favicon</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Lucas Capalbo Lavezzo</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Lucas Capalbo Lavezzo</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:description>Ícono para Braillear - Entrenador Braille (http://braillear.github.io)</dc:description>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <g
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="text2993">
+      <path
+         style="font-variant:normal;font-stretch:normal;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif;fill:#d3d3d3;fill-opacity:1"
+         d="m 19.071221,26.880234 c -1.7e-5,-0.911451 0.305972,-1.67968 0.917969,-2.304688 0.61196,-0.624991 1.380189,-0.93749 2.304687,-0.9375 0.885396,10e-6 1.640603,0.312509 2.265625,0.9375 0.637998,0.625008 0.957008,1.393237 0.957032,2.304688 -2.4e-5,0.885422 -0.319034,1.64714 -0.957032,2.285156 -0.625022,0.625003 -1.380229,0.937503 -2.265625,0.9375 -0.924498,3e-6 -1.692727,-0.312497 -2.304687,-0.9375 -0.611997,-0.624995 -0.917986,-1.386713 -0.917969,-2.285156"
+         id="path3029" />
+      <path
+         style="font-variant:normal;font-stretch:normal;fill:#555555;fill-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+         d="m 18.411612,15.827545 c -2.1e-5,-1.097992 0.368598,-2.02346 1.105858,-2.776408 0.737215,-0.7529 1.662684,-1.129361 2.776407,-1.129386 1.066618,2.5e-5 1.9764,0.376486 2.72935,1.129386 0.768583,0.752948 1.152888,1.678416 1.152916,2.776408 -2.8e-5,1.066662 -0.384333,1.984288 -1.152916,2.75288 -0.75295,0.752941 -1.662732,1.129402 -2.72935,1.129386 -1.113723,1.6e-5 -2.039192,-0.376445 -2.776407,-1.129386 -0.73726,-0.752907 -1.105879,-1.670532 -1.105858,-2.75288"
+         id="path3027"
+         inkscape:connector-curvature="0" />
+      <path
+         style="font-variant:normal;font-stretch:normal;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif;fill:#d3d3d3;fill-opacity:1"
+         d="M 19.071221,4.7513275 C 19.071204,3.8398984 19.377193,3.07167 19.98919,2.44664 c 0.61196,-0.6249687 1.380189,-0.9374684 2.304687,-0.9375 0.885396,3.16e-5 1.640603,0.3125313 2.265625,0.9375 0.637998,0.62503 0.957008,1.3932584 0.957032,2.3046875 -2.4e-5,0.8854441 -0.319034,1.6471621 -0.957032,2.2851563 -0.625022,0.6250254 -1.380229,0.9375251 -2.265625,0.9375 -0.924498,2.51e-5 -1.692727,-0.3124746 -2.304687,-0.9375 C 19.377193,6.4115104 19.071204,5.6497924 19.071221,4.7513275"
+         id="path3025" />
+      <path
+         style="font-variant:normal;font-stretch:normal;fill:#555555;fill-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+         d="m 6.692862,26.882233 c -6.7e-6,-1.098006 0.3686121,-2.023475 1.1058575,-2.776409 0.7372296,-0.752913 1.662698,-1.129374 2.7764075,-1.129386 1.06663,1.2e-5 1.976414,0.376473 2.72935,1.129386 0.768597,0.752934 1.152902,1.678403 1.152916,2.776409 -1.4e-5,1.066649 -0.384319,1.984274 -1.152916,2.752878 -0.752936,0.752928 -1.66272,1.12939 -2.72935,1.129386 -1.1137095,4e-6 -2.0391779,-0.376458 -2.7764075,-1.129386 C 7.0614741,28.882193 6.6928553,27.964568 6.692862,26.882233"
+         id="path3023"
+         inkscape:connector-curvature="0" />
+      <path
+         style="font-variant:normal;font-stretch:normal;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif;fill:#d3d3d3;fill-opacity:1"
+         d="m 7.3524711,15.825546 c -5.6e-6,-0.91144 0.3059837,-1.679668 0.9179688,-2.304687 0.611972,-0.62498 1.3802004,-0.93748 2.3046871,-0.9375 0.885407,2e-5 1.640615,0.31252 2.265625,0.9375 0.63801,0.625019 0.95702,1.393247 0.957032,2.304687 -1.2e-5,0.885433 -0.319022,1.647151 -0.957032,2.285157 -0.62501,0.625014 -1.380218,0.937514 -2.265625,0.9375 -0.9244867,1.4e-5 -1.6927151,-0.312486 -2.3046871,-0.9375 C 7.6584548,17.485718 7.3524655,16.724 7.3524711,15.825546"
+         id="path3021" />
+      <path
+         style="font-variant:normal;font-stretch:normal;fill:#555555;fill-opacity:1;font-family:DejaVu Serif;-inkscape-font-specification:DejaVu Serif"
+         d="m 6.692862,4.7533263 c -6.7e-6,-1.0979792 0.3686121,-2.0234476 1.1058575,-2.776408 0.7372296,-0.7528864 1.662698,-1.12934805 2.7764075,-1.12938615 1.06663,3.81e-5 1.976414,0.37649975 2.72935,1.12938615 0.768597,0.7529604 1.152902,1.6784288 1.152916,2.776408 -1.4e-5,1.0666756 -0.384319,1.984301 -1.152916,2.7528791 -0.752936,0.7529547 -1.66272,1.1294165 -2.72935,1.1293862 C 9.4614175,8.6356219 8.5359491,8.2591601 7.7987195,7.5062054 7.0614741,6.7533132 6.6928553,5.8356878 6.692862,4.7533263"
+         id="path2998"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>
