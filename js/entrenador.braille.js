@@ -48,37 +48,11 @@ function convertirEnLatino(braille) {
     return latinoString;
 }
 
-// Para probar solamente..Sacado de MDN, funciona pero debe ser invocado desde un handler
-function toggleFullScreen() {
-    if (!document.fullscreenElement && // alternative standard method
-            !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {  // current working methods
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        } else if (document.documentElement.msRequestFullscreen) {
-            document.documentElement.msRequestFullscreen();
-        } else if (document.documentElement.mozRequestFullScreen) {
-            document.documentElement.mozRequestFullScreen();
-        } else if (document.documentElement.webkitRequestFullscreen) {
-            document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-        }
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        }
-    }
-}
-
 
 // Variables propias de la interfaz
 var $valorBraille, $textoBraille, $valorLatino, $textoLatino, valor;
 var $btnBorrarUltimoCaracter, $btnSaltoLinea, $btnEspacio;
-
+var fullscreenSugerido = false;
 
 /////////////////////////////////////////////////
 // simplificar esto, aunque sea multitouch se procesa
@@ -357,6 +331,53 @@ function limpiarTodo() {
 }
 
 
+function checkPantallasMinimas() {
+//    console.log(window.innerHeight, $("#msgSugerenciaFullscreen").attr('class'));
+    if (!fullscreenSugerido
+            && !window.fullScreen
+            && window.innerHeight < 405) {
+        fullscreenSugerido = true;
+        $("#msgSugerenciaFullscreen").modal('show');
+//        console.log("sugerido");
+//    } else { //if ($("#msgSugerenciaFullscreen").hasClass("in"))
+//        console.log("cancelo sugerencia");
+//        $("#msgSugerenciaFullscreen").modal('hide');
+//        fullscreenSugerido = false; // ocultamos sugerencia automaticamente, podemos volver a sugerir
+    }
+}
+
+/**
+ * Activa/desactiva el modo fullscreen.
+ * Código obtenido de Mozila Developer Network (MDN)
+ */
+function toggleFullScreen() {
+//    fullscreenSugerido = false; //acepto, asi que podemos seguimos sugiriendo
+    if (!document.fullscreenElement && // alternative standard method
+            !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {  // current working methods
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+            document.documentElement.msRequestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+            document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }
+    return true;
+}
+
+
 $(function () {
     inicializarMapa(map);
     invertedMap = invertirArray(map);
@@ -387,12 +408,15 @@ $(function () {
     $btnBorrarUltimoCaracter.bind('touchstart', presionaBorrarUltimoCaracter);
     $btnBorrarUltimoCaracter.bind('touchend', sueltaBorrarUltimoCaracter);
 
-    // TODO: agregar boton propio para esto, o sugerir si la pantalla es muy chica
-    $valorBraille.click(toggleFullScreen);
-
     limpiarTodo();
     aceptarCaracter(0);
 
-    $('.inicializable').hide().removeClass("inicializable").addClass("inicializado").fadeIn("fast");
-    $('#msgCargando').fadeOut("fast");
+    $("#msgSugerenciaFullscreen").hide(); // TODO: ver modales en btsp, esto no deberia ser necesario (sin esto no se ve, pero bloquea los clicks
+    $('#btnFullscreen').click(toggleFullScreen);
+    fullscreenSugerido = false;
+    window.onresize = checkPantallasMinimas; // TODO: seria mejor cuando cambia el orientation (ondeviceorientation existe pero no logro que se invoque), y tal vez no sea multiplataforma
+    checkPantallasMinimas();
+
+    $('.inicializable').hide().removeClass("inicializable").addClass("inicializado").fadeIn("slow");
+    $('#msgCargando').fadeOut("slow");
 });

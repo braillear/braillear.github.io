@@ -13,9 +13,16 @@
 .colorNum { color: gray;}
 .colorEscapeNum { color: lightgray;}
 .colorDesconocido { color: red;}
-.colorSombra { color: gray;}
+.colorSombra { color: lightgray;}
 
-
+.icon-fullscreen {
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    background-image: url("../img/view-fullscreen.svg");
+    background-size: 100%;
+    margin-right: 0.5em;
+}
 /* clases utilitarias */
 .inicializable {
     display: none !important;
@@ -35,6 +42,10 @@
 body {
     padding: 1em .5em 0em .5em;
     font-family: 'DejaVuSerif';
+}
+
+#msgSugerenciaFullscreen {
+    display: none;
 }
 
 .displayEntradas {
@@ -125,5 +136,11 @@ body {
 @media only screen and (min-width: 768px) {
     .referenciaTeclaPunto {
         display: inline-block;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    #msgSugerenciaFullscreen {
+        display: block;
     }
 }
