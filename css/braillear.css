@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2015 Lucas Capalbo Lavezzo
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 @font-face{
     /* http://dejavu-fonts.org */
     font-family: 'DejaVuSerif';
@@ -81,12 +98,6 @@ body {
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-    /*font-size: 2em;
-    ver como hacer que se agrande segun el tamaño del boton
-    por js podria acceder al stylesheet del documento y de ahi a esta regla para
-    cambiarlo en runtime, por ej en un handler de resize del window...
-    debe haber algo mejor
-    */
     text-align: left;
     overflow: hidden;
     border-width: 3px;
@@ -101,7 +112,7 @@ body {
 
 /* caracter braille de referencia para los botones del teclado */
 .btnTeclado .fuenteBraille {
-    font-size: 2em;
+    /*font-size: 2em;  hecho "responsive" via js */
     position: absolute;
     top: 0px; bottom: 0px; left: 0px; right: 0px;
     text-align: center;
@@ -118,7 +129,7 @@ body {
     background-image: url("../img/keyboard-return.svg");
 }
 #btnEspacio {
-    background-image: url("../img/space.svg")
+    background-image: url("../img/keyboard-space.svg")
 }
 
 /* Pantallas medianas ------------------------------------------------------- */
@@ -126,6 +137,7 @@ body {
     .displayEntradas {
         font-size: 2em;
     }
+
     .btnAccion {
         background-size: 40%;
     }
@@ -136,11 +148,5 @@ body {
 @media only screen and (min-width: 768px) {
     .referenciaTeclaPunto {
         display: inline-block;
-    }
-}
-
-@media only screen and (max-height: 480px) {
-    #msgSugerenciaFullscreen {
-        display: block;
     }
 }

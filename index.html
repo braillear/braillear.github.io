@@ -1,4 +1,20 @@
 <!doctype html>
+<!--
+Copyright (C) 2015 Lucas Capalbo Lavezzo
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <!--[if lte IE 6]><html class="preIE7 preIE8 preIE9" manifest="braillear.manifest" lang="es"><![endif]-->
 <!--[if IE 7]><html class="preIE8 preIE9" manifest="braillear.manifest" lang="es"><![endif]-->
 <!--[if IE 8]><html class="preIE9" manifest="braillear.manifest" lang="es"><![endif]-->
@@ -12,11 +28,11 @@
         <meta name="keywords" content="braille braile teclado ceguera perkins alfabeto">
         <meta name="author" content="Lucas Capalbo">
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/entrenador.braille.css">
+        <link rel="stylesheet" href="css/braillear.css" id="cssBraillear">
     </head>
     <body class="fullheight fullwidth">
-        <section class="relative-fullheight fullwidth">
 
+        <section class="relative-fullheight fullwidth">
             <div id="msgCargando" class="fullheight container-fluid text-center fullwidth">
                 <big>
                     Cargando <strong>Braillear</strong>, aguarde...
@@ -25,7 +41,6 @@
 
 
             <div class="container-fluid text-center relative-fullheight inicializable" style="display:table; height: 100%; width: 100%; ">
-
                 <div class="row">
                     <div id="textoBrailleContainer" class="fuenteBraille displayEntradas col-xs-offset-1 col-xs-8 col-md-9">
                         <span id="textoBraille"></span>
@@ -48,19 +63,19 @@
                             <div id="btnQ" title="Braille - Punto 1"
                                  data-valor="1" data-idx="0"
                                  class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                                <div class="referenciaTeclaPunto" title="Shortcut">Q</div>&nbsp;
+                                <div class="referenciaTeclaPunto" title="Shortcut">Q</div>
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02801;</div>
                             </div>
                             <div id="btnA" title="Braille - Punto 2"
                                  data-valor="2" data-idx="1"
                                  class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                                <div class="referenciaTeclaPunto" title="Shortcut">A</div>&nbsp;
+                                <div class="referenciaTeclaPunto" title="Shortcut">A</div>
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02802;</div>
                             </div>
                             <div id="btnZ" title="Braille - Punto 3"
                                  data-valor="4" data-idx="2"
                                  class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                                <div class="referenciaTeclaPunto" title="Shortcut">Z</div>&nbsp;
+                                <div class="referenciaTeclaPunto" title="Shortcut">Z</div>
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02804;</div>
                             </div>
                         </div>
@@ -68,15 +83,14 @@
                         <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
                             <div id="btnBorrar"     title="Borrar último caracter"
                                  class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
-                                &nbsp;
                             </div>
                             <div id="btnSaltoLinea" title="Salto de linea"
                                  class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
-                                &nbsp;
+
                             </div>
                             <div id="btnEspacio"    title="Espacio"
                                  class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
-                                <div class="fuenteLatina">&nbsp;</div>
+                                <div class="fuenteLatina"></div>
                             </div>
                         </div>
 
@@ -84,19 +98,19 @@
                             <div id="btnO" title="Braille - Punto 4"
                                  data-valor="8" data-idx="3"
                                  class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                                <div class="referenciaTeclaPunto" title="Shortcut">O</div>&nbsp;
+                                <div class="referenciaTeclaPunto" title="Shortcut">O</div>
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02808;</div>
                             </div>
                             <div  id="btnK" title="Braille - Punto 5"
                                   data-valor="16" data-idx="4"
                                   class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                                <div class="referenciaTeclaPunto" title="Shortcut">K</div>&nbsp;
+                                <div class="referenciaTeclaPunto" title="Shortcut">K</div>
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02810;</div>
                             </div>
                             <div  id="btnM" title="Braille - Punto 6"
                                   data-valor="32" data-idx="5"
                                   class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                                <div class="referenciaTeclaPunto" title="Shortcut">M</div>&nbsp;
+                                <div class="referenciaTeclaPunto" title="Shortcut">M</div>
                                 <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02820;</div>
                             </div>
                         </div>
@@ -135,6 +149,6 @@
         <script src="js/lib/thumbs.0.6.0.min.js"></script>
         <script src="js/lib/bootstrap.min.js"></script>
         <script src="js/maps/es.js"></script>
-        <script src="js/entrenador.braille.js"></script>
+        <script src="js/braillear.js"></script>
     </body>
 </html>

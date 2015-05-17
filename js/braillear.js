@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2015 Lucas Capalbo Lavezzo
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 // Constantes
 var INICIO_TABLA_BRAILLE_UNICODE = 0x2800;
 var SALTO_LINEA = -1;
@@ -52,7 +69,7 @@ function convertirEnLatino(braille) {
 // Variables propias de la interfaz
 var $valorBraille, $textoBraille, $valorLatino, $textoLatino, valor;
 var $btnBorrarUltimoCaracter, $btnSaltoLinea, $btnEspacio;
-var fullscreenSugerido = false;
+var fullScreenSugerido = false;
 
 /////////////////////////////////////////////////
 // simplificar esto, aunque sea multitouch se procesa
@@ -331,39 +348,53 @@ function limpiarTodo() {
 }
 
 
-function checkPantallasMinimas() {
-//    console.log(window.innerHeight, $("#msgSugerenciaFullscreen").attr('class'));
-    if (!fullscreenSugerido
-            && !window.fullScreen
-            && window.innerHeight < 405) {
-        fullscreenSugerido = true;
-        $("#msgSugerenciaFullscreen").modal('show');
-//        console.log("sugerido");
-//    } else { //if ($("#msgSugerenciaFullscreen").hasClass("in"))
-//        console.log("cancelo sugerencia");
-//        $("#msgSugerenciaFullscreen").modal('hide');
-//        fullscreenSugerido = false; // ocultamos sugerencia automaticamente, podemos volver a sugerir
-    }
+/**
+ * Indica si se está actualmente en modo fullscreen
+ *
+ * @returns {Boolean}
+ */
+function isFullScreen() {
+    // return window.fullScreen no? el codigo de MDN usaba esto:
+    return (document.fullscreenElement  // alternative standard method
+            || document.mozFullScreenElement
+            || document.webkitFullscreenElement
+            || document.msFullscreenElement
+            ) !== undefined;
+}
+
+/**
+ * Indica si el browser soporta alguna de las API's fullscreen que usamos
+ * @returns {Boolean}
+ */
+function isFullScreenSupported() {
+    return (document.documentElement.requestFullscreen
+            || document.documentElement.msRequestFullscreen
+            || document.documentElement.mozRequestFullScreen
+            || document.documentElement.webkitRequestFullscreen
+            ) !== undefined;
+
 }
 
 /**
  * Activa/desactiva el modo fullscreen.
- * Código obtenido de Mozila Developer Network (MDN)
+ * Código adaptado de Mozila Developer Network (MDN)
  */
 function toggleFullScreen() {
 //    fullscreenSugerido = false; //acepto, asi que podemos seguimos sugiriendo
-    if (!document.fullscreenElement && // alternative standard method
-            !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {  // current working methods
+    if (!isFullScreen()) {  // current working methods
+        console.log("esta en fs");
         if (document.documentElement.requestFullscreen) {
             document.documentElement.requestFullscreen();
         } else if (document.documentElement.msRequestFullscreen) {
             document.documentElement.msRequestFullscreen();
         } else if (document.documentElement.mozRequestFullScreen) {
+            console.log("pido fs")
             document.documentElement.mozRequestFullScreen();
         } else if (document.documentElement.webkitRequestFullscreen) {
             document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
         }
     } else {
+        console.log("NO esta en fs");
         if (document.exitFullscreen) {
             document.exitFullscreen();
         } else if (document.msExitFullscreen) {
@@ -374,7 +405,35 @@ function toggleFullScreen() {
             document.webkitExitFullscreen();
         }
     }
-    return true;
+}
+
+function onWindowResize() {
+    // tamaño de tipografía "responsive" para indicador de punto braille en botones
+    var letraBotonera = $(".btnTeclado .fuenteBraille")[0];
+    var btnAspectRatio = letraBotonera.clientHeight / letraBotonera.clientWidth;
+    var coef = 0.85;
+    if (btnAspectRatio > 2) {
+        coef = 0.65;
+    } else if (btnAspectRatio > 1.8) {
+        coef = 0.75;
+    }
+    var fontSizeBotonera = letraBotonera.clientHeight * coef;
+    $(".btnTeclado .fuenteBraille").css({"font-size": fontSizeBotonera + "px"});
+
+    // sugerencia de fullscreen para pantallas pequeñas
+    if (isFullScreenSupported()) {
+        if (!fullScreenSugerido
+                && !isFullScreen()
+                && window.innerHeight < 405) {
+            fullScreenSugerido = true;
+            $("#msgSugerenciaFullscreen").modal('show');
+            //        console.log("sugerido");
+//        } else { //if ($("#msgSugerenciaFullscreen").hasClass("in"))
+            //        console.log("cancelo sugerencia");
+//            $("#msgSugerenciaFullscreen").modal('hide');
+//            fullscreenSugerido = false; // ocultamos sugerencia automaticamente, podemos volver a sugerir
+        }
+    }
 }
 
 
@@ -413,10 +472,10 @@ $(function () {
 
     $("#msgSugerenciaFullscreen").hide(); // TODO: ver modales en btsp, esto no deberia ser necesario (sin esto no se ve, pero bloquea los clicks
     $('#btnFullscreen').click(toggleFullScreen);
-    fullscreenSugerido = false;
-    window.onresize = checkPantallasMinimas; // TODO: seria mejor cuando cambia el orientation (ondeviceorientation existe pero no logro que se invoque), y tal vez no sea multiplataforma
-    checkPantallasMinimas();
+    fullScreenSugerido = false;
+    window.onresize = onWindowResize; // TODO: seria mejor cuando cambia el orientation (ondeviceorientation existe pero no logro que se invoque), y tal vez no sea multiplataforma
 
     $('.inicializable').hide().removeClass("inicializable").addClass("inicializado").fadeIn("slow");
     $('#msgCargando').fadeOut("slow");
+    onWindowResize();
 });
