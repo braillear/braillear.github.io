@@ -476,6 +476,6 @@ $(function () {
     window.onresize = onWindowResize; // TODO: seria mejor cuando cambia el orientation (ondeviceorientation existe pero no logro que se invoque), y tal vez no sea multiplataforma
 
     $('.inicializable').hide().removeClass("inicializable").addClass("inicializado").fadeIn("slow");
-    $('#msgCargando').fadeOut("slow");
+//    $('#msgCargando').fadeOut("slow");  //comentado para test de pagina unica
     onWindowResize();
 });

@@ -1,4 +1,20 @@
 <!doctype html>
+<!--
+Copyright (C) 2015 Lucas Capalbo Lavezzo
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <!--[if lte IE 6]><html class="preIE7 preIE8 preIE9" manifest="braillear.manifest" lang="es"><![endif]-->
 <!--[if IE 7]><html class="preIE8 preIE9" manifest="braillear.manifest" lang="es"><![endif]-->
 <!--[if IE 8]><html class="preIE9" manifest="braillear.manifest" lang="es"><![endif]-->
@@ -17,11 +33,11 @@
     </head>
     <body class="fullheight fullwidth">
 
-        <header>
+        <header class="fullheight ">
             <div class="navbar navbar-default navbar-fixed-top">
                 <div class="container">
                     <div class="navbar-header">
-                        <a href="#home" class="navbar-brand" title="Braillear - Entrenador Braille">
+                        <a href="https://braillear.github.io" class="navbar-brand" title="Braillear - Entrenador Braille">
                             <img src="img/favicon.svg" alt="Logo de Braillear" />
                             Braillear
                         </a>
@@ -36,6 +52,7 @@
                             <li><a href="#teclado">Teclado</a></li>
                             <li><a href="#guia">Guía Braille</a></li>
                             <li><a href="#faq" title="Preguntas frecuentes">F.A.Q.</a></li>
+                            <!--<li><a href="entrenador.html">Entrenador</a></li>-->
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
@@ -54,11 +71,26 @@
 
         <div id="msgCargando" class="fullheight container-fluid text-center fullwidth">
             <big>
-                Cargando <strong id="tituloPagina">Braillear</strong>, aguarde...
+                Cargando <strong>Braillear</strong>, aguarde...
             </big>
         </div>
 
-        <section id="contenedor" style="display: none"></section>
+        <section id="home" style="display: none">
+            Bienvenido a Braillear.<br/>
+            Aplicación en construcción
+        </section>
+
+        <section id="teclado" style="display: none">
+            TECLADO.
+        </section>
+
+        <section id="faq" style="display: none">
+            Preguntas frecuents
+        </section>
+
+        <section id="guia" style="display: none">
+            GUIA
+        </section>
 
         <script src="js/lib/jquery-2.1.1.min.js"></script>
         <script src="js/lib/bootstrap.min.js"></script>

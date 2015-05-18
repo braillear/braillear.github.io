@@ -64,7 +64,7 @@
 /* Mobile first, pantallas chicas ------------------------------------------- */
 .braillear {
     font-family: 'DejaVuSerif';
-    padding-top: 1em;
+    padding-top: 4em;  /* era 1, pongo 5 por prueba pagina unica*/
 }
 
 .tecladoBraillear {
@@ -161,6 +161,7 @@
 /* Pantallas grandes -------------------------------------------------------- */
 @media only screen and (min-width: 768px) {
     .referenciaTeclaPunto {
+        font-size: 0.8em;
         display: inline-block;
     }
 }
