@@ -24,6 +24,10 @@
     font-style: normal;
 }
 
+.navbar-brand img {
+    display: inline-block;
+    margin-top: -5px;
+}
 
 .colorMayus { color: lightblue;}
 .colorCapital { color: blue;}
@@ -40,6 +44,8 @@
     background-size: 100%;
     margin-right: 0.5em;
 }
+
+
 /* clases utilitarias */
 .inicializable {
     display: none !important;
@@ -56,11 +62,18 @@
 
 
 /* Mobile first, pantallas chicas ------------------------------------------- */
-body {
-    padding: 1em .5em 0em .5em;
+.braillear {
     font-family: 'DejaVuSerif';
+    padding-top: 1em;
 }
 
+.tecladoBraillear {
+    max-width: 80em;
+}
+
+#msgCargando {
+    top: 35%;
+}
 #msgSugerenciaFullscreen {
     display: none;
 }
@@ -96,6 +109,7 @@ body {
 .btnTeclado {
     height: 32%;
     width: 100%;
+    /*max-width: 15em;*/
     margin-left: 0;
     margin-right: 0;
     text-align: left;
