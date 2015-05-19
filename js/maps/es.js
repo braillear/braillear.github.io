@@ -99,13 +99,13 @@ function inicializarMapa(map) {
  * @returns {String}        Caracter latino asociado
  */
 function obtenerCaracterLatino(valor) {
-    var caracter = map[valor] || "";
+    var caracter = Braillear.map[valor] || "";
 
-    if (modoMayuscula) {
+    if (Braillear.modoMayuscula) {
         caracter = caracter.toUpperCase();
     }
 
-    if (modoNumerico && !modoNumericoInterrupcion) {
+    if (Braillear.modoNumerico && !Braillear.modoNumericoInterrupcion) {
         if (caracter === "j") {
             caracter = "0";
         } else if (caracter >= "a" && caracter < "j") {
@@ -115,3 +115,4 @@ function obtenerCaracterLatino(valor) {
 
     return caracter;
 }
+;

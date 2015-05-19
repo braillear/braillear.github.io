@@ -16,24 +16,34 @@
  */
 
 var $loader, $menuItemActivo, $contenedor;
+Braillear = null;
 
+/**
+ * Carga una página en el $contenedor del app.
+ * Muestra el $loader temporalmente. Los metodos destruir() e inicializar() de
+ * Braillear son invocados antes y despues de la carga, si existen y es exitosa.
+ *
+ * @param {String} nombrePagina     Nombre de la página a cargar. Ej: "#faq"
+ * @param {String} tituloPagina     Título de la página, Ej: "F.A.Q."
+ */
 function cargarPagina(nombrePagina, tituloPagina) {
-    var nombrePaginaReal;
-    if (!nombrePagina) {
-        nombrePaginaReal = "404";
-        nombrePagina = "Braillear";
-    } else {
-        nombrePaginaReal = nombrePagina = nombrePagina.substring(1)
+    var nombrePaginaReal = "404";
+    if (nombrePagina) {
+        nombrePaginaReal = nombrePagina = nombrePagina.substring(1);
     }
-
 
     if ($menuItemActivo) {
         $menuItemActivo.removeClass("active");
     }
-
     $contenedor.fadeOut("fast");
-    $("#tituloPagina").text(tituloPagina || nombrePagina);
+
+    $("#tituloPagina").text(tituloPagina || nombrePagina || "Braillear");
     $loader.fadeIn("fast");
+
+    if (Braillear && Braillear.destruir) {
+        Braillear.destruir();
+    }
+    Braillear = {};
 
     $.ajax({
         url: nombrePaginaReal + ".html",
@@ -43,13 +53,16 @@ function cargarPagina(nombrePagina, tituloPagina) {
     }).done(function (template) {
         $menuItemActivo = $(this).closest("li");
         $contenedor.html(template);
+        if (Braillear.inicializar) {
+            Braillear.inicializar();
+        }
     }).fail(function () {
         cargarPagina();
     }).always(function () {
         if ($menuItemActivo) {
             $menuItemActivo.addClass("active");
         }
-        $contenedor.fadeIn("slow").focus();
+        $contenedor.fadeIn("slow");
         $loader.fadeOut("slow");
     });
 }
@@ -60,9 +73,12 @@ $(function () {
 
     $("ul.navbar-nav li a[href^=#], .navbar-header a").click(function () {
         cargarPagina($(this).attr("href"), $(this).text());
+        if ($('.navbar-toggle[data-target="#navbar-main"][aria-expanded=true]').length) {
+            $('#navbar-main').collapse('toggle');
+        }
     });
 
     var posComienzoNombrePagina = document.URL.lastIndexOf("#");
     var paginaInicial = posComienzoNombrePagina > 0 ? document.URL.substring(posComienzoNombrePagina) : "#home";
-    cargarPagina(paginaInicial);
+    cargarPagina(paginaInicial, "Braillear");
 });
