@@ -1,7 +1,11 @@
 CACHE MANIFEST
 CACHE:
 index.html
+home.html
 teclado.html
+guia.html
+faq.html
+creditos.html
 LICENSE
 AUTHORS
 css*

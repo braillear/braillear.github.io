@@ -53,17 +53,26 @@ function cargarPagina(nombrePagina, tituloPagina) {
     }).done(function (template) {
         $menuItemActivo = $(this).closest("li");
         $contenedor.html(template);
-        if (Braillear.inicializar) {
-            Braillear.inicializar();
-        }
     }).fail(function () {
-        cargarPagina();
+        if (nombrePaginaReal === "404") {
+            $contenedor.html("\
+                <div class=\"alert alert-danger\">\
+                    <big><strong>Upps!!!</strong>, el servidor no responde</big><br/>\
+                    Lo sentimos, intenta utilizar Braillear más tarde.\
+                </div>");
+        } else {
+            cargarPagina();
+        }
     }).always(function () {
         if ($menuItemActivo) {
             $menuItemActivo.addClass("active");
         }
-        $contenedor.fadeIn("slow");
-        $loader.fadeOut("slow");
+        $contenedor.fadeIn("slow", function () {
+            if (Braillear.inicializar) {
+                Braillear.inicializar();
+            }
+            $loader.fadeOut("fast");
+        });
     });
 }
 

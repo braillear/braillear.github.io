@@ -96,8 +96,13 @@
     padding: 0px;
 }
 
-.fuenteBraille {}
-.fuenteLatina {}
+.fuenteBraille {
+    /*    font-family: 'Braille6ANSI';*/
+    font-family: 'DejaVuSerif';
+}
+.fuenteLatina {
+    font-family: 'DejaVuSerif';
+}
 
 .spanCaracter {
     width: 0.8em;
