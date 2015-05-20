@@ -16,6 +16,7 @@
  */
 
 var $loader, $menuItemActivo, $contenedor;
+var appCache;
 Braillear = null;
 
 /**
@@ -28,6 +29,22 @@ Braillear = null;
 function mostrarInicializables($padre) {
     $padre = $padre || $(document);
     $padre.find('.inicializable').hide().removeClass("inicializable").addClass("inicializado").fadeIn("slow");
+}
+
+/**
+ * Handler, se ejecuta cuando hay una nueva versión de Braillear disponible
+ * @returns {undefined}
+ */
+function onUpdateReady() {
+    if (appCache.status === appCache.UPDATEREADY) {
+        console.log("nueva versión detectada");
+        appCache.swapCache();
+        // TODO: cambiar esto por otra cosa
+        // Podría no decirle nada y hacerlo solo cuando cambie de sección..
+        if (confirm('Nueva versión de Braillear disponible. Actualizar ahora?')) {
+            window.location.reload();
+        }
+    }
 }
 
 /**
@@ -65,12 +82,15 @@ function cargarPagina(nombrePagina, tituloPagina) {
             $menuItemActivo = $(this).closest("li");
             $contenedor.html(template);
         }).fail(function () {
+            console.log('fail al cargar ' + nombrePaginaReal);
             if (nombrePaginaReal === "404") {
+                // si está online:
                 $contenedor.html("\
-                <div class=\"alert alert-danger\">\
-                    <big><strong>Upps!!!</strong>, el servidor no responde</big><br/>\
-                    Lo sentimos, intenta utilizar Braillear más tarde.\
-                </div>");
+                    <div class=\"alert alert-danger\">\
+                        <big><strong>Upps!!!</strong>, la sección que intentas acceder no está en el caché.</big><br/>\
+                        Pareces estar offline; Braillear se actualizará automáticamente cuando vuelvas a tener conexión.<br/>\
+                        Lo sentimos, intenta acceder a otras opciones del menú.\
+                    </div>");
             } else {
                 cargarPagina();
             }
@@ -83,6 +103,10 @@ function cargarPagina(nombrePagina, tituloPagina) {
                 if (Braillear.inicializar) {
                     Braillear.inicializar();
                 }
+                /* TODO buscar algun truco para quitar foco al link(al menos con el teclado)
+                 * sino al dar enter recarga...
+                 * podría crear algun boton fuera de pantalla y darle foco? que no haga nada..
+                 */
             });
         });
     });
@@ -91,6 +115,10 @@ function cargarPagina(nombrePagina, tituloPagina) {
 
 
 $(function () {
+    appCache = window.applicationCache;
+    appCache.update();
+    appCache.addEventListener('updateready', onUpdateReady);
+
     $loader = $("#msgCargando");
     $contenedor = $('#contenedor');
 

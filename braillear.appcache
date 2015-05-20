@@ -1,0 +1,41 @@
+CACHE MANIFEST
+# Braillear@20150520.0045
+
+# Recursos cacheados
+# 404.html se omite para diferenciar error online/offline 404.html/offline.html
+CACHE:
+index.html
+home.html
+teclado.html
+guia.html
+faq.html
+creditos.html
+offline.html
+LICENSE
+css/bootstrap.min.css
+css/braillear.css
+fonts/DejaVuSerif.ttf
+img/delete.svg
+img/erase.svg
+img/favicon.png
+img/help.svg
+img/keyboard-return.svg
+img/keyboard-space.svg
+img/view-fullscreen.svg
+js/main.js
+js/braillear.js
+js/maps/es.js
+js/lib/bootstrap.min.js
+js/lib/jquery-2.1.1.min.js
+js/lib/thumbs.0.6.0.min.js
+
+# Recursos que requieren red
+# 404.html requiere red por no ser cacheado
+NETWORK:
+404.html
+*
+
+# Fallbacks para recursos no disponibles
+# archivoonline archivooffline
+# *.extonline   archivooffline
+FALLBACK:
