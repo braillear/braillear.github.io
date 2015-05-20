@@ -24,6 +24,23 @@
     font-style: normal;
 }
 
+.page-header {
+    font-size: 0.8em;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'DejaVuSerif';
+    color: #699934;
+}
+h4 {
+    font-size: 20px;
+}
+h5 {
+    font-size: 16px;
+}
+h6 {
+    font-size: 14px;
+}
+
 .navbar-brand img {
     display: inline-block;
     margin-top: -5px;

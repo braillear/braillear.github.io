@@ -16,8 +16,8 @@
  */
 
 var $loader, $menuItemActivo, $contenedor;
-var appCache;
-Braillear = null;
+var appCache, hayActualizacionPendiente = false;
+var Braillear = null;
 
 /**
  * Muestra los elementos con señalados con clase inicializable
@@ -36,14 +36,9 @@ function mostrarInicializables($padre) {
  * @returns {undefined}
  */
 function onUpdateReady() {
+    hayActualizacionPendiente = false;
     if (appCache.status === appCache.UPDATEREADY) {
-        console.log("nueva versión detectada");
-        appCache.swapCache();
-        // TODO: cambiar esto por otra cosa
-        // Podría no decirle nada y hacerlo solo cuando cambie de sección..
-        if (confirm('Nueva versión de Braillear disponible. Actualizar ahora?')) {
-            window.location.reload();
-        }
+        hayActualizacionPendiente = true;
     }
 }
 
@@ -56,6 +51,15 @@ function onUpdateReady() {
  * @param {String} tituloPagina     Título de la página, Ej: "F.A.Q."
  */
 function cargarPagina(nombrePagina, tituloPagina) {
+    // Si había actualización, la aplica actualizacion al cambiar de seccion
+    if (hayActualizacionPendiente) {
+        // TODO: preciso poner a mano aqui la pagina destino? asi carga esa y no otra.. la pone pero al refrescar la pierde
+        // creo que el reload la lleva a la original (en lo que a #... se refiere)
+        appCache.swapCache();
+        location.reload();
+        return;
+    }
+
     var nombrePaginaReal = "404";
     if (nombrePagina) {
         nombrePaginaReal = nombrePagina = nombrePagina.substring(1);
@@ -82,16 +86,7 @@ function cargarPagina(nombrePagina, tituloPagina) {
             $menuItemActivo = $(this).closest("li");
             $contenedor.html(template);
         }).fail(function () {
-            console.log('fail al cargar ' + nombrePaginaReal);
-            if (nombrePaginaReal === "404") {
-                // si está online:
-                $contenedor.html("\
-                    <div class=\"alert alert-danger\">\
-                        <big><strong>Upps!!!</strong>, la sección que intentas acceder no está en el caché.</big><br/>\
-                        Pareces estar offline; Braillear se actualizará automáticamente cuando vuelvas a tener conexión.<br/>\
-                        Lo sentimos, intenta acceder a otras opciones del menú.\
-                    </div>");
-            } else {
+            if (nombrePaginaReal !== "404") {
                 cargarPagina();
             }
         }).always(function () {
@@ -103,7 +98,8 @@ function cargarPagina(nombrePagina, tituloPagina) {
                 if (Braillear.inicializar) {
                     Braillear.inicializar();
                 }
-                /* TODO buscar algun truco para quitar foco al link(al menos con el teclado)
+                /* TODO:
+                 * Buscar algun truco para quitar foco al link(al menos con el teclado)
                  * sino al dar enter recarga...
                  * podría crear algun boton fuera de pantalla y darle foco? que no haga nada..
                  */
