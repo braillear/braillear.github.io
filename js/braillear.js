@@ -480,10 +480,14 @@
 
         $('#btnFullscreen').click(toggleFullScreen);
         fullScreenSugerido = false;
-        window.onresize = onWindowResize; // TODO: seria mejor cuando cambia el orientation (ondeviceorientation existe pero no logro que se invoque), y tal vez no sea multiplataforma
+
+        mostrarInicializables();
+        // TODO: seria mejor cuando cambia el orientation (ondeviceorientation existe pero no logro que se invoque), y tal vez no sea multiplataforma
+        window.onresize = onWindowResize;
         onWindowResize();
-        $("#btnSaltoLinea").focus();
     };
+
+
     self.destruir = function () {
         $('.btnBraile').unbind();
         $(window).unbind();

@@ -19,6 +19,18 @@ var $loader, $menuItemActivo, $contenedor;
 Braillear = null;
 
 /**
+ * Muestra los elementos con señalados con clase inicializable
+ *
+ * @param {jQuery} $padre   Opcional. Elemento desde el cual buscar
+ *                          inicializables.
+ * @returns {jQuery}        Elementos inicializados.
+ */
+function mostrarInicializables($padre) {
+    $padre = $padre || $(document);
+    $padre.find('.inicializable').hide().removeClass("inicializable").addClass("inicializado").fadeIn("slow");
+}
+
+/**
  * Carga una página en el $contenedor del app.
  * Muestra el $loader temporalmente. Los metodos destruir() e inicializar() de
  * Braillear son invocados antes y despues de la carga, si existen y es exitosa.
@@ -35,46 +47,48 @@ function cargarPagina(nombrePagina, tituloPagina) {
     if ($menuItemActivo) {
         $menuItemActivo.removeClass("active");
     }
-    $contenedor.fadeOut("fast");
 
-    $("#tituloPagina").text(tituloPagina || nombrePagina || "Braillear");
-    $loader.fadeIn("fast");
-
+    $contenedor.hide();
     if (Braillear && Braillear.destruir) {
         Braillear.destruir();
     }
     Braillear = {};
 
-    $.ajax({
-        url: nombrePaginaReal + ".html",
-        method: 'GET',
-        cache: false,
-        async: true
-    }).done(function (template) {
-        $menuItemActivo = $(this).closest("li");
-        $contenedor.html(template);
-    }).fail(function () {
-        if (nombrePaginaReal === "404") {
-            $contenedor.html("\
+    $("#tituloPagina").text(tituloPagina || nombrePagina || "Braillear");
+    $loader.fadeIn("fast", function () {
+        $.ajax({
+            url: nombrePaginaReal + ".html",
+            method: 'GET',
+            cache: true, // Offline singlepage application
+            async: true
+        }).done(function (template) {
+            $menuItemActivo = $(this).closest("li");
+            $contenedor.html(template);
+        }).fail(function () {
+            if (nombrePaginaReal === "404") {
+                $contenedor.html("\
                 <div class=\"alert alert-danger\">\
                     <big><strong>Upps!!!</strong>, el servidor no responde</big><br/>\
                     Lo sentimos, intenta utilizar Braillear más tarde.\
                 </div>");
-        } else {
-            cargarPagina();
-        }
-    }).always(function () {
-        if ($menuItemActivo) {
-            $menuItemActivo.addClass("active");
-        }
-        $contenedor.fadeIn("slow", function () {
-            if (Braillear.inicializar) {
-                Braillear.inicializar();
+            } else {
+                cargarPagina();
             }
-            $loader.fadeOut("fast");
+        }).always(function () {
+            if ($menuItemActivo) {
+                $menuItemActivo.addClass("active");
+            }
+            $contenedor.fadeIn("fast", function () {
+                $loader.fadeOut("fast");
+                if (Braillear.inicializar) {
+                    Braillear.inicializar();
+                }
+            });
         });
     });
+    return true;
 }
+
 
 $(function () {
     $loader = $("#msgCargando");
@@ -87,6 +101,7 @@ $(function () {
         }
     });
 
+    mostrarInicializables();
     var posComienzoNombrePagina = document.URL.lastIndexOf("#");
     var paginaInicial = posComienzoNombrePagina > 0 ? document.URL.substring(posComienzoNombrePagina) : "#home";
     cargarPagina(paginaInicial, "Braillear");
