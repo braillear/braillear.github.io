@@ -104,6 +104,21 @@
     </div>
 </div>
 
-<script src="js/lib/thumbs.0.6.0.min.js"></script>
+<!--<script src="js/lib/thumbs.0.6.0.min.js"></script>
 <script src="js/maps/es.js"></script>
-<script src="js/braillear.js"></script>
+<script src="js/braillear.js"></script>-->
+<script>
+    Braillear.inicializar = function () {
+        $.when(getCachedScript("js/lib/thumbs.0.6.0.min.js"),
+                getCachedScript("js/maps/es.js"),
+                getCachedScript("js/braillear.js"))
+                .fail(function () {
+                    mostrarError(obtenerNombrePaginaActual());
+                })
+                .done(function () {
+                    Braillear.inicializarTeclado();
+                });
+    };
+</script>
+
+

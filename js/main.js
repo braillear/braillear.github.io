@@ -32,6 +32,25 @@ function mostrarInicializables($padre) {
 }
 
 /**
+ * Muestra un mensaje de error genérico y permanece reintentando cargar.
+ */
+function mostrarError(nombrePagina, tituloPagina) {
+    $contenedor.html("\
+                <div class=\"alert alert-danger\">\
+                    <p><big><strong>Upps!!!</strong> Parece que algo salió mal...</big></p> \
+                    <ul>\
+                        <li>La página no existe o no está disponible. Intenta <a href=\"javascript: location.reload()\" title=\"Refresca la página en tu navegador\">actualizar</a>.</li>\
+                        <li>Asegúrate de tener conexión;  Braillear se actualizará automáticamente.</li>\
+                        <li>Intenta acceder a otras opciones del menú.</li>\
+                    </ul>\
+                    <p>Si llegaste aquí por medio de un link en Braillear y el problema persiste, <a href = \"mailto:braillear@openmailbox.org\" title=\"Escríbenos un email\">avísanos</a> para que podamos solucionarlo.</p>\
+                </div>");
+    timerAutoRefresh = setTimeout(function () {
+        cargarPagina(nombrePagina, tituloPagina);
+    }, 30 * 1000);
+}
+
+/**
  * Handler, se ejecuta cuando hay una nueva versión de Braillear disponible
  * @returns {undefined}
  */
@@ -120,25 +139,13 @@ function cargarPagina(nombrePagina, tituloPagina) {
     $loader.fadeIn("fast", function () {
         $.ajax({
             url: nombrePaginaReal + ".html",
-            method: 'GET',
+            type: 'GET',
             cache: true, // Braillear funciona como offline single page application
-            async: true
-        }).done(function (template) {
+            async: true}
+        ).done(function (template) {
             $contenedor.html(template);
         }).fail(function () {
-            $contenedor.html("\
-                <div class=\"alert alert-danger\">\
-                    <p><big><strong>Upps!!!</strong> Parece que algo salió mal...</big></p> \
-                    <ul>\
-                        <li>La página no existe o no está disponible. Intenta <a href=\"javascript: location.reload()\" title=\"Refresca la página en tu navegador\">actualizar</a>.</li>\
-                        <li>Asegúrate de tener conexión;  Braillear se actualizará automáticamente.</li>\
-                        <li>Intenta acceder a otras opciones del menú.</li>\
-                    </ul>\
-                    <p>Si llegaste aquí por medio de un link en Braillear y el problema persiste, <a href = \"mailto:braillear@openmailbox.org\" title=\"Escríbenos un email\">avísanos</a> para que podamos solucionarlo.</p>\
-                </div>");
-            timerAutoRefresh = setTimeout(function () {
-                cargarPagina('#' + nombrePagina, tituloPagina);
-            }, 30 * 1000);
+            mostrarError('#' + nombrePagina, tituloPagina)
         }).always(function () {
             $('ul.navbar-nav li a[href=#' + nombrePagina + ']').closest("li").addClass("active");
             $contenedor.fadeIn("fast", function () {
@@ -157,6 +164,15 @@ function cargarPagina(nombrePagina, tituloPagina) {
     return true;
 }
 
+function getCachedScript(scriptName) {
+    return $.ajax({
+        url: scriptName,
+        dataType: 'script',
+        type: 'GET',
+        cache: true, // Braillear funciona como offline single page application
+        async: true
+    });
+}
 
 $(function () {
     appCache = window.applicationCache;

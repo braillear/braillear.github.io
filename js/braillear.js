@@ -450,8 +450,13 @@
         }
     }
 
-
-    self.inicializar = function () {
+    /**
+     * Inicializa el teclado.
+     * Podría ser:
+     *   self.inicializar = function() {...
+     * así lo invoca el main.js, pero tenemos dependencias de otros scripts
+     */
+    self.inicializarTeclado = function () {
         inicializarMapa(self.map);
         invertedMap = invertirArray(self.map);
 
@@ -491,9 +496,13 @@
         // TODO: seria mejor cuando cambia el orientation (ondeviceorientation existe pero no logro que se invoque), y tal vez no sea multiplataforma
         window.onresize = onWindowResize;
         onWindowResize();
-    };
+    }
 
 
+    /**
+     * Deshabilita los event handlers de la página y libera los recursos que
+     * use.
+     */
     self.destruir = function () {
         $('.btnBraile').unbind();
         $(window).unbind();
