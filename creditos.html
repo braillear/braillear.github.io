@@ -1,18 +1,30 @@
-<header class="page-header">
-    <h1>Créditos</h1>
-</header>
+<html>
+    <body>
+        <header class="page-header">
+            <h1>Créditos</h1>
+        </header>
 
-<div class="alert alert-warning">En construcción : F.A.Q. | Créditos, licencia</div>
+        <div class="alert alert-warning">En construcción : Créditos, licencia</div>
 
-<h2>Autores</h2>
-<ul>
-    <li>Lucas Capalbo Lavezzo</li>
-</ul>
+        <h2>Autores</h2>
+        <ul>
+            <li>Lucas Capalbo Lavezzo</li>
+        </ul>
 
-<h2>Licencia</h2>
-<ul>
-    <li>Braillear</li>
-    <li>Tipografía</li>
-    <li>Iconos</li>
-    <li>Librerías</li>
-</ul>
+        <h2>Licencia</h2>
+        <ul>
+            <li>Braillear</li>
+            <li>Tipografía</li>
+            <li>Iconos</li>
+            <li>Librerías</li>
+        </ul>
+
+
+        <script>
+            if (typeof Braillear === 'undefined') {
+                window.location = "index.html#creditos";
+                document.getElementsByTagName('body')[0].remove();
+            }
+        </script>
+    </body>
+</html>

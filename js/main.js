@@ -115,7 +115,6 @@ function cargarPagina(nombrePagina, tituloPagina) {
     }
 
     if (hayActualizacionPendiente) {
-        //alert('upgradeo cuando iba a: ' + nombrePagina + "!")
         appCache.swapCache();
         window.location = obtenerURLPagina(nombrePagina);
         window.location.reload();

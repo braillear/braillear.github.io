@@ -1,124 +1,128 @@
-<div class="fullheight fullwidth">
-    <div class="braillear container-fluid text-center relative-fullheight" style="display:table; height: 100%; width: 100%; ">
-        <div class="row">
-            <div id="textoBrailleContainer" class="fuenteBraille displayEntradas col-xs-offset-1 col-xs-8 col-md-9">
-                <span id="textoBraille"></span>
-            </div>
-            <span id="valorBraille" class="fuenteBraille displayEntradas displayCaracter col-xs-2 col-md-1"></span>
-        </div>
-
-
-        <div class="row">
-            <div id="textoLatinoContainer" class="fuenteLatina displayEntradas col-xs-offset-1 col-xs-8 col-md-9">
-                <span id="textoLatino"></span>
-            </div>
-            <span id="valorLatino" class="fuenteLatina displayEntradas displayCaracter col-xs-2 col-md-1"></span>
-        </div>
-
-
-        <div class="row vab relative-fullheight inicializable" role="group" style="display: table-row; height: 100%">
-            <div class="relative-fullheight container-fluid col-md-offset-1 col-md-10" role="group"  style="padding: 0px;">
-                <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
-                    <div id="btnQ" title="Braille - Punto 1"
-                         data-valor="1" data-idx="0"
-                         class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                        <div class="referenciaTeclaPunto">Q</div>
-                        <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02801;</div>
+<html>
+    <body>
+        <div class="fullheight fullwidth">
+            <div class="braillear container-fluid text-center relative-fullheight" style="display:table; height: 100%; width: 100%; ">
+                <div class="row">
+                    <div id="textoBrailleContainer" class="fuenteBraille displayEntradas col-xs-offset-1 col-xs-8 col-md-9">
+                        <span id="textoBraille"></span>
                     </div>
-                    <div id="btnA" title="Braille - Punto 2"
-                         data-valor="2" data-idx="1"
-                         class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                        <div class="referenciaTeclaPunto">A</div>
-                        <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02802;</div>
-                    </div>
-                    <div id="btnZ" title="Braille - Punto 3"
-                         data-valor="4" data-idx="2"
-                         class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                        <div class="referenciaTeclaPunto">Z</div>
-                        <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02804;</div>
-                    </div>
+                    <span id="valorBraille" class="fuenteBraille displayEntradas displayCaracter col-xs-2 col-md-1"></span>
                 </div>
 
-                <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
-                    <div id="btnBorrar"     title="Borrar último caracter"
-                         class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
-                        <div class="referenciaTeclaPunto">Backspace</div>
-                        <div class="fuenteBraille">&#x02800;</div>
+
+                <div class="row">
+                    <div id="textoLatinoContainer" class="fuenteLatina displayEntradas col-xs-offset-1 col-xs-8 col-md-9">
+                        <span id="textoLatino"></span>
                     </div>
-                    <div id="btnSaltoLinea" title="Salto de línea"
-                         class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
-                        <div class="referenciaTeclaPunto">Enter</div>
-                        <div class="fuenteBraille">&#x02800;</div>
-                    </div>
-                    <div id="btnEspacio"    title="Espacio"
-                         class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
-                        <div class="referenciaTeclaPunto">Espacio</div>
-                        <div class="fuenteBraille">&#x02800;</div>
-                    </div>
+                    <span id="valorLatino" class="fuenteLatina displayEntradas displayCaracter col-xs-2 col-md-1"></span>
                 </div>
 
-                <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
-                    <div id="btnO" title="Braille - Punto 4"
-                         data-valor="8" data-idx="3"
-                         class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                        <div class="referenciaTeclaPunto">O</div>
-                        <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02808;</div>
-                    </div>
-                    <div  id="btnK" title="Braille - Punto 5"
-                          data-valor="16" data-idx="4"
-                          class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                        <div class="referenciaTeclaPunto">K</div>
-                        <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02810;</div>
-                    </div>
-                    <div  id="btnM" title="Braille - Punto 6"
-                          data-valor="32" data-idx="5"
-                          class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
-                        <div class="referenciaTeclaPunto">M</div>
-                        <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02820;</div>
+
+                <div class="row vab relative-fullheight inicializable" role="group" style="display: table-row; height: 100%">
+                    <div class="relative-fullheight container-fluid col-md-offset-1 col-md-10" role="group"  style="padding: 0px;">
+                        <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
+                            <div id="btnQ" title="Braille - Punto 1"
+                                 data-valor="1" data-idx="0"
+                                 class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto">Q</div>
+                                <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02801;</div>
+                            </div>
+                            <div id="btnA" title="Braille - Punto 2"
+                                 data-valor="2" data-idx="1"
+                                 class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto">A</div>
+                                <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02802;</div>
+                            </div>
+                            <div id="btnZ" title="Braille - Punto 3"
+                                 data-valor="4" data-idx="2"
+                                 class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto">Z</div>
+                                <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02804;</div>
+                            </div>
+                        </div>
+
+                        <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
+                            <div id="btnBorrar"     title="Borrar último caracter"
+                                 class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
+                                <div class="referenciaTeclaPunto">Backspace</div>
+                                <div class="fuenteBraille">&#x02800;</div>
+                            </div>
+                            <div id="btnSaltoLinea" title="Salto de línea"
+                                 class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
+                                <div class="referenciaTeclaPunto">Enter</div>
+                                <div class="fuenteBraille">&#x02800;</div>
+                            </div>
+                            <div id="btnEspacio"    title="Espacio"
+                                 class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnAccion">
+                                <div class="referenciaTeclaPunto">Espacio</div>
+                                <div class="fuenteBraille">&#x02800;</div>
+                            </div>
+                        </div>
+
+                        <div class="relative-fullheight col-xs-4" role="group" style="padding: .5em;">
+                            <div id="btnO" title="Braille - Punto 4"
+                                 data-valor="8" data-idx="3"
+                                 class="vat col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto">O</div>
+                                <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02808;</div>
+                            </div>
+                            <div  id="btnK" title="Braille - Punto 5"
+                                  data-valor="16" data-idx="4"
+                                  class="vac col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto">K</div>
+                                <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02810;</div>
+                            </div>
+                            <div  id="btnM" title="Braille - Punto 6"
+                                  data-valor="32" data-idx="5"
+                                  class="vab col-xs-12 btn btn-default btn-lg btnTeclado btnBraile">
+                                <div class="referenciaTeclaPunto">M</div>
+                                <div class="fuenteBraille colorSombra">&#x0283f;</div><div class="fuenteBraille">&#x02820;</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="modal fade" id="msgSugerenciaFullscreen">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Sugerencia</h4>
-            </div>
-            <div class="modal-body">
-                Tu pantalla parece pequeña, deberías activar el modo <strong>pantalla completa</strong>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">No, gracias</button>
-                <button id="btnFullscreen" type="button" class="btn btn-primary" data-dismiss="modal">
-                    <span class="icon-fullscreen"></span> Activar
-                </button>
+        <div class="modal fade" id="msgSugerenciaFullscreen">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Sugerencia</h4>
+                    </div>
+                    <div class="modal-body">
+                        Tu pantalla parece pequeña, deberías activar el modo <strong>pantalla completa</strong>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No, gracias</button>
+                        <button id="btnFullscreen" type="button" class="btn btn-primary" data-dismiss="modal">
+                            <span class="icon-fullscreen"></span> Activar
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!--<script src="js/lib/thumbs.0.6.0.min.js"></script>
-<script src="js/maps/es.js"></script>
-<script src="js/braillear.js"></script>-->
-<script>
-    Braillear.inicializar = function () {
-        $.when(getCachedScript("js/lib/thumbs.0.6.0.min.js"),
-                getCachedScript("js/maps/es.js"),
-                getCachedScript("js/braillear.js"))
-                .fail(function () {
-                    mostrarError(obtenerNombrePaginaActual());
-                })
-                .done(function () {
-                    Braillear.inicializarTeclado();
-                });
-    };
-</script>
-
-
+        <script>
+            if (typeof Braillear !== 'undefined') {
+                Braillear.inicializar = function () {
+                    $.when(getCachedScript("js/lib/thumbs.0.6.0.min.js"),
+                            getCachedScript("js/maps/es.js"),
+                            getCachedScript("js/braillear.js"))
+                            .fail(function () {
+                                mostrarError(obtenerNombrePaginaActual());
+                            })
+                            .done(function () {
+                                Braillear.inicializarTeclado();
+                            });
+                };
+            } else {
+                window.location = "index.html#teclado";
+                document.getElementsByTagName('body')[0].remove();
+            }
+        </script>
+    </body>
+</html>
