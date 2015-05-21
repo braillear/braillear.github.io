@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var $loader, $menuItemActivo, $contenedor;
-var appCache, hayActualizacionPendiente = false;
-var Braillear = null;
+var $loader, $contenedor;
+var appCache, hayActualizacionPendiente = false, timerAutoRefresh;
+Braillear = null;
 
 /**
  * Muestra los elementos con señalados con clase inicializable
@@ -36,10 +36,50 @@ function mostrarInicializables($padre) {
  * @returns {undefined}
  */
 function onUpdateReady() {
-    hayActualizacionPendiente = false;
-    if (appCache.status === appCache.UPDATEREADY) {
-        hayActualizacionPendiente = true;
+    hayActualizacionPendiente = (appCache.status === appCache.UPDATEREADY);
+    console.log('hayActualizacionPendiente: ', hayActualizacionPendiente);
+}
+
+function onCheckingUpdate(a) {
+    console.log('onCheckingUpdate: ', a);
+}
+function onCacheUpgradeError(a) {
+    console.log('onCacheUpgradeError: ', a);
+}
+
+/**
+ * Devuelve la posición del # en la URL actual
+ * @returns {Number}
+ */
+function obtenerPosicionComienzoNombrePagina() {
+    return document.URL.lastIndexOf("#");
+}
+
+/**
+ * Devuelve el nombre de página actual, por defecto #portada
+ * @returns {String}
+ */
+function obtenerNombrePaginaActual() {
+    var posComienzoNombrePagina = obtenerPosicionComienzoNombrePagina();
+    return posComienzoNombrePagina > 0 ? document.URL.substring(posComienzoNombrePagina) : "#portada";
+}
+
+/**
+ * Devuelve la URL completa a la página indicada, #portada por defecto
+ *
+ * @param {String} pagina
+ * @returns {Node.URL|Document.URL|document.URL|String}
+ */
+function obtenerURLPagina(pagina) {
+    if (!pagina) {
+        pagina = "#portada";
+    } else if (pagina[0] !== '#') {
+        pagina = '#' + pagina;
     }
+
+    var posComienzoNombrePagina = obtenerPosicionComienzoNombrePagina();
+    return (posComienzoNombrePagina <= 0 ? document.URL : document.URL.substring(0, posComienzoNombrePagina))
+            + pagina;
 }
 
 /**
@@ -51,23 +91,24 @@ function onUpdateReady() {
  * @param {String} tituloPagina     Título de la página, Ej: "F.A.Q."
  */
 function cargarPagina(nombrePagina, tituloPagina) {
-    // Si había actualización, la aplica actualizacion al cambiar de seccion
+    if (timerAutoRefresh) {
+        timerAutoRefresh = clearTimeout(timerAutoRefresh);
+    }
+
     if (hayActualizacionPendiente) {
-        // TODO: preciso poner a mano aqui la pagina destino? asi carga esa y no otra.. la pone pero al refrescar la pierde
-        // creo que el reload la lleva a la original (en lo que a #... se refiere)
+        //alert('upgradeo cuando iba a: ' + nombrePagina + "!")
         appCache.swapCache();
-        location.reload();
+        window.location = obtenerURLPagina(nombrePagina);
+        window.location.reload();
         return;
     }
 
-    var nombrePaginaReal = "404";
+    var nombrePaginaReal = "";
     if (nombrePagina) {
         nombrePaginaReal = nombrePagina = nombrePagina.substring(1);
     }
 
-    if ($menuItemActivo) {
-        $menuItemActivo.removeClass("active");
-    }
+    $('ul.navbar-nav li').closest("li").removeClass("active");
 
     $contenedor.hide();
     if (Braillear && Braillear.destruir) {
@@ -80,19 +121,26 @@ function cargarPagina(nombrePagina, tituloPagina) {
         $.ajax({
             url: nombrePaginaReal + ".html",
             method: 'GET',
-            cache: true, // Offline singlepage application
+            cache: true, // Braillear funciona como offline single page application
             async: true
         }).done(function (template) {
-            $menuItemActivo = $(this).closest("li");
             $contenedor.html(template);
         }).fail(function () {
-            if (nombrePaginaReal !== "404") {
-                cargarPagina();
-            }
+            $contenedor.html("\
+                <div class=\"alert alert-danger\">\
+                    <p><big><strong>Upps!!!</strong> Parece que algo salió mal...</big></p> \
+                    <ul>\
+                        <li>La página no existe o no está disponible. Intenta <a href=\"javascript: location.reload()\" title=\"Refresca la página en tu navegador\">actualizar</a>.</li>\
+                        <li>Asegúrate de tener conexión;  Braillear se actualizará automáticamente.</li>\
+                        <li>Intenta acceder a otras opciones del menú.</li>\
+                    </ul>\
+                    <p>Si llegaste aquí por medio de un link en Braillear y el problema persiste, <a href = \"mailto:braillear@openmailbox.org\" title=\"Escríbenos un email\">avísanos</a> para que podamos solucionarlo.</p>\
+                </div>");
+            timerAutoRefresh = setTimeout(function () {
+                cargarPagina('#' + nombrePagina, tituloPagina);
+            }, 30 * 1000);
         }).always(function () {
-            if ($menuItemActivo) {
-                $menuItemActivo.addClass("active");
-            }
+            $('ul.navbar-nav li a[href=#' + nombrePagina + ']').closest("li").addClass("active");
             $contenedor.fadeIn("fast", function () {
                 $loader.fadeOut("fast");
                 if (Braillear.inicializar) {
@@ -112,8 +160,10 @@ function cargarPagina(nombrePagina, tituloPagina) {
 
 $(function () {
     appCache = window.applicationCache;
-    appCache.update();
     appCache.addEventListener('updateready', onUpdateReady);
+    appCache.addEventListener('checking', onCheckingUpdate);
+    appCache.addEventListener('error', onCacheUpgradeError);
+    appCache.update();
 
     $loader = $("#msgCargando");
     $contenedor = $('#contenedor');
@@ -126,7 +176,5 @@ $(function () {
     });
 
     mostrarInicializables();
-    var posComienzoNombrePagina = document.URL.lastIndexOf("#");
-    var paginaInicial = posComienzoNombrePagina > 0 ? document.URL.substring(posComienzoNombrePagina) : "#home";
-    cargarPagina(paginaInicial, "Braillear");
+    cargarPagina(obtenerNombrePaginaActual(), "Braillear");
 });
