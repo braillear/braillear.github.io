@@ -1,8 +1,7 @@
 CACHE MANIFEST
-# Braillear@20150521.0903
+# Braillear@20150522.0045
 
 # Recursos cacheados
-# 404.html se omite para diferenciar error online/offline 404.html/offline.html
 CACHE:
 index.html
 portada.html
@@ -10,7 +9,6 @@ teclado.html
 guia.html
 faq.html
 creditos.html
-LICENSE
 css/bootstrap.min.css
 css/braillear.css
 fonts/DejaVuSerif.ttf
