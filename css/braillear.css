@@ -41,6 +41,12 @@ h6 {
     font-size: 14px;
 }
 
+.panel-heading {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.0em;
+}
+
 .navbar-brand img {
     display: inline-block;
     margin-top: -5px;
@@ -119,6 +125,21 @@ h6 {
 }
 .fuenteLatina {
     font-family: 'DejaVuSerif';
+}
+
+.panel-body {
+    text-align: justify;
+    alignment-adjust:central
+
+}
+.referencia {
+    display: inline-block;
+    border: 1px gray solid;
+    margin: 0.5em 2em 0.5em 2em;
+}
+.referencia .fuenteLatina, .referencia .fuenteBraille {
+    display: inline-block;
+    padding: 0.5em;
 }
 
 .spanCaracter {

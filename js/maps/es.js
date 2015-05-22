@@ -55,7 +55,7 @@ function inicializarMapa(map) {
     map[39] = "v";
     map[58] = "w";
     map[45] = "x";
-    map[59] = "y";
+    map[61] = "y";
     map[53] = "z";
 
     // acentos y letras español

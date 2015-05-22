@@ -450,16 +450,20 @@
         }
     }
 
+    self.inicializarMapas = function () {
+        inicializarMapa(self.map);
+        invertedMap = invertirArray(self.map);
+    };
+
     /**
-     * Inicializa el teclado.
+     * Inicializa el teclado
+     * TODO:.Debería estar en tecvlado.html, refactorizar este lío.
      * Podría ser:
      *   self.inicializar = function() {...
      * así lo invoca el main.js, pero tenemos dependencias de otros scripts
      */
     self.inicializarTeclado = function () {
-        inicializarMapa(self.map);
-        invertedMap = invertirArray(self.map);
-
+        self.inicializarMapas();
         $valorBraille = $('#valorBraille');
         $valorLatino = $('#valorLatino');
         $textoBraille = $('#textoBraille');
@@ -496,14 +500,14 @@
         // TODO: seria mejor cuando cambia el orientation (ondeviceorientation existe pero no logro que se invoque), y tal vez no sea multiplataforma
         window.onresize = onWindowResize;
         onWindowResize();
-    }
+    };
 
 
     /**
      * Deshabilita los event handlers de la página y libera los recursos que
      * use.
      */
-    self.destruir = function () {
+    self.destruirTeclado = function () {
         $('.btnBraile').unbind();
         $(window).unbind();
         $btnEspacio.unbind();

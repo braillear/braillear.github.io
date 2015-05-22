@@ -33,6 +33,10 @@ function mostrarInicializables($padre) {
 
 /**
  * Muestra un mensaje de error genérico y permanece reintentando cargar.
+ *
+ * @param {String} nombrePagina
+ * @param {String} tituloPagina
+ * @returns {undefined}
  */
 function mostrarError(nombrePagina, tituloPagina) {
     $contenedor.html("\
@@ -56,14 +60,15 @@ function mostrarError(nombrePagina, tituloPagina) {
  */
 function onUpdateReady() {
     hayActualizacionPendiente = (appCache.status === appCache.UPDATEREADY);
-    console.log('hayActualizacionPendiente: ', hayActualizacionPendiente);
+    console.log(hayActualizacionPendiente
+            ? 'Actualización pendiente detectada.'
+            : 'No hay actualizaciones pendientes.');
 }
-
-function onCheckingUpdate(a) {
-    console.log('onCheckingUpdate: ', a);
+function onCheckingUpdate() {
+    console.log('Verificando actualizaciones..');
 }
 function onCacheUpgradeError(a) {
-    console.log('onCacheUpgradeError: ', a);
+    console.warn('Error al verificar actualizaciones', a);
 }
 
 /**
@@ -118,7 +123,6 @@ function cargarPagina(nombrePagina, tituloPagina) {
         appCache.swapCache();
         window.location = obtenerURLPagina(nombrePagina);
         window.location.reload();
-        return;
     }
 
     var nombrePaginaReal = "";
@@ -163,9 +167,16 @@ function cargarPagina(nombrePagina, tituloPagina) {
     return true;
 }
 
-function getCachedScript(scriptName) {
+/**
+ * Carga un script dinámicamente permitiendo su cacheo
+ * (para poder usarlo offline)
+ *
+ * @param {String} nombreScript
+ * @returns {jqXHR}
+ */
+function cargarScriptCacheado(nombreScript) {
     return $.ajax({
-        url: scriptName,
+        url: nombreScript,
         dataType: 'script',
         type: 'GET',
         cache: true, // Braillear funciona como offline single page application
@@ -174,6 +185,7 @@ function getCachedScript(scriptName) {
 }
 
 $(function () {
+    console.log('* Bienvenido a Braillear.');
     appCache = window.applicationCache;
     appCache.addEventListener('updateready', onUpdateReady);
     appCache.addEventListener('checking', onCheckingUpdate);

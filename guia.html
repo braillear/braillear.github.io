@@ -1,42 +1,87 @@
-<html>
-    <body>
-        <header class="page-header">
-            <h1>Braille básico en 5'</h1>
-        </header>
+<header class="page-header">
+    <h1>Braille básico en 5''</h1>
+</header>
 
-        <div class="alert alert-warning">En construcción : Guía Braille español</div>
+<div class="alert alert-warning">En construcción : Guía Braille español</div>
 
-        <h2>Alfabeto</h2>
-        ...
-        ...
-        <h2>Acentos y diéresis</h2>
-        ...
-        ...
-        <h2>Mayúsculas</h2>
-        ...
-        ...
-        <h2>Símbolos sintácticos</h2>
-        ...
-        ...
-        <h2>Números</h2>
-        ...
-        ...
-        <h2>Símbolos matemáticos</h2>
-        ...
-        ...
+<section class="panel panel-primary">
+    <div class="panel-heading">Alfabeto</div>
+    <div class="panel-body">
+        <span class="referencia"><span class="fuenteLatina">a</span></span>
+        <span class="referencia"><span class="fuenteLatina">b</span></span>
+        <span class="referencia"><span class="fuenteLatina">c</span></span>
+        <span class="referencia"><span class="fuenteLatina">d</span></span>
+        <span class="referencia"><span class="fuenteLatina">e</span></span>
+        <span class="referencia"><span class="fuenteLatina">f</span></span>
+        <span class="referencia"><span class="fuenteLatina">g</span></span>
+        <span class="referencia"><span class="fuenteLatina">h</span></span>
+        <span class="referencia"><span class="fuenteLatina">i</span></span>
+        <span class="referencia"><span class="fuenteLatina">j</span></span>
+        <span class="referencia"><span class="fuenteLatina">k</span></span>
+        <span class="referencia"><span class="fuenteLatina">l</span></span>
+        <span class="referencia"><span class="fuenteLatina">m</span></span>
+        <span class="referencia"><span class="fuenteLatina">n</span></span>
+        <span class="referencia"><span class="fuenteLatina">ñ</span></span>
+        <span class="referencia"><span class="fuenteLatina">o</span></span>
+        <span class="referencia"><span class="fuenteLatina">p</span></span>
+        <span class="referencia"><span class="fuenteLatina">q</span></span>
+        <span class="referencia"><span class="fuenteLatina">r</span></span>
+        <span class="referencia"><span class="fuenteLatina">s</span></span>
+        <span class="referencia"><span class="fuenteLatina">t</span></span>
+        <span class="referencia"><span class="fuenteLatina">u</span></span>
+        <span class="referencia"><span class="fuenteLatina">v</span></span>
+        <span class="referencia"><span class="fuenteLatina">w</span></span>
+        <span class="referencia"><span class="fuenteLatina">x</span></span>
+        <span class="referencia"><span class="fuenteLatina">y</span></span>
+        <span class="referencia"><span class="fuenteLatina">z</span></span>
+    </div>
+</section>
+...
+<h2>Acentos y diéresis</h2>
+...
+...
+<h2>Mayúsculas</h2>
+...
+...
+<h2>Símbolos sintácticos</h2>
+...
+...
+<h2>Números</h2>
+...
+...
+<h2>Símbolos matemáticos</h2>
+...
 
-        <script>
-            if (typeof Braillear !== 'undefined') {
-                Braillear.inicializar = function () {
-                    // TODO:
-                    // mostrar la guía en un modal para que no tenga que salir
-                    // del teclado o donde esté, con boton de ver sólo
-                    // la guía...
-                };
-            } else {
-                window.location = "index.html#guia";
-                document.getElementsByTagName('body')[0].remove();
-            }
-        </script>
-    </body>
-</html>
+<script>
+    function construirReferenciaBraille(textoLatino) {
+        var html = "<span class=\"fuenteBraille\">" + convertirEnBraille(textoLatino) + "</span>";
+        return $(html);
+    }
+
+    if (typeof Braillear === 'undefined') {
+        window.location = "index.html#guia";
+        document.getElementsByTagName('body')[0].remove();
+    } else {
+        // TODO:
+        // mostrar la guía en un modal para que no tenga que salir
+        // del teclado o donde esté, con boton de ver sólo
+        // la guía.
+        Braillear.inicializar = function () {
+            $.when(cargarScriptCacheado("js/maps/es.js"),
+                    cargarScriptCacheado("js/braillear.js"))
+                    .fail(function () {
+                        mostrarError(obtenerNombrePaginaActual());
+                    })
+                    .done(function () {
+                        Braillear.inicializarMapas();
+                        $('.referencia .fuenteLatina').each(
+                                function (idx, descLatina) {
+                                    var $descLatina = $(descLatina);
+                                    construirReferenciaBraille($descLatina.text())
+                                            .insertAfter($descLatina);
+                                }
+                        );
+                    });
+        }
+    }
+</script>
