@@ -59,11 +59,11 @@ function inicializarMapa(map) {
     map[53] = "z";
 
     // acentos y letras español
-    map[55] = "á";
+    map[55] = "á"; // coincide con [ según documentación ONCE
     map[46] = "é";
     map[12] = "í";
     map[44] = "ó";
-    map[62] = "ú";
+    map[62] = "ú"; // coincide con ] segun documentacion ONCE
     map[51] = "ü";
     map[59] = "ñ";
 

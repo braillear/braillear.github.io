@@ -6,7 +6,7 @@
 
 <section class="panel panel-primary">
     <div class="panel-heading">Alfabeto</div>
-    <div class="panel-body">
+    <div class="panel-body inicializable">
         <span class="referencia"><span class="fuenteLatina">a</span></span>
         <span class="referencia"><span class="fuenteLatina">b</span></span>
         <span class="referencia"><span class="fuenteLatina">c</span></span>
@@ -36,16 +36,55 @@
         <span class="referencia"><span class="fuenteLatina">z</span></span>
     </div>
 </section>
-...
-<h2>Acentos y diéresis</h2>
-...
-...
+
+<section class="panel panel-primary">
+    <div class="panel-heading">Acentos y diéresis</div>
+    <div class="panel-body inicializable">
+        <div class="row">
+            <span class="referencia"><span class="fuenteLatina">a</span></span>
+            <span class="referencia"><span class="fuenteLatina">[</span>á</span>
+        </div>
+        <div class="row">
+            <span class="referencia"><span class="fuenteLatina">e</span></span>
+            <span class="referencia"><span class="fuenteLatina">é</span></span>
+        </div>
+        <div class="row">
+            <span class="referencia"><span class="fuenteLatina">i</span></span>
+            <span class="referencia"><span class="fuenteLatina">í</span></span>
+        </div>
+        <div class="row">
+            <span class="referencia"><span class="fuenteLatina">o</span></span>
+            <span class="referencia"><span class="fuenteLatina">ó</span></span>
+        </div>
+        <div class="row">
+            <span class="referencia"><span class="fuenteLatina">u</span></span>
+            <span class="referencia"><span class="fuenteLatina">]</span>ú</span>
+            <span class="referencia"><span class="fuenteLatina">ü</span></span>
+        </div>
+    </div>
+</section>
+
+
 <h2>Mayúsculas</h2>
 ...
-...
-<h2>Símbolos sintácticos</h2>
-...
-...
+
+<section class="panel panel-primary">
+    <div class="panel-heading">Símbolos sintácticos</div>
+    <div class="panel-body inicializable">
+        <span class="referencia"><span class="fuenteLatina">.</span></span>
+        <span class="referencia"><span class="fuenteLatina">,</span></span>
+        <span class="referencia"><span class="fuenteLatina">;</span></span>
+        <span class="referencia"><span class="fuenteLatina">:</span></span>
+        <span class="referencia"><span class="fuenteLatina">(</span></span>
+        <span class="referencia"><span class="fuenteLatina">)</span></span>
+        <span class="referencia"><span class="fuenteLatina">[</span></span>
+        <span class="referencia"><span class="fuenteLatina">]</span></span>
+        <span class="referencia"><span class="fuenteLatina">-</span></span>
+        <span class="referencia"><span class="fuenteLatina">*</span></span>
+    </div>
+</section>
+
+
 <h2>Números</h2>
 ...
 ...
@@ -81,7 +120,8 @@
                                             .insertAfter($descLatina);
                                 }
                         );
+                        mostrarInicializables();
                     });
-        }
+        };
     }
 </script>

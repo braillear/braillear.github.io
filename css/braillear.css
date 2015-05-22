@@ -127,20 +127,20 @@ h6 {
     font-family: 'DejaVuSerif';
 }
 
+/* referencias en la guia  braille */
 .panel-body {
     text-align: justify;
-    alignment-adjust:central
-
 }
 .referencia {
     display: inline-block;
-    border: 1px gray solid;
+    /*    border: 1px gray solid;*/
     margin: 0.5em 2em 0.5em 2em;
 }
 .referencia .fuenteLatina, .referencia .fuenteBraille {
     display: inline-block;
     padding: 0.5em;
 }
+/* fin referencias en la guia  braille */
 
 .spanCaracter {
     width: 0.8em;

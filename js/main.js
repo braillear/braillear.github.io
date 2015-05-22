@@ -131,12 +131,12 @@ function cargarPagina(nombrePagina, tituloPagina) {
     }
 
     $('ul.navbar-nav li').closest("li").removeClass("active");
-
     $contenedor.hide();
     if (Braillear && Braillear.destruir) {
         Braillear.destruir();
     }
     Braillear = {};
+    $contenedor.text('');
 
     $("#tituloPagina").text(tituloPagina || nombrePagina || "Braillear");
     $loader.fadeIn("fast", function () {
