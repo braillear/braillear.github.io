@@ -24,65 +24,70 @@
 function inicializarMapa(map) {
     // comandos
     // modo mayúscula, puntos 46
-    map[40] = "^";
+    map[Braillear.P4 + Braillear.P6] = "^";
     // modo numérico, puntos 3456
-    map[60] = "#";
+    map[Braillear.P3 + Braillear.P4 + Braillear.P5 + Braillear.P6] = "#";
     // interrupción de modo numérico por un único caracter, punto 5
-    map[16] = "@";
+    map[Braillear.P5] = "@";
 
-    // abecedario
-    map[1] = "a";
-    map[3] = "b";
-    map[9] = "c";
-    map[25] = "d";
-    map[17] = "e";
-    map[11] = "f";
-    map[27] = "g";
-    map[19] = "h";
-    map[10] = "i";
-    map[26] = "j";
-    map[5] = "k";
-    map[7] = "l";
-    map[13] = "m";
-    map[29] = "n";
-    map[21] = "o";
-    map[15] = "p";
-    map[31] = "q";
-    map[23] = "r";
-    map[14] = "s";
-    map[30] = "t";
-    map[37] = "u";
-    map[39] = "v";
-    map[58] = "w";
-    map[45] = "x";
-    map[61] = "y";
-    map[53] = "z";
+    // Abecedario
+    map[Braillear.P1] = "a";
+    map[Braillear.P1 + Braillear.P2] = "b";
+    map[Braillear.P1 + Braillear.P4] = "c";
+    map[Braillear.P1 + Braillear.P4 + Braillear.P5] = "d";
+    map[Braillear.P1 + Braillear.P5] = "e";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P4] = "f";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P4 + Braillear.P5] = "g";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P5] = "h";
+    map[Braillear.P2 + Braillear.P4] = "i";
+    map[Braillear.P2 + Braillear.P4 + Braillear.P5] = "j";
+    map[Braillear.P1 + Braillear.P3] = "k";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P3] = "l";
+    map[Braillear.P1 + Braillear.P3 + Braillear.P4] = "m";
+    map[Braillear.P1 + Braillear.P3 + Braillear.P4 + Braillear.P5] = "n";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P4 + Braillear.P5 + Braillear.P6] = "ñ";
+    map[Braillear.P1 + Braillear.P3 + Braillear.P5] = "o";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P3 + Braillear.P4] = "p";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P3 + Braillear.P4 + Braillear.P5] = "q";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P3 + Braillear.P5] = "r";
+    map[Braillear.P2 + Braillear.P3 + Braillear.P4] = "s";
+    map[Braillear.P2 + Braillear.P3 + Braillear.P4 + Braillear.P5] = "t";
+    map[Braillear.P1 + Braillear.P3 + Braillear.P6] = "u";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P3 + Braillear.P6] = "v";
+    map[Braillear.P2 + Braillear.P4 + Braillear.P5 + Braillear.P6] = "w";
+    map[Braillear.P1 + Braillear.P3 + Braillear.P4 + Braillear.P6] = "x";
+    map[Braillear.P1 + Braillear.P3 + Braillear.P4 + Braillear.P5 + Braillear.P6] = "y";
+    map[Braillear.P1 + Braillear.P3 + Braillear.P5 + Braillear.P6] = "z";
 
-    // acentos y letras español
-    map[55] = "á"; // coincide con [ según documentación ONCE
-    map[46] = "é";
-    map[12] = "í";
-    map[44] = "ó";
-    map[62] = "ú"; // coincide con ] segun documentacion ONCE
-    map[51] = "ü";
-    map[59] = "ñ";
+    // Acentos
+    // TODO: resolver: á coincide con [
+    map[Braillear.P1 + Braillear.P2 + Braillear.P3 + Braillear.P5 + Braillear.P6] = "á";
+    map[Braillear.P2 + Braillear.P3 + Braillear.P4 + Braillear.P6] = "é";
+    map[Braillear.P3 + Braillear.P4] = "í";
+    map[Braillear.P3 + Braillear.P4 + Braillear.P6] = "ó";
+    // TODO: resolver: ú coincide ]
+    map[Braillear.P2 + Braillear.P3 + Braillear.P4 + Braillear.P5 + Braillear.P6] = "ú";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P5 + Braillear.P6] = "ü";
 
-    // signos ortograficos
-    map[4] = ".";
-    map[2] = ",";
-    map[6] = ";";
-    map[18] = ":";
-    map[35] = "(";
-    map[28] = ")";
-    map[55] = "[";
-    map[62] = "]";
-    map[36] = "-";
-    map[20] = "*";  // TODO: * también se usa como apertura y cierre de enfasis, para texto subrayado, negrita o itálica. No sé como diferencian. El multiplicar es otro signo
-
+    // Signos ortográficos
+    map[Braillear.P3] = ".";
+    map[Braillear.P2] = ",";
+    map[Braillear.P2 + Braillear.P3] = ";";
+    map[Braillear.P2 + Braillear.P5] = ":";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P6] = "(";
+    map[Braillear.P3 + Braillear.P4 + Braillear.P5] = ")";
+    map[Braillear.P1 + Braillear.P2 + Braillear.P3 + Braillear.P5 + Braillear.P6] = "[";
+    map[Braillear.P2 + Braillear.P3 + Braillear.P4 + Braillear.P5 + Braillear.P6] = "]";
+    map[Braillear.P3 + Braillear.P6] = "-";
+    // TODO: El * también se usa como apertura y cierre de enfasis, para texto
+    // subrayado, negrita o itálica. No sé como diferencian.
+    // El multiplicar es otro signo.
+    map[Braillear.P3 + Braillear.P5] = "*";
     // TODO: signos emparejados, apertura y cierre
-    //case 34: caracter = "¿ ?";
-    //case 21: caracter = "¡ !";
-    //case 38: caracter = "“ ”";
+    map[Braillear.P2 + Braillear.P6] = "¿?";
+    map[Braillear.P2 + Braillear.P3 + Braillear.P5] = "¡!";
+    map[Braillear.P2 + Braillear.P3 + Braillear.P6] = "“”";
+
 
     // TODO: completar signos matemáticos y otros
     // * arroba es escape de modo numérico, ya conf. arriba

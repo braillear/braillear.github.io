@@ -25,10 +25,16 @@
     var self = Braillear;
 
     // Constantes
-    self.INICIO_TABLA_BRAILLE_UNICODE = 0x2800;
+    self.P1 = 1;
+    self.P2 = 2;
+    self.P3 = 4;
+    self.P4 = 8;
+    self.P5 = 16;
+    self.P6 = 32;
     self.SALTO_LINEA = -1;
     self.SALTO_LINEA_CHAR = "\n";
     self.SALTO_LINEA_CHARCODE = self.SALTO_LINEA_CHAR.charCodeAt(0);
+    self.INICIO_TABLA_BRAILLE_UNICODE = 0x2800;
 
     // Mapa con valores estandar (se completa en archivos de maps)
     self.map = [];
