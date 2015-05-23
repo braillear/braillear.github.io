@@ -2,7 +2,7 @@
 <!--[if lte IE 6]><html class="preIE7 preIE8 preIE9" manifest="cache.manifest" lang="es"><![endif]-->
 <!--[if IE 7]><html class="preIE8 preIE9" manifest="cache.manifest" lang="es"><![endif]-->
 <!--[if IE 8]><html class="preIE9" manifest="cache.manifest" lang="es"><![endif]-->
-<!--[if gte IE 9]><!--><html lang="es"><!--<![endif]-->
+<!--[if gte IE 9]><!--><html manifest="cache.manifest" lang="es"><!--<![endif]-->
     <head>          <!--agregar a todos los <html> de arriba para restaurar el offline manifest="cache.manifest"-->
         <title>Braillear - Entrenador Braille</title>
         <meta charset="utf-8">
@@ -17,27 +17,26 @@
         <link rel="stylesheet" href="css/braillear.css" id="cssBraillear">
     </head>
     <body class="fullheight fullwidth">
-
+        <a name="top"></a>
         <nav>
             <div class="navbar navbar-default navbar-fixed-top inicializable">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="navbar-header fuenteLatina">
                         <a href="#portada" class="navbar-brand" title="Braillear - Entrenador Braille">
-                            <img src="img/favicon.png" alt="Logo de Braillear" />
-                            Braillear
+                            <img src="img/favicon.png" alt="Logo de Braillear" /> Braillear
                         </a>
-                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#braillear-navbar">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <div class="navbar-collapse collapse" id="navbar-main">
+                    <div class="navbar-collapse collapse" id="braillear-navbar">
                         <ul class="nav navbar-nav">
                             <li><a href="#teclado">Teclado</a></li>
                             <li><a href="#guia">Guía Braille</a></li>
                             <li><a href="#faq" title="Preguntas frecuentes">F.A.Q.</a></li>
-                            <li><a href="#broken">broken</a></li>
+                            <!--                            <li><a href="#broken">broken</a></li>-->
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
@@ -53,6 +52,8 @@
                 </div>
             </div>
         </nav>
+
+        <div id="msgEnConstruccion" style="float: right; padding: 1em 0.5em; margin-right: 1em;" class="label label-warning">En construcción</div>
 
         <section id="contenedor" class="container"></section>
 

@@ -220,7 +220,7 @@
             } else if (self.modoNumericoInterrupcion) {
                 self.modoNumericoInterrupcion = 0;
                 console.log("reactivo modo numérico");
-            } else if (caracterLatino === " " || caracterLatino === SALTO_LINEA_CHAR) {
+            } else if (caracterLatino === " " || caracterLatino === self.SALTO_LINEA_CHAR) {
                 self.modoNumerico = 0;
                 self.modoNumericoInterrupcion = 0;
                 console.log("desactivo modo numérico");

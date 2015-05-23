@@ -138,7 +138,8 @@ function cargarPagina(nombrePagina, tituloPagina) {
     Braillear = {};
     $contenedor.text('');
 
-    $("#tituloPagina").text(tituloPagina || nombrePagina || "Braillear");
+    tituloPagina = tituloPagina || nombrePagina || "Braillear";
+    $("#tituloPagina").text(tituloPagina);
     $loader.fadeIn("fast", function () {
         $.ajax({
             url: nombrePaginaReal + ".html",
@@ -148,7 +149,7 @@ function cargarPagina(nombrePagina, tituloPagina) {
         ).done(function (template) {
             $contenedor.html(template);
         }).fail(function () {
-            mostrarError('#' + nombrePagina, tituloPagina)
+            mostrarError('#' + nombrePagina, tituloPagina);
         }).always(function () {
             $('ul.navbar-nav li a[href=#' + nombrePagina + ']').closest("li").addClass("active");
             $contenedor.fadeIn("fast", function () {
@@ -156,14 +157,10 @@ function cargarPagina(nombrePagina, tituloPagina) {
                 if (Braillear.inicializar) {
                     Braillear.inicializar();
                 }
-                /* TODO:
-                 * Buscar algun truco para quitar foco al link(al menos con el teclado)
-                 * sino al dar enter recarga...
-                 * podría crear algun boton fuera de pantalla y darle foco? que no haga nada..
-                 */
             });
         });
     });
+
     return true;
 }
 
@@ -201,9 +198,15 @@ $(function () {
 
     $("ul.navbar-nav li a[href^=#], .navbar-header a").click(function () {
         cargarPagina($(this).attr("href"), $(this).text());
-        if ($('.navbar-toggle[data-target="#navbar-main"][aria-expanded=true]').length) {
-            $('#navbar-main').collapse('toggle');
+        if ($('.navbar-toggle[data-target="#braillear-navbar"][aria-expanded=true]').length) {
+            $('#braillear-navbar').collapse('toggle');
         }
+    }).keypress(function () {
+        this.blur();
+        this.hideFocus = false;
+    }).mouseup(function () {
+        this.blur();
+        this.hideFocus = true;
     });
 
     mostrarInicializables();

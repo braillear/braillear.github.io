@@ -138,9 +138,13 @@
                     .done(function () {
                         Braillear.inicializarMapas();
                         Braillear.inicializarTeclado();
+                        $('#msgEnConstruccion').fadeOut();
                     });
         };
-        Braillear.destruir = Braillear.destruirTeclado;
+        Braillear.destruir = function () {
+            $('#msgEnConstruccion').fadeIn();
+            Braillear.destruirTeclado();
+        }
     } else {
         window.location = "index.html#teclado";
         document.getElementsByTagName('body')[0].remove();
