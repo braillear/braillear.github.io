@@ -160,14 +160,16 @@
 
     function suelta(btn) {
         var idx = btn.data('idx');
-        solto[idx] = 1;
-        if (iguales(presiono, solto)) {
-            aceptarCaracter(valor);
-            limpiar(presiono, solto);
-            valor = 0;
-            $valorBraille.text('');
-            $valorLatino.text('');
-            $('.btnBraile').removeClass('btn-info');
+        if (presiono[idx]) {
+            solto[idx] = 1;
+            if (iguales(presiono, solto)) {
+                aceptarCaracter(valor);
+                limpiar(presiono, solto);
+                valor = 0;
+                $valorBraille.text('');
+                $valorLatino.text('');
+                $('.btnBraile').removeClass('btn-info');
+            }
         }
     }
     function sueltaBoton() {

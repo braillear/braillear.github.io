@@ -40,7 +40,7 @@ function mostrarInicializables($padre) {
  */
 function mostrarError(nombrePagina, tituloPagina) {
     $contenedor.html("\
-                <div class=\"alert alert-danger\">\
+                <div class=\"container alert alert-danger\" style=\"margin-top: 2em;\">\
                     <p><big><strong>Upps!!!</strong> Parece que algo salió mal...</big></p> \
                     <ul>\
                         <li>La página no existe o no está disponible. Intenta <a href=\"javascript: location.reload()\" title=\"Refresca la página en tu navegador\">actualizar</a>.</li>\
@@ -186,11 +186,15 @@ function cargarScriptCacheado(nombreScript) {
 
 $(function () {
     console.log('* Bienvenido a Braillear.');
-    appCache = window.applicationCache;
-    appCache.addEventListener('updateready', onUpdateReady);
-    appCache.addEventListener('checking', onCheckingUpdate);
-    appCache.addEventListener('error', onCacheUpgradeError);
-    appCache.update();
+    if ($('html').attr('manifest')) {
+        appCache = window.applicationCache;
+        appCache.addEventListener('updateready', onUpdateReady);
+        appCache.addEventListener('checking', onCheckingUpdate);
+        appCache.addEventListener('error', onCacheUpgradeError);
+        appCache.update();
+    } else {
+        console.warn('* Cache offline deshabilitado.');
+    }
 
     $loader = $("#msgCargando");
     $contenedor = $('#contenedor');
