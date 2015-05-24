@@ -324,7 +324,7 @@
         if (evt.keyCode === 13) {
             if ($msgSugerenciaFullscreen.hasClass("in")) {
                 $msgSugerenciaFullscreen.modal('hide');
-                toggleFullScreenScreen();
+                toggleFullScreen();
             } else {
                 sueltaSaltoLinea();
             }
