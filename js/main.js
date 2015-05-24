@@ -106,6 +106,10 @@ function obtenerURLPagina(pagina) {
             + pagina;
 }
 
+function subirAlComiezo() {
+    $(document).scrollTop(0);
+}
+
 /**
  * Carga una página en el $contenedor del app.
  * Muestra el $loader temporalmente. Los metodos destruir() e inicializar() de
@@ -148,6 +152,7 @@ function cargarPagina(nombrePagina, tituloPagina) {
             async: true}
         ).done(function (template) {
             $contenedor.html(template);
+            $contenedor.find(".toTop").click(subirAlComiezo);
         }).fail(function () {
             mostrarError('#' + nombrePagina, tituloPagina);
         }).always(function () {

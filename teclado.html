@@ -126,8 +126,12 @@
     </div>
 </div>
 
+
 <script>
-    if (typeof Braillear !== 'undefined') {
+    if (typeof Braillear === 'undefined') {
+        window.location = "index.html#teclado";
+        document.getElementsByTagName('body')[0].remove();
+    } else {
         Braillear.inicializar = function () {
             $.when(cargarScriptCacheado("js/lib/thumbs.0.6.0.min.js"),
                     cargarScriptCacheado("js/maps/es.js"),
@@ -145,8 +149,5 @@
             $('#msgEnConstruccion').fadeIn();
             Braillear.destruirTeclado();
         }
-    } else {
-        window.location = "index.html#teclado";
-        document.getElementsByTagName('body')[0].remove();
     }
 </script>

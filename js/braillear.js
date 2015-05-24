@@ -84,8 +84,9 @@
 
 
     // Variables propias de la interfaz
-    var $valorBraille, $textoBraille, $valorLatino, $textoLatino, valor;
-    var $btnBorrarUltimoCaracter, $btnSaltoLinea, $btnEspacio;
+    var $valorBraille, $textoBraille, $valorLatino, $textoLatino;
+    var valor;
+    var $btnBorrarUltimoCaracter, $btnSaltoLinea, $btnEspacio, $msgSugerenciaFullscreen;
     var fullScreenSugerido = false;
 
     /////////////////////////////////////////////////
@@ -140,7 +141,7 @@
         return valor === self.SALTO_LINEA
                 ? self.SALTO_LINEA_CHAR
                 : String.fromCharCode(self.INICIO_TABLA_BRAILLE_UNICODE + valor);
-    }
+    };
 
 
 
@@ -291,7 +292,6 @@
     }
 
 
-
     function presionaBorrarUltimoCaracter() {
         $btnBorrarUltimoCaracter.addClass('btn-danger');
     }
@@ -305,28 +305,40 @@
 
 
     function eventoTeclaComandoPresiona(evt) {
-        if (evt.key === " ")
+        if (evt.key === " ") {
             presionaEspacio();
-        if (evt.keyCode === 13)
+        }
+        if (evt.keyCode === 13 && !($msgSugerenciaFullscreen.hasClass("in"))) {
             presionaSaltoLinea();
-        if (evt.keyCode === 8)
+        }
+        if (evt.keyCode === 8) {
             presionaBorrarUltimoCaracter();
+        }
+        if ((evt.key === "N" || evt.key === "n" || evt.keyCode === 27) && $msgSugerenciaFullscreen.hasClass("in")) {
+            $msgSugerenciaFullscreen.modal('hide');
+        }
     }
     function eventoTeclaComandoSuelta(evt) {
         if (evt.key === " ")
             sueltaEspacio();
-        if (evt.keyCode === 13)
-            sueltaSaltoLinea();
+        if (evt.keyCode === 13) {
+            if ($msgSugerenciaFullscreen.hasClass("in")) {
+                $msgSugerenciaFullscreen.modal('hide');
+                toggleFullScreenScreen();
+            } else {
+                sueltaSaltoLinea();
+            }
+        }
         if (evt.keyCode === 8)
             sueltaBorrarUltimoCaracter();
     }
 
 
     function eventoTecla(handler) {
-        return function (e) {
-            if (!e.key)
+        return function (evt) {
+            if ($msgSugerenciaFullscreen.hasClass("in") || !evt.key)
                 return;
-            switch (e.key) {
+            switch (evt.key) {
                 case "Q":
                 case "q":
                     handler($('#btnQ'));
@@ -353,13 +365,13 @@
                     break;
                     break;
             }
-            return;
-        }
+        };
     }
 
 
     function limpiarTodo() {
         valor = 0;
+        presiono = [0, 0, 0, 0, 0, 0], solto = [0, 0, 0, 0, 0, 0];
         $valorBraille.text('');
         $textoBraille.html('');
         $valorLatino.text('');
@@ -448,15 +460,16 @@
                     && !isFullScreen()
                     && window.innerHeight < 405) {
                 fullScreenSugerido = true;
-                $("#msgSugerenciaFullscreen").modal('show');
+                $msgSugerenciaFullscreen.modal({show: true, keyboard: true});
                 //        console.log("sugerido");
-                //} else { //if ($("#msgSugerenciaFullscreen").hasClass("in"))
+                //} else { //if ($msgSugerenciaFullscreen.hasClass("in"))
                 //        console.log("cancelo sugerencia");
-                //            $("#msgSugerenciaFullscreen").modal('hide');
+                //            $msgSugerenciaFullscreen.modal('hide');
                 //            fullscreenSugerido = false; // ocultamos sugerencia automaticamente, podemos volver a sugerir
             }
         }
     }
+
 
     self.inicializarMapas = function () {
         inicializarMapa(self.map);
@@ -480,7 +493,7 @@
         $btnEspacio = $('#btnEspacio');
         $btnSaltoLinea = $('#btnSaltoLinea');
         $btnBorrarUltimoCaracter = $('#btnBorrar');
-        //$('#btnLimpiar').click(limpiarTodo);
+        $msgSugerenciaFullscreen = $("#msgSugerenciaFullscreen");
 
         $.each($('.btnBraile'), function (idx, btn) {
             btn.addEventListener('touchstart', presionaBoton, false);

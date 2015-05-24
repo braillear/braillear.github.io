@@ -41,12 +41,6 @@ h6 {
     font-size: 14px;
 }
 
-.panel-heading {
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.0em;
-}
-
 .navbar {
     /*background-image: linear-gradient(#699934, #699934 20%, #699934);*/
     /*border-bottom: 1px solid #178ACC;*/
@@ -57,6 +51,13 @@ h6 {
     margin-top: -5px;
 }
 
+.fuenteBraille {
+    font-family: 'DejaVuSerif';
+}
+.fuenteLatina {
+    font-family: 'DejaVuSerif';
+}
+
 .colorMayus { color: lightblue;}
 .colorCapital { color: blue;}
 .colorNum { color: gray;}
@@ -64,17 +65,7 @@ h6 {
 .colorDesconocido { color: red;}
 .colorSombra { color: lightgray;}
 
-.icon-fullscreen {
-    display: inline-block;
-    width: 1.2em;
-    height: 1.2em;
-    background-image: url("../img/view-fullscreen.svg");
-    background-size: 100%;
-    margin-right: 0.5em;
-}
 
-
-/* clases utilitarias */
 .inicializable {
     display: none !important;
 }
@@ -87,23 +78,57 @@ h6 {
 .vab { margin-top: 1.5%; bottom: 0; }
 .vac { margin-top: 1.5%; }
 
+#msgCargando {
+    top: 35%;
+}
+
+.caretUp {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-bottom: .5em solid;
+    border-right: .5em solid transparent;
+    border-left: .5em solid transparent;
+}
+
+/* Paneles colapsables */
+.panel-heading[data-toggle=collapse] {
+    cursor: pointer;
+}
+.panel-heading .caret {
+    margin: 0px 0.5em;
+    border-top: 0.5em solid;
+    border-right: 0.5em solid transparent;
+    border-left: 0.5em solid transparent;
+}
+.panel-heading[aria-expanded=true] .caret{
+    border-top: 0px solid;
+    border-bottom: 0.5em solid;
+}
 
 
-/* Mobile first, pantallas chicas ------------------------------------------- */
+/* Teclado  */
 .braillear {
     font-family: 'DejaVuSerif';
-    padding-top: 4em;  /* era 1, pongo 5 por prueba pagina unica*/
+    padding-top: 4.5em;
 }
 
 .tecladoBraillear {
     max-width: 80em;
 }
 
-#msgCargando {
-    top: 35%;
-}
 #msgSugerenciaFullscreen {
     display: none;
+}
+.icon-fullscreen {
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    background-image: url("../img/view-fullscreen.svg");
+    background-size: 100%;
+    margin-right: 0.5em;
 }
 
 .displayEntradas {
@@ -124,29 +149,6 @@ h6 {
     padding: 0px;
 }
 
-.fuenteBraille {
-    /*    font-family: 'Braille6ANSI';*/
-    font-family: 'DejaVuSerif';
-}
-.fuenteLatina {
-    font-family: 'DejaVuSerif';
-}
-
-/* referencias en la guia  braille */
-.panel-body {
-    text-align: justify;
-}
-.referencia {
-    display: inline-block;
-    /*    border: 1px gray solid;*/
-    margin: 0.5em 2em 0.5em 2em;
-}
-.referencia .fuenteLatina, .referencia .fuenteBraille {
-    display: inline-block;
-    padding: 0.5em;
-}
-/* fin referencias en la guia  braille */
-
 .spanCaracter {
     width: 0.8em;
     display: inline-block;
@@ -157,7 +159,7 @@ h6 {
 .btnTeclado {
     height: 32%;
     width: 100%;
-    /*max-width: 15em;*/
+    max-width: 15em;
     margin-left: 0;
     margin-right: 0;
     text-align: left;
@@ -193,6 +195,28 @@ h6 {
 #btnEspacio {
     background-image: url("../img/keyboard-space.svg")
 }
+
+
+/* Guia - referencias  */
+.panel-body {
+    text-align: justify;
+}
+.referencia {
+    display: inline-block;
+    margin: 0.5em 1em;
+}
+.referencia .fuenteLatina, .referencia .fuenteBraille {
+    display: inline-block;
+    padding: 0.5em;
+}
+.referenciaPuntos  .fuenteBraille {
+    font-size: 3em;
+    position: absolute;
+    top: 0px; bottom: 0px; left: 0px; right: 0px;
+    text-align: center;
+}
+
+
 
 /* Pantallas medianas ------------------------------------------------------- */
 @media only screen and (min-width: 480px) {
