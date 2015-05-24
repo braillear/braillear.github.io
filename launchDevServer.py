@@ -44,7 +44,7 @@ class MyHTTPRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             self, path
         )
         if mimetype == 'application/octet-stream':
-            if path.endswith('cache.manifest'):
+            if path.endswith('.appcache'):
                 mimetype = 'text/cache-manifest'
         return mimetype
 
