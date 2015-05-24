@@ -305,23 +305,29 @@
 
 
     function eventoTeclaComandoPresiona(evt) {
-        if (evt.key === " ") {
+        // espacio
+        if (evt.which === 32) {
             presionaEspacio();
         }
-        if (evt.keyCode === 13 && !($msgSugerenciaFullscreen.hasClass("in"))) {
+        // enter
+        if (evt.which === 13 && !($msgSugerenciaFullscreen.hasClass("in"))) {
             presionaSaltoLinea();
         }
-        if (evt.keyCode === 8) {
+        // backspace
+        if (evt.which === 8) {
             presionaBorrarUltimoCaracter();
         }
-        if ((evt.key === "N" || evt.key === "n" || evt.keyCode === 27) && $msgSugerenciaFullscreen.hasClass("in")) {
+        // N/n/escape, con modal abierto
+        if ((evt.which === 78 || evt.which === 110 || evt.keyCode === 27) && $msgSugerenciaFullscreen.hasClass("in")) {
             $msgSugerenciaFullscreen.modal('hide');
         }
     }
     function eventoTeclaComandoSuelta(evt) {
-        if (evt.key === " ")
+        // espacio
+        if (evt.which === 32)
             sueltaEspacio();
-        if (evt.keyCode === 13) {
+        // enter
+        if (evt.which === 13) {
             if ($msgSugerenciaFullscreen.hasClass("in")) {
                 $msgSugerenciaFullscreen.modal('hide');
                 toggleFullScreen();
@@ -329,38 +335,39 @@
                 sueltaSaltoLinea();
             }
         }
-        if (evt.keyCode === 8)
+        // backspace
+        if (evt.which === 8)
             sueltaBorrarUltimoCaracter();
     }
 
 
     function eventoTecla(handler) {
         return function (evt) {
-            if ($msgSugerenciaFullscreen.hasClass("in") || !evt.key)
+            if ($msgSugerenciaFullscreen.hasClass("in"))
                 return;
-            switch (evt.key) {
-                case "Q":
-                case "q":
+            switch (evt.which) {
+                case 113:
+                case 81:
                     handler($('#btnQ'));
                     break;
-                case "A":
-                case "a":
+                case 97:
+                case 65:
                     handler($('#btnA'));
                     break;
-                case "Z":
-                case "z":
+                case 122:
+                case 90:
                     handler($('#btnZ'));
                     break;
-                case "O":
-                case "o":
+                case 111:
+                case 79:
                     handler($('#btnO'));
                     break;
-                case "K":
-                case "k":
+                case 107:
+                case 75:
                     handler($('#btnK'));
                     break;
-                case "M":
-                case "m":
+                case 109:
+                case 77:
                     handler($('#btnM'));
                     break;
                     break;
@@ -419,7 +426,7 @@
             } else if (document.documentElement.msRequestFullscreen) {
                 document.documentElement.msRequestFullscreen();
             } else if (document.documentElement.mozRequestFullScreen) {
-                console.log("pido fs")
+                console.log("pido fs");
                 document.documentElement.mozRequestFullScreen();
             } else if (document.documentElement.webkitRequestFullscreen) {
                 document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
@@ -499,9 +506,9 @@
             btn.addEventListener('touchstart', presionaBoton, false);
             btn.addEventListener('touchend', sueltaBoton, false);
         });
-        $(window).keydown(eventoTecla(presiona));
+        $(window).keypress(eventoTecla(presiona));
         $(window).keyup(eventoTecla(suelta));
-        $(window).keydown(eventoTeclaComandoPresiona);
+        $(window).keypress(eventoTeclaComandoPresiona);
         $(window).keyup(eventoTeclaComandoSuelta);
 
         $btnEspacio.bind('touchstart', presionaEspacio);
