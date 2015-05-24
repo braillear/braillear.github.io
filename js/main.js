@@ -107,7 +107,6 @@ function obtenerURLPagina(pagina) {
 }
 
 function subirAlComiezo() {
-    //$(document).scrollTop(0);
     $('html,body').animate({scrollTop: 0}, 'slow');
 }
 
@@ -194,7 +193,9 @@ $(function () {
         appCache.addEventListener('updateready', onUpdateReady);
         appCache.addEventListener('checking', onCheckingUpdate);
         appCache.addEventListener('error', onCacheUpgradeError);
-        appCache.update();
+        if (appCache.status === 1 || appCache.status > 3) {
+            appCache.update();
+        }
     } else {
         console.warn('* Cache offline deshabilitado.');
     }
