@@ -107,7 +107,8 @@ function obtenerURLPagina(pagina) {
 }
 
 function subirAlComiezo() {
-    $(document).scrollTop(0);
+    //$(document).scrollTop(0);
+    $('html,body').animate({scrollTop: 0}, 'slow');
 }
 
 /**
