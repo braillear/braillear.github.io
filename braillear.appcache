@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Braillear@20150525.1124
+# Braillear@20150525.1142
 
 # Recursos cacheados
 CACHE:
@@ -11,7 +11,6 @@ creditos.html
 css/bootstrap.min.css
 css/braillear.css
 fonts/DejaVuSerif.ttf
-img/delete.svg
 img/erase.svg
 img/help.svg
 img/keyboard-return.svg
