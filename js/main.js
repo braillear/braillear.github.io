@@ -232,9 +232,8 @@ $(function () {
     $contenedor = $('#contenedor');
     $contenedorPortada = $('#contenedorPortada');
     $loader = $("#msgCargando").hide();
-
     // Cierre del menu al elegir opcion + quitar foco cuando elige una
-    $("ul.navbar-nav li a, .navbar-header a").click(function () {
+    $("ul.navbar-nav li a:not([data-toggle]), .navbar-header a:not([data-toggle])").click(function () {
         if ($('.navbar-toggle[data-target="#braillear-navbar"][aria-expanded=true]').length) {
             $('#braillear-navbar').collapse('toggle');
         }
