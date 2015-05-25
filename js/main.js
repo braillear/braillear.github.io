@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var $loader, $contenedor;
+var $loader, $contenedor, $contenedorPortada;
 var appCache, hayActualizacionPendiente = false, timerAutoRefresh;
 Braillear = null;
 
@@ -106,6 +106,11 @@ function obtenerURLPagina(pagina) {
             + pagina;
 }
 
+/**
+ * Scroll a comienzo de página
+ *
+ * @returns {undefined}
+ */
 function subirAlComiezo() {
     $('html,body').animate({scrollTop: 0}, 'slow');
 }
@@ -129,10 +134,7 @@ function cargarPagina(nombrePagina, tituloPagina) {
         window.location.reload();
     }
 
-    var nombrePaginaReal = "";
-    if (nombrePagina) {
-        nombrePaginaReal = nombrePagina = nombrePagina.substring(1);
-    }
+    var nombrePaginaReal = nombrePagina = nombrePagina ? nombrePagina.substring(1) : "";
 
     $('ul.navbar-nav li').closest("li").removeClass("active");
     $contenedor.hide();
@@ -141,6 +143,13 @@ function cargarPagina(nombrePagina, tituloPagina) {
     }
     Braillear = {};
     $contenedor.text('');
+
+    if (nombrePagina === 'portada') {
+        $contenedorPortada.fadeIn("fast");
+        return;
+    } else if ($contenedorPortada.is(":visible")) {
+        $contenedorPortada.hide();
+    }
 
     tituloPagina = tituloPagina || nombrePagina || "Braillear";
     $("#tituloPagina").text(tituloPagina);
@@ -165,7 +174,6 @@ function cargarPagina(nombrePagina, tituloPagina) {
             });
         });
     });
-
     return true;
 }
 
@@ -187,21 +195,22 @@ function cargarScriptCacheado(nombreScript) {
 }
 
 $(function () {
-    console.log('* Bienvenido a Braillear.');
+    console.log('*** Bienvenido a Braillear ***');
     if ($('html').attr('manifest')) {
         appCache = window.applicationCache;
         appCache.addEventListener('updateready', onUpdateReady);
         appCache.addEventListener('checking', onCheckingUpdate);
         appCache.addEventListener('error', onCacheUpgradeError);
-        if (appCache.status === 1 || appCache.status > 3) {
+        if (appCache.status === appCache.IDLE || appCache.status > appCache.DOWNLOADING) {
             appCache.update();
         }
     } else {
         console.warn('* Cache offline deshabilitado.');
     }
 
-    $loader = $("#msgCargando");
     $contenedor = $('#contenedor');
+    $contenedorPortada = $('#contenedorPortada');
+    $loader = $("#msgCargando").hide();
 
     $("ul.navbar-nav li a[href^=#], .navbar-header a").click(function () {
         cargarPagina($(this).attr("href"), $(this).text());
@@ -217,5 +226,8 @@ $(function () {
     });
 
     mostrarInicializables();
-    cargarPagina(obtenerNombrePaginaActual(), "Braillear");
+    var paginaInicial = obtenerNombrePaginaActual();
+    if (paginaInicial !== '#portada') {
+        cargarPagina(paginaInicial, "Braillear");
+    }
 });

@@ -55,10 +55,30 @@
 
         <div id="msgEnConstruccion" style="float: right; padding: 1em 0.5em; margin-right: 1em;" class="label label-warning">En construcción</div>
 
+        <section id="contenedorPortada" class="container">
+            <div class="jumbotron">
+                <header>
+                    <hgroup>
+                        <h1>Braillear <small>Entrenador Braille</small></h1>
+                    </hgroup>
+                </header>
+
+                <p><strong>Braillear</strong> es un teclado braille digital con soporte inicial para la escritura braille española.</p>
+                <p>Puede utilizarse cómodamente con dispositivos <i lang="en">multitouch</i>, y con algunas precauciones de tipeo, con teclados.</p>
+
+                <div class="alert alert-info">
+                    Recomendable <i lang="en">multitouch</i> de 5 puntos, como celulares, tabletas y <i lang="en">phablets</i> de gama media/alta.
+                    <br />Consulta la sección de <a style="cursor: pointer" onclick="cargarPagina('#faq', 'F.A.Q.');">preguntas frecuentes</a> sobre el uso con teclado tradicional.
+                </div>
+
+                <p><a class="btn btn-primary btn-lg" onclick="cargarPagina('#teclado', 'Teclado');" role="button">Ir al Teclado</a></p>
+            </div>
+        </section>
+
+
         <section id="contenedor" class="container"></section>
 
-
-        <div id="msgCargando" class="fullheight container-fluid text-center fullwidth">
+        <div id="msgCargando" class="fullheight container-fluid text-center fullwidth" style="display: none">
             <span class="well well-sm">
                 Cargando <strong id="tituloPagina">Braillear</strong>, aguarde...
             </span>
