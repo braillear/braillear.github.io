@@ -22,7 +22,7 @@ Braillear = null;
 /**
  * Muestra los elementos con señalados con clase inicializable
  *
- * @param {jQuery} $padre   Opcional. Elemento desde el cual buscar
+ * @param {Element} $padre   Opcional. Elemento desde el cual buscar
  *                          inicializables.
  * @returns {jQuery}        Elementos inicializados.
  */
@@ -116,6 +116,26 @@ function subirAlComiezo() {
 }
 
 /**
+ * Configura enlaces a .html locales para funcionar como Single Page Application
+ *
+ * @param {Element} $padre   Opcional. Elemento desde el cual buscar enlaces.
+ * @returns {undefined}
+ */
+function configurarEnlacesSPA($padre) {
+    $padre = $padre || $(document);
+    $padre.find("a[href$=\\.html]:not([href^=http])").each(function (idx, link) {
+        var $link = $(link);
+        var pagina = $link.attr('href');
+        pagina = pagina.substring(0, pagina.indexOf(".html"));
+        pagina = '#' + (pagina === 'index' ? 'portada' : pagina);
+        $link.attr('href', pagina);
+        $link.click(function () {
+            cargarPagina(pagina, $link.text());
+        });
+    });
+}
+
+/**
  * Carga una página en el $contenedor del app.
  * Muestra el $loader temporalmente. Los metodos destruir() e inicializar() de
  * Braillear son invocados antes y despues de la carga, si existen y es exitosa.
@@ -158,10 +178,11 @@ function cargarPagina(nombrePagina, tituloPagina) {
             url: nombrePaginaReal + ".html",
             type: 'GET',
             cache: true, // Braillear funciona como offline single page application
-            async: true}
-        ).done(function (template) {
+            async: true
+        }).done(function (template) {
             $contenedor.html(template);
             $contenedor.find(".toTop").click(subirAlComiezo);
+            configurarEnlacesSPA($contenedor);
         }).fail(function () {
             mostrarError('#' + nombrePagina, tituloPagina);
         }).always(function () {
@@ -212,8 +233,8 @@ $(function () {
     $contenedorPortada = $('#contenedorPortada');
     $loader = $("#msgCargando").hide();
 
-    $("ul.navbar-nav li a[href^=#], .navbar-header a").click(function () {
-        cargarPagina($(this).attr("href"), $(this).text());
+    // Cierre del menu al elegir opcion + quitar foco cuando elige una
+    $("ul.navbar-nav li a, .navbar-header a").click(function () {
         if ($('.navbar-toggle[data-target="#braillear-navbar"][aria-expanded=true]').length) {
             $('#braillear-navbar').collapse('toggle');
         }
@@ -225,9 +246,10 @@ $(function () {
         this.hideFocus = true;
     });
 
+    configurarEnlacesSPA();
     mostrarInicializables();
     var paginaInicial = obtenerNombrePaginaActual();
-    if (paginaInicial !== '#portada') {
+    if (paginaInicial !== '#index') {
         cargarPagina(paginaInicial, "Braillear");
     }
 });

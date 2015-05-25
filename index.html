@@ -3,7 +3,7 @@
 <!--[if IE 7]><html class="preIE8 preIE9" manifest="braillear.appcache" lang="es"><![endif]-->
 <!--[if IE 8]><html class="preIE9" manifest="braillear.appcache" lang="es"><![endif]-->
 <!--[if gte IE 9]><!--><html manifest="braillear.appcache" lang="es"><!--<![endif]-->
-    <head>          <!--agregar a todos los <html> de arriba para restaurar el offline manifest="cache.manifest"-->
+    <head>
         <title>Braillear - Entrenador Braille</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,10 +19,10 @@
     </head>
     <body class="fullheight fullwidth"  id="top">
         <nav>
-            <div class="navbar navbar-default navbar-fixed-top inicializable">
+            <div class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header fuenteLatina">
-                        <a href="#portada" class="navbar-brand" title="Braillear - Entrenador Braille">
+                        <a href="index.html" class="navbar-brand" title="Braillear - Entrenador Braille">
                             <img src="img/favicon.png" alt="Logo de Braillear" /> Braillear
                         </a>
                         <button class="btn navbar-toggle" type="button" data-toggle="collapse" data-target="#braillear-navbar">
@@ -31,16 +31,15 @@
                     </div>
                     <div class="navbar-collapse collapse" id="braillear-navbar">
                         <ul class="nav navbar-nav">
-                            <li><a href="#teclado">Teclado</a></li>
-                            <li><a href="#guia">Guía Braille</a></li>
-                            <li><a href="#faq" title="Preguntas frecuentes">F.A.Q.</a></li>
-                            <!--                            <li><a href="#broken">broken</a></li>-->
+                            <li><a href="teclado.html">Teclado</a></li>
+                            <li><a href="guia.html">Guía Braille</a></li>
+                            <li><a href="faq.html" title="Preguntas frecuentes">F.A.Q.</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown">Acerca de... <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#creditos">Créditos</a></li>
+                                    <li><a href="creditos.html">Créditos</a></li>
                                     <li><a href="mailto:braillear@openmailbox.org" title="Escribenos un email">Contacto</a></li>
                                     <li><a href="https://github.com/braillear/braillear.github.io" title="Fork Braillear on GitHub!">Fork me! @GitHub</a></li>
                                 </ul>
@@ -51,7 +50,9 @@
             </div>
         </nav>
 
-        <div id="msgEnConstruccion" style="float: right; padding: 1em 0.5em; margin-right: 1em;" class="label label-warning">En construcción</div>
+
+        <div id="msgEnConstruccion" style="position: fixed; right: 1em; padding: 1em 0.5em;" class="label label-warning">En construcción</div>
+
 
         <section id="contenedorPortada" class="container">
             <div class="jumbotron">
@@ -66,15 +67,16 @@
 
                 <div class="alert alert-info">
                     Recomendable <i lang="en">multitouch</i> de 5 puntos, como celulares, tabletas y <i lang="en">phablets</i> de gama media/alta.
-                    <br />Consulta la sección de <a style="cursor: pointer" onclick="cargarPagina('#faq', 'F.A.Q.');">preguntas frecuentes</a> sobre el uso con teclado tradicional.
+                    <br />Consulta la sección de <a href="faq.html">preguntas frecuentes</a> sobre el uso con teclado tradicional.
                 </div>
 
-                <p><a class="btn btn-primary btn-lg" onclick="cargarPagina('#teclado', 'Teclado');" role="button">Ir al Teclado</a></p>
+                <p><a class="btn btn-primary btn-lg" href="teclado.html" role="button">Ir al Teclado</a></p>
             </div>
         </section>
 
 
         <section id="contenedor" class="container"></section>
+
 
         <div id="msgCargando" class="fullheight container-fluid text-center fullwidth" style="display: none">
             <span class="well well-sm">

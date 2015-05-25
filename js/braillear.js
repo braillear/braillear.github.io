@@ -268,18 +268,18 @@
 
 
     function presionaEspacio() {
-        $btnEspacio.addClass('btn-primary');
+        $btnEspacio.closest('.btnTeclado').addClass('btn-primary');
     }
     function sueltaEspacio() {
         if (!obtenerValor()) {
             aceptarCaracter(0);
         }
-        $btnEspacio.removeClass('btn-primary');
+        $btnEspacio.closest('.btnTeclado').removeClass('btn-primary');
     }
 
 
     function presionaSaltoLinea() {
-        $btnSaltoLinea.addClass('btn-success');
+        $btnSaltoLinea.closest('.btnTeclado').addClass('btn-success');
     }
     function sueltaSaltoLinea() {
         if (!obtenerValor()) {
@@ -288,19 +288,19 @@
             $('#textoBrailleContainer').animate({scrollTop: $textoBraille.height()});
             $('#textoLatinoContainer').animate({scrollTop: $textoLatino.height()});
         }
-        $btnSaltoLinea.removeClass('btn-success');
+        $btnSaltoLinea.closest('.btnTeclado').removeClass('btn-success');
     }
 
 
     function presionaBorrarUltimoCaracter() {
-        $btnBorrarUltimoCaracter.addClass('btn-danger');
+        $btnBorrarUltimoCaracter.closest('.btnTeclado').addClass('btn-danger');
     }
     function sueltaBorrarUltimoCaracter() {
         if (!obtenerValor() && $textoBraille.contents().length > 1) {
             $textoBraille.contents().last().remove();
             $textoLatino.contents().last().remove();
         }
-        $btnBorrarUltimoCaracter.removeClass('btn-danger');
+        $btnBorrarUltimoCaracter.closest('.btnTeclado').removeClass('btn-danger');
     }
 
 
@@ -316,6 +316,7 @@
         // backspace
         if (evt.which === 8) {
             presionaBorrarUltimoCaracter();
+            return false; // evito que Chromium vueva para atrás en el historial
         }
         // N/n/escape, con modal abierto
         if ((evt.which === 78 || evt.which === 110 || evt.keyCode === 27) && $msgSugerenciaFullscreen.hasClass("in")) {
@@ -338,9 +339,17 @@
         // backspace
         if (evt.which === 8)
             sueltaBorrarUltimoCaracter();
+
+        return true;
     }
 
 
+    /**
+     * Procesa el keydown/keyup de las teclas QAZOKM
+     *
+     * @param {Function} handler
+     * @returns {boolean}
+     */
     function eventoTecla(handler) {
         return function (evt) {
             if ($msgSugerenciaFullscreen.hasClass("in"))
@@ -370,8 +379,11 @@
                 case 77:
                     handler($('#btnM'));
                     break;
-                    break;
+
+                default:
+                    return true; // mantenemos F1..12
             }
+            return false; // que no procese más al evento si era una letra
         };
     }
 
@@ -420,19 +432,16 @@
     function toggleFullScreen() {
         //    fullscreenSugerido = false; //acepto, asi que podemos seguimos sugiriendo
         if (!isFullScreen()) {  // current working methods
-            console.log("esta en fs");
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen();
             } else if (document.documentElement.msRequestFullscreen) {
                 document.documentElement.msRequestFullscreen();
             } else if (document.documentElement.mozRequestFullScreen) {
-                console.log("pido fs");
                 document.documentElement.mozRequestFullScreen();
             } else if (document.documentElement.webkitRequestFullscreen) {
                 document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
             }
         } else {
-            console.log("NO esta en fs");
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             } else if (document.msExitFullscreen) {
@@ -506,9 +515,9 @@
             btn.addEventListener('touchstart', presionaBoton, false);
             btn.addEventListener('touchend', sueltaBoton, false);
         });
-        $(window).keypress(eventoTecla(presiona));
+        $(window).keydown(eventoTecla(presiona));
         $(window).keyup(eventoTecla(suelta));
-        $(window).keypress(eventoTeclaComandoPresiona);
+        $(window).keydown(eventoTeclaComandoPresiona);
         $(window).keyup(eventoTeclaComandoSuelta);
 
         $btnEspacio.bind('touchstart', presionaEspacio);
