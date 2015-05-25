@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Braillear@20150525.1519
+# Braillear@20150525.1931
 
 # Recursos cacheados
 CACHE:
@@ -8,6 +8,7 @@ teclado.html
 guia.html
 faq.html
 creditos.html
+LICENSE.txt
 css/bootstrap.min.css
 css/braillear.css
 fonts/DejaVuSerif.ttf

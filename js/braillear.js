@@ -389,12 +389,13 @@
 
 
     function limpiarTodo() {
-        valor = 0;
         presiono = [0, 0, 0, 0, 0, 0], solto = [0, 0, 0, 0, 0, 0];
+        valor = 0;
         $valorBraille.text('');
         $textoBraille.html('');
         $valorLatino.text('');
         $textoLatino.html('');
+        aceptarCaracter(0);
     }
 
 
@@ -511,26 +512,26 @@
         $btnBorrarUltimoCaracter = $('#btnBorrar');
         $msgSugerenciaFullscreen = $("#msgSugerenciaFullscreen");
 
-        $.each($('.btnBraile'), function (idx, btn) {
-            btn.addEventListener('touchstart', presionaBoton, false);
-            btn.addEventListener('touchend', sueltaBoton, false);
-        });
-        $(window).keydown(eventoTecla(presiona));
-        $(window).keyup(eventoTecla(suelta));
-        $(window).keydown(eventoTeclaComandoPresiona);
-        $(window).keyup(eventoTeclaComandoSuelta);
-
-        $btnEspacio.bind('touchstart', presionaEspacio);
-        $btnEspacio.bind('touchend', sueltaEspacio);
-        $btnSaltoLinea.bind('touchstart', presionaSaltoLinea);
-        $btnSaltoLinea.bind('touchend', sueltaSaltoLinea);
-        $btnBorrarUltimoCaracter.bind('touchstart', presionaBorrarUltimoCaracter);
-        $btnBorrarUltimoCaracter.bind('touchend', sueltaBorrarUltimoCaracter);
+        $('.btnBraile')
+                .bind('touchstart', presionaBoton)
+                .bind('touchend', sueltaBoton);
+        $(window)
+                .keydown(eventoTecla(presiona))
+                .keyup(eventoTecla(suelta))
+                .keydown(eventoTeclaComandoPresiona)
+                .keyup(eventoTeclaComandoSuelta);
+        $btnEspacio.closest('.btnTeclado')
+                .bind('touchstart', presionaEspacio)
+                .bind('touchend', sueltaEspacio);
+        $btnSaltoLinea.closest('.btnTeclado')
+                .bind('touchstart', presionaSaltoLinea)
+                .bind('touchend', sueltaSaltoLinea);
+        $btnBorrarUltimoCaracter.closest('.btnTeclado')
+                .bind('touchstart', presionaBorrarUltimoCaracter)
+                .bind('touchend', sueltaBorrarUltimoCaracter);
+        $('#btnFullscreen').click(toggleFullScreen);
 
         limpiarTodo();
-        aceptarCaracter(0);
-
-        $('#btnFullscreen').click(toggleFullScreen);
         fullScreenSugerido = false;
 
         mostrarInicializables();
