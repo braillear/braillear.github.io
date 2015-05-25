@@ -18,28 +18,30 @@
 
 
 import SimpleHTTPServer
-
+import time
 
 """
-Inicia un webserver configurado con los headers necesarios para evitar
-el cacheo del manifest en el cliente (evitaría que detecte los cambios), y el
-cacheo de recursos del manifest por parte del browser en el cache estandar,
-fuera del appCache (evitaría que descargue los recursos cuando detecte cambios
-en el manifest).
-No es exactamente lo que envía GitHub Pages, usar launchGitHubLikeDevServer.py
+Inicia un webserver configurado con los headers que retorna GitHub Pages(GHP):
+    Expires: Fecha GMT actual    +10 minutos
+    Cache-Control: max-age=600   =10 minutos
 """
-class CustomRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class GPlikeRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     def end_headers(self):
-        self.custom_headers()
+        self.githubpages_headers()
         SimpleHTTPServer.SimpleHTTPRequestHandler.end_headers(self)
 
-    def custom_headers(self):
-        # Cache-Control: no-store no sirve, no almacena ni al manifest (FF)
-        self.send_header("Cache-Control", "no-cache, must-revalidate")
-        self.send_header("Pragma", "no-cache")
-        self.send_header("Expires", "0")
+    """Agrega headers que usa GHP"""
+    def githubpages_headers(self):
+        timestamp = time.time() + 600
+        year, month, day, hh, mm, ss, wd, y, z = time.gmtime(timestamp)
+        s = "%s, %02d %3s %4d %02d:%02d:%02d GMT" % (
+                self.weekdayname[wd],
+                day, self.monthname[month], year,
+                hh, mm, ss)
+        self.send_header("Cache-Control", "max-age=600")
+        self.send_header("Expires", s)
 
-    """Content-type correcto para el manifest .appcache"""
+    """Asegura el Content-type correcto para el manifest appcache (=GHP)"""
     def guess_type(self, path):
         mimetype = SimpleHTTPServer.SimpleHTTPRequestHandler.guess_type(
             self, path
@@ -53,4 +55,4 @@ class CustomRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 if __name__ == '__main__':
     print "\n* Iniciando servidor local."
     print "Puede iniciar este script indicando un numero de puerto si desea.\n"
-    SimpleHTTPServer.test(HandlerClass=CustomRequestHandler)
+    SimpleHTTPServer.test(HandlerClass=GPlikeRequestHandler)
