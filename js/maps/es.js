@@ -78,7 +78,7 @@ function inicializarMapa(map) {
     map[Braillear.P3 + Braillear.P4 + Braillear.P5] = ")";
     map[Braillear.P1 + Braillear.P2 + Braillear.P3 + Braillear.P5 + Braillear.P6] = "[";
     map[Braillear.P2 + Braillear.P3 + Braillear.P4 + Braillear.P5 + Braillear.P6] = "]";
-    map[Braillear.P3 + Braillear.P6] = "-";
+    map[Braillear.P3 + Braillear.P6] = "-"; // guión o resta
     // TODO: El * también se usa como apertura y cierre de enfasis, para texto
     // subrayado, negrita o itálica. No sé como diferencian.
     // El multiplicar es otro signo.
@@ -93,6 +93,17 @@ function inicializarMapa(map) {
     // * arroba es escape de modo numérico, ya conf. arriba
     // * numeral solo es indicador de modo numérico. El numeral braille es
     // combinación #@ (TODO incluir soporte, #@a sería #a, no a ni 1)
+
+    // TODO: Otros signos de uso frecuente
+    // + coincide con ¡!
+    // * coincice con “”
+    map[Braillear.P2 + Braillear.P3 + Braillear.P5] = "+"; // sumar
+    //map[Braillear.P3 + Braillear.P6] = "-"; // resta = guión
+    map[Braillear.P2 + Braillear.P3 + Braillear.P6] = "*"; // multiplicar
+    map[Braillear.P2 + Braillear.P5 + Braillear.P6] = "/"; // dividir
+    map[Braillear.P2 + Braillear.P3 + Braillear.P5 + Braillear.P6] = "=";
+    //map[Braillear.P5] = "@"; // arroba = escape numérico
+
 }
 
 

@@ -67,9 +67,9 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading"  data-toggle="collapse" aria-expanded="false" aria-controls="collapseAlfabeto" data-target="#collapseAlfabeto">
-                <h4 class="panel-title">
+                <h3 class="panel-title">
                     <span class="caret"></span>Alfabeto
-                </h4>
+                </h3>
             </div>
             <div id="collapseAlfabeto" class="collapse">
                 <div class="panel-body inicializable">
@@ -116,9 +116,9 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading"  data-toggle="collapse" aria-expanded="false" aria-controls="collapseAcentos" data-target="#collapseAcentos">
-                <h4 class="panel-title">
+                <h3 class="panel-title">
                     <span class="caret"></span> Acentos y diéresis
-                </h4>
+                </h3>
             </div>
             <div id="collapseAcentos" class="collapse">
                 <div class="panel-body inicializable">
@@ -150,9 +150,9 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading"  data-toggle="collapse" aria-expanded="false" aria-controls="collapseMayusculas" data-target="#collapseMayusculas">
-                <h4 class="panel-title">
+                <h3 class="panel-title">
                     <span class="caret"></span> Mayúsculas
-                </h4>
+                </h3>
             </div>
             <div id="collapseMayusculas" class="collapse">
                 <div class="panel-body">
@@ -171,7 +171,7 @@
                             Si la sigla se indica con puntos en caracteres latinos, actualmente se considera correcta su omisión en braille.
                             Por ejemplo:</p>
                         <span class="referencia vertical"><span class="fuenteLatina" data-latino="^^onu">^^ONU</span></span>
-                        <span class="referencia vertical"><span class="fuenteLatina" data-latino="^^o.n.u.">^^O.N.U.</span> (puede verse en textos antiguos)</span>
+                        <span class="referencia vertical"><span class="fuenteLatina" data-latino="^^o.n.u.">^^O.N.U.</span> <small>(puede verse en textos antiguos)</small></span>
                         <span class="referencia vertical"><span class="fuenteLatina" data-latino="^o^n^u">^O^N^U</span></span>
 
                         <p>Cuando se emplean mayúsculas para dar resalte o énfasis al texto, se lo reemplaza por el símbolo de resalte formado por los puntos 3 y 5 (equivale al *).
@@ -187,9 +187,9 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading"  data-toggle="collapse" aria-expanded="false" aria-controls="collapseSimbolosSintacticos" data-target="#collapseSimbolosSintacticos">
-                <h4 class="panel-title">
+                <h3 class="panel-title">
                     <span class="caret"></span> Símbolos Sintácticos
-                </h4>
+                </h3>
             </div>
             <div id="collapseSimbolosSintacticos" class="collapse">
                 <div class="panel-body inicializable">
@@ -216,13 +216,57 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading"  data-toggle="collapse" aria-expanded="false" aria-controls="collapseNumeros" data-target="#collapseNumeros">
-                <h4 class="panel-title">
+                <h3 class="panel-title">
                     <span class="caret"></span> Números
-                </h4>
+                </h3>
             </div>
             <div id="collapseNumeros" class="collapse">
                 <div class="panel-body inicializable">
-                    En desarrollo.
+                    <h4>Números arábigos</h4>
+                    <p>Se utiliza un símbolo especial como prefijo para indicar que se trata de un número (antecediendo al número completo, no a cada cifra).</p>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#">Modo Numérico</span></span>
+                    <p>Una vez indicado el modo numérico, cada dígito corresponde con una de las diez primeras letras del alfabeto:</p>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="a">a = 1</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="b">b = 2</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="c">c = 3</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="d">d = 4</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="e">e = 5</span></span>
+                    <br/>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="f">f = 6</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="g">g = 7</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="h">h = 8</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="i">i = 9</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="j">j = 0</span></span>
+                    <p>El punto y la coma representan, respectivamente, al separador de miles y decimales. Ejemplo:</p>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#db">#42</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#b.jae">#2.015</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#c.ad">#3.14</span></span>
+                    <p>Si deben combinarse dígitos y letras, es preciso "escapar" las diez primeras letras antecediéndolas con el símbolo de escape numérico (punto 5):</p>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="@">Escape Numérico</span></span>
+                    <p>Ejemplo:</p>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#aa@a">#11@a</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#g@aam">#7@b11m</span> <small>No es preciso escapar la <em>m</em></small></span>
+
+                    <h4>Números ordinales</h4>
+                    <p>Se antecede del signo numérico y se expresa el número, desplazando los puntos de cada dígito una posición más abajo (utilizando los puntos 2, 3, 5 y 6).
+                        Se finaliza con una <em>a</em> u <em>o</em> según el género. Para la terminación -<em>er</em>, se utiliza la letra <em>r</em>. Ejemplos:</p>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#,o">#1º</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#;a">#2ª</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#,r">#1er</span></span>
+
+                    <h4>Números fraccionales</h4>
+                    <p>Se antecede del signo numérico, luego el numerador desplazado una posición hacia abajo, y el denominador en posición normal, sin espacios ni barra.</p>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#,b">½</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#:h">⅜</span></span>
+                    <p>Para realizar una notación de fracción, se indican numerador y denominador con su notación normal, separador del signo de división (puntos 256):</p>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#a/#b">#1/#2</span></span>
+                    <span class="referencia"><span class="fuenteLatina" data-latino="#c/#d">#3/#4</span></span>
+
+                    <h4>Números Romanos</h4>
+                    <p>Si se escriben en mayúscula, basta con el símbolo de mayúscula por única vez al comienzo del número. Luego las letras.</p>
+                    <p>El trazo y doble trazo superior que indican múltiplo de mil y millón respectivamente, se reemplazan por los caracteres puntos 25 y doble 25 25 tras la última cifra afectada.</p>
+                    <!--                    TODO: ejemplos-->
+
                 </div>
             </div>
         </div>
@@ -230,9 +274,9 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading"  data-toggle="collapse" aria-expanded="false" aria-controls="collapseSimbolosMatematicos" data-target="#collapseSimbolosMatematicos">
-                <h4 class="panel-title">
+                <h3 class="panel-title">
                     <span class="caret"></span> Símbolos Matemáticos
-                </h4>
+                </h3>
             </div>
             <div id="collapseSimbolosMatematicos" class="collapse">
                 <div class="panel-body inicializable">
@@ -244,9 +288,9 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading"  data-toggle="collapse" aria-expanded="false" aria-controls="collapseXXXXXX" data-target="#collapseXXXXXX">
-                <h4 class="panel-title">
+                <h3 class="panel-title">
                     <span class="caret"></span> En desarrollo
-                </h4>
+                </h3>
             </div>
             <div id="collapseXXXXXX" class="collapse">
                 <div class="panel-body inicializable">
