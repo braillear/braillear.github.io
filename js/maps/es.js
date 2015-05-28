@@ -121,11 +121,46 @@ function obtenerCaracterLatino(valor) {
         caracter = caracter.toUpperCase();
     }
 
-    if (Braillear.modoNumerico && !Braillear.modoNumericoInterrupcion) {
+    if (Braillear.modoNumerico > 0 && !Braillear.modoNumericoInterrupcion) {
         if (caracter === "j") {
             caracter = "0";
         } else if (caracter >= "a" && caracter < "j") {
             caracter = String.fromCharCode("1".charCodeAt(0) + caracter.charCodeAt(0) - "a".charCodeAt(0));
+        } else if (Braillear.modoNumerico === 1) {
+            // ingresó otra cosa y son válidos los numeradores/ordinales
+            switch (valor) {
+                case Braillear.P2:
+                    caracter = "1";
+                    break;
+                case Braillear.P2 + Braillear.P3:
+                    caracter = "2";
+                    break;
+                case Braillear.P2 + Braillear.P5:
+                    caracter = "3";
+                    break;
+                case Braillear.P2 + Braillear.P5 + Braillear.P6:
+                    caracter = "4";
+                    break;
+                case Braillear.P2 + Braillear.P6:
+                    caracter = "5";
+                    break;
+                case Braillear.P2 + Braillear.P3 + Braillear.P5:
+                    caracter = "6";
+                    break;
+                case Braillear.P2 + Braillear.P3 + Braillear.P5 + Braillear.P6:
+                    caracter = "7";
+                    break;
+                case Braillear.P2 + Braillear.P3 + Braillear.P6:
+                    caracter = "8";
+                    break;
+                case Braillear.P3 + Braillear.P5:
+                    caracter = "9";
+                    break;
+                case Braillear.P3 + Braillear.P5 + Braillear.P6:
+                    caracter = "0";
+                    break;
+            }
+
         }
     }
 

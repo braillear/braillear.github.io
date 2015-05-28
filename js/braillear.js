@@ -219,9 +219,9 @@
         }
 
         if (caracterLatino === "#") {
-            self.modoNumerico++;
+            self.modoNumerico = 1;
             switch (self.modoNumerico) {
-                case 1:
+                case 1: // aceptaría denominador pero tambien numerador/ordinal
                     console.log("modo numérico");
                     break;
                 default:
@@ -232,6 +232,7 @@
         } else if (self.modoNumerico) {
             if (caracterLatino === "@") {
                 self.modoNumericoInterrupcion++;
+                self.modoNumerico = 2; // sólo números denominadores/comunes
                 console.log("interrumpo modo numérico");
             } else if (self.modoNumericoInterrupcion) {
                 self.modoNumericoInterrupcion = 0;
@@ -240,6 +241,19 @@
                 self.modoNumerico = 0;
                 self.modoNumericoInterrupcion = 0;
                 console.log("desactivo modo numérico");
+            } else if (self.modoNumerico === 1
+                    && (
+                            (valor & self.P1)
+                            || (valor & self.P4)
+                            )
+                    ) {
+                // Mientras acepta numeradores y denominadores/ordinales, como
+                // los numeradores corresponden a letras siempre usan al punto
+                // 1 o 4.
+                // Si ingresa alguno, o una letra, ya no puede usar
+                // denominadores/ordinales, a lo sumo esa combinación será
+                // interpretada como signo sintáctico/matemático
+                self.modoNumerico = 2; // sólo números denominadores/comunes
             }
         }
 
