@@ -60,7 +60,14 @@
         return ret;
     }
 
+    /**
+     * Convierte un string latino (con notación Braillear) en su equivalente braille
+     *
+     * @param {String} latino
+     * @returns {String|self.SALTO_LINEA_CHAR|Window.SALTO_LINEA_CHAR|Braillear.SALTO_LINEA_CHAR}
+     */
     function convertirEnBraille(latino) {
+        latino = latino.toLowerCase();
         var brailleString = "", largo = latino.length;
         for (var pos = 0; pos < largo; pos++) {
             var caracterLatino = latino.charAt(pos);
@@ -70,6 +77,11 @@
         return brailleString;
     }
 
+    /**
+     * Convierte un string braille en su equivalente latino con notación Braillear
+     * @param {String} braille
+     * @returns {String}
+     */
     function convertirEnLatino(braille) {
         var latinoString = "", largo = braille.length;
         for (var pos = 0; pos < largo; pos++) {
@@ -77,6 +89,9 @@
             var valorBraille = (charCode === self.SALTO_LINEA_CHARCODE)
                     ? self.SALTO_LINEA
                     : braille.charCodeAt(pos) - self.INICIO_TABLA_BRAILLE_UNICODE;
+            // TODO: obtenerCaracterLatino debería recibir los modos como parámetros
+            // así controla el modo adecuado (si tiene que ser mayúscula por ejemplo)
+            // los manejaría en esta funcion, sino usar al mismo objeto Braillear...
             latinoString = latinoString + obtenerCaracterLatino(valorBraille);
         }
         return latinoString;
