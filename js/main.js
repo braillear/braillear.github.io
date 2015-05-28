@@ -130,7 +130,8 @@ function configurarEnlacesSPA($padre) {
         pagina = '#' + (pagina === 'index' ? 'portada' : pagina);
         $link.attr('href', pagina);
         $link.click(function () {
-            cargarPagina(pagina, $link.text());
+            var seccion = $link.data('section-name');
+            cargarPagina(pagina, seccion || $link.text());
         });
     });
 }
