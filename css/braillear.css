@@ -206,10 +206,23 @@ h6 {
     display: inline-block;
     margin: 0.5em 1em;
 }
+.referencia .spanCaracter {
+    width: 0.9em;
+}
 .referencia .fuenteLatina, .referencia .fuenteBraille {
     display: inline-block;
     padding: 0.5em;
+    font-size: 1.1em;
 }
+.referencia.vertical .fuenteLatina, .referencia.vertical .fuenteBraille {
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .referenciaPuntos  .fuenteBraille {
     font-size: 3em;
     position: absolute;

@@ -160,7 +160,6 @@ function obtenerCaracterLatino(valor) {
                     caracter = "0";
                     break;
             }
-
         }
     }
 

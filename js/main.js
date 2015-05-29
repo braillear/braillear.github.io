@@ -67,8 +67,8 @@ function onUpdateReady() {
 function onCheckingUpdate() {
     console.log('Verificando actualizaciones..');
 }
-function onCacheUpgradeError(a) {
-    console.warn('Error al verificar actualizaciones', a);
+function onCacheUpgradeError(error) {
+    console.warn('Error al verificar actualizaciones', error);
 }
 
 /**
@@ -233,6 +233,7 @@ $(function () {
     $contenedor = $('#contenedor');
     $contenedorPortada = $('#contenedorPortada');
     $loader = $("#msgCargando").hide();
+
     // Cierre del menu al elegir opcion + quitar foco cuando elige una
     $("ul.navbar-nav li a:not([data-toggle]), .navbar-header a:not([data-toggle])").click(function () {
         if ($('.navbar-toggle[data-target="#braillear-navbar"][aria-expanded=true]').length) {
@@ -247,7 +248,7 @@ $(function () {
     });
 
     configurarEnlacesSPA();
-    mostrarInicializables();
+
     var paginaInicial = obtenerNombrePaginaActual();
     if (paginaInicial !== '#index') {
         cargarPagina(paginaInicial, "Braillear");
