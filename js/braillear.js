@@ -35,6 +35,7 @@
     self.SALTO_LINEA_CHAR = "\n";
     self.SALTO_LINEA_CHARCODE = self.SALTO_LINEA_CHAR.charCodeAt(0);
     self.INICIO_TABLA_BRAILLE_UNICODE = 0x2800;
+    self.INDICADOR_CARACTER_BRAILLE_DESCONOCIDO = "<small>�</small>";
 
     // Mapa con valores estandar (se completa en archivos de maps)
     self.map = [];
@@ -167,7 +168,7 @@
         solto[idx] = 0;
         valor = obtenerValor(presiono);
         $valorBraille.text(self.obtenerCaracterBraille(valor));
-        $valorLatino.text(obtenerCaracterLatino(valor));
+        $valorLatino.html(obtenerCaracterLatino(valor) || self.INDICADOR_CARACTER_BRAILLE_DESCONOCIDO);
     }
     function presionaBoton() {
         presiona($(this));
@@ -275,7 +276,7 @@
             colorLatino = "colorEscapeNum";
             titulo = "Escape modo numérico";
         } else if (caracterLatino === "") {  // no mapeado, desconocido
-            caracterLatino = "?";
+            caracterLatino = self.INDICADOR_CARACTER_BRAILLE_DESCONOCIDO;
             titulo = "Caracter braille desconocido";
             colorLatino = "colorDesconocido";
         }

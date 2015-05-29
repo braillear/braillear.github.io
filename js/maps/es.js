@@ -84,9 +84,9 @@ function inicializarMapa(map) {
     // El multiplicar es otro signo.
     map[Braillear.P3 + Braillear.P5] = "*";
     // TODO: signos emparejados, apertura y cierre
-    map[Braillear.P2 + Braillear.P6] = "¿?";
-    map[Braillear.P2 + Braillear.P3 + Braillear.P5] = "¡!";
-    map[Braillear.P2 + Braillear.P3 + Braillear.P6] = "“”";
+    map[Braillear.P2 + Braillear.P6] = "?"; //¿?
+    map[Braillear.P2 + Braillear.P3 + Braillear.P5] = "!"; //¡!
+    map[Braillear.P2 + Braillear.P3 + Braillear.P6] = "\""; //“”
 
 
     // TODO: completar signos matemáticos y otros
@@ -99,7 +99,7 @@ function inicializarMapa(map) {
     // * coincice con “”
     map[Braillear.P2 + Braillear.P3 + Braillear.P5] = "+"; // sumar
     //map[Braillear.P3 + Braillear.P6] = "-"; // resta = guión
-    map[Braillear.P2 + Braillear.P3 + Braillear.P6] = "*"; // multiplicar
+    map[Braillear.P2 + Braillear.P3 + Braillear.P6] = "＊"; // multiplicar (no es un asterisco)
     map[Braillear.P2 + Braillear.P5 + Braillear.P6] = "/"; // dividir
     map[Braillear.P2 + Braillear.P3 + Braillear.P5 + Braillear.P6] = "=";
     //map[Braillear.P5] = "@"; // arroba = escape numérico
