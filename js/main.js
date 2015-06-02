@@ -35,10 +35,9 @@ function mostrarInicializables($padre) {
  * Muestra un mensaje de error genérico y permanece reintentando cargar.
  *
  * @param {String} nombrePagina
- * @param {String} tituloPagina
  * @returns {undefined}
  */
-function mostrarError(nombrePagina, tituloPagina) {
+function mostrarError(nombrePagina) {
     $contenedor.html("\
                 <div class=\"container alert alert-danger\" style=\"margin-top: 2em;\">\
                     <p><big><strong>Upps!!!</strong> Parece que algo salió mal...</big></p> \
@@ -50,7 +49,7 @@ function mostrarError(nombrePagina, tituloPagina) {
                     <p>Si llegaste aquí por medio de un link en Braillear y el problema persiste, <a href = \"mailto:braillear@openmailbox.org\" title=\"Escríbenos un email\">avísanos</a> para que podamos solucionarlo.</p>\
                 </div>");
     timerAutoRefresh = setTimeout(function () {
-        cargarPagina(nombrePagina, tituloPagina);
+        cargarPagina(nombrePagina);
     }, 30 * 1000);
 }
 
@@ -72,20 +71,11 @@ function onCacheUpgradeError(error) {
 }
 
 /**
- * Devuelve la posición del # en la URL actual
- * @returns {Number}
- */
-function obtenerPosicionComienzoNombrePagina() {
-    return document.URL.lastIndexOf("#");
-}
-
-/**
  * Devuelve el nombre de página actual, por defecto #portada
  * @returns {String}
  */
 function obtenerNombrePaginaActual() {
-    var posComienzoNombrePagina = obtenerPosicionComienzoNombrePagina();
-    return posComienzoNombrePagina > 0 ? document.URL.substring(posComienzoNombrePagina) : "#portada";
+    return window.location.hash || "#portada";
 }
 
 /**
@@ -101,9 +91,7 @@ function obtenerURLPagina(pagina) {
         pagina = '#' + pagina;
     }
 
-    var posComienzoNombrePagina = obtenerPosicionComienzoNombrePagina();
-    return (posComienzoNombrePagina <= 0 ? document.URL : document.URL.substring(0, posComienzoNombrePagina))
-            + pagina;
+    return window.location.origin + window.location.pathname + pagina;
 }
 
 /**
@@ -129,10 +117,6 @@ function configurarEnlacesSPA($padre) {
         pagina = pagina.substring(0, pagina.indexOf(".html"));
         pagina = '#' + (pagina === 'index' ? 'portada' : pagina);
         $link.attr('href', pagina);
-        $link.click(function () {
-            var seccion = $link.data('section-name');
-            cargarPagina(pagina, seccion || $link.text());
-        });
     });
 }
 
@@ -142,9 +126,8 @@ function configurarEnlacesSPA($padre) {
  * Braillear son invocados antes y despues de la carga, si existen y es exitosa.
  *
  * @param {String} nombrePagina     Nombre de la página a cargar. Ej: "#faq"
- * @param {String} tituloPagina     Título de la página, Ej: "F.A.Q."
  */
-function cargarPagina(nombrePagina, tituloPagina) {
+function cargarPagina(nombrePagina) {
     if (timerAutoRefresh) {
         timerAutoRefresh = clearTimeout(timerAutoRefresh);
     }
@@ -172,8 +155,6 @@ function cargarPagina(nombrePagina, tituloPagina) {
         $contenedorPortada.hide();
     }
 
-    tituloPagina = tituloPagina || nombrePagina || "Braillear";
-    $("#tituloPagina").text(tituloPagina);
     $loader.fadeIn("fast", function () {
         $.ajax({
             url: nombrePaginaReal + ".html",
@@ -185,7 +166,7 @@ function cargarPagina(nombrePagina, tituloPagina) {
             $contenedor.find(".toTop").click(subirAlComiezo);
             configurarEnlacesSPA($contenedor);
         }).fail(function () {
-            mostrarError('#' + nombrePagina, tituloPagina);
+            mostrarError('#' + nombrePagina);
         }).always(function () {
             $('ul.navbar-nav li a[href=#' + nombrePagina + ']').closest("li").addClass("active");
             $contenedor.fadeIn("fast", function () {
@@ -247,10 +228,25 @@ $(function () {
         this.hideFocus = true;
     });
 
+    // Cargamos las secciones cuando cambia el hash
+    if ("onhashchange" in window) {
+        window.onhashchange = function () {
+            cargarPagina(window.location.hash);
+        };
+    } else { // polyfill
+        var hashAnterior = window.location.hash;
+        window.setInterval(function () {
+            if (window.location.hash !== hashAnterior) {
+                hashAnterior = window.location.hash;
+                cargarPagina(hashAnterior);
+            }
+        }, 200);
+    }
+
     configurarEnlacesSPA();
 
     var paginaInicial = obtenerNombrePaginaActual();
-    if (paginaInicial !== '#index') {
-        cargarPagina(paginaInicial, "Braillear");
+    if (paginaInicial !== '#portada') {
+        cargarPagina(paginaInicial);
     }
 });
