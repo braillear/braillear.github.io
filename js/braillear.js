@@ -101,6 +101,7 @@
 
     // Variables propias de la interfaz
     var $valorBraille, $textoBraille, $valorLatino, $textoLatino;
+    var $textoBrailleContainer, $textoLatinoContainer;
     var valor;
     var $btnBorrarUltimoCaracter, $btnSaltoLinea, $btnEspacio, $msgSugerenciaFullscreen;
     var fullScreenSugerido = false;
@@ -314,9 +315,7 @@
     function sueltaSaltoLinea() {
         if (!obtenerValor()) {
             aceptarCaracter(self.SALTO_LINEA);
-            //TODO: podría enlazar el handler scroll de uno e invocar al otro? para mantenerlo siempre sinc.
-            $('#textoBrailleContainer').animate({scrollTop: $textoBraille.height()});
-            $('#textoLatinoContainer').animate({scrollTop: $textoLatino.height()});
+            $textoBrailleContainer.animate({scrollTop: $textoBraille.height()});
         }
         $btnSaltoLinea.closest('.btnTeclado').removeClass('btn-success');
     }
@@ -541,6 +540,17 @@
         $btnSaltoLinea = $('#btnSaltoLinea');
         $btnBorrarUltimoCaracter = $('#btnBorrar');
         $msgSugerenciaFullscreen = $("#msgSugerenciaFullscreen");
+
+        $textoBrailleContainer = $("#textoBrailleContainer");
+        $textoLatinoContainer = $("#textoLatinoContainer");
+        $textoBrailleContainer.scroll(function () {
+            $textoLatinoContainer.scrollTop(this.scrollTop);
+            $textoLatinoContainer.scrollLeft(this.scrollLeft);
+        });
+        $textoLatinoContainer.scroll(function () {
+            $textoBrailleContainer.scrollTop(this.scrollTop);
+            $textoBrailleContainer.scrollLeft(this.scrollLeft);
+        });
 
         $('.btnBraile')
                 .bind('touchstart', presionaBoton)

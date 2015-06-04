@@ -155,6 +155,9 @@ h6 {
     text-align: center;
 }
 
+#valorLatino {
+    overflow-y: hidden;
+}
 /* botones del teclado */
 .btnTeclado {
     height: 32%;
