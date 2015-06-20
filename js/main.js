@@ -163,7 +163,7 @@ function cargarPagina(nombrePagina) {
             async: true,
             dataType: 'html'
         }).done(function (template) {
-            $contenedor.html($(template));
+            $contenedor.html(template);
             $contenedor.find(".toTop").click(subirAlComiezo);
             configurarEnlacesSPA($contenedor);
         }).fail(function () {
