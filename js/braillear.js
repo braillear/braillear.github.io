@@ -36,28 +36,22 @@
     self.SALTO_LINEA_CHARCODE = self.SALTO_LINEA_CHAR.charCodeAt(0);
     self.INICIO_TABLA_BRAILLE_UNICODE = 0x2800;
     self.INDICADOR_CARACTER_BRAILLE_DESCONOCIDO = "<small>�</small>";
-
     // Mapa con valores estandar (se completa en archivos de maps)
     self.map = [];
     self.map[self.SALTO_LINEA] = self.SALTO_LINEA_CHAR;
     self.map[0] = " ";
     // Mapa inverso (se inicializa solo)
     var invertedMap = {};
-
     // Modos de ingreso segun caracteres de comandos ingresados
     self.modoMayuscula = 0;
     self.modoNumerico = 0;
     self.modoNumericoInterrupcion = 0;
-
-
     function invertirArray(array) {
         var ret = {};
         ret[ self.SALTO_LINEA_CHAR ] = self.SALTO_LINEA;
-
         $(array).each(function (key, value) {
             ret[value] = key;
         });
-
         return ret;
     }
 
@@ -105,7 +99,6 @@
     var valor;
     var $btnBorrarUltimoCaracter, $btnSaltoLinea, $btnEspacio, $msgSugerenciaFullscreen;
     var fullScreenSugerido = false;
-
     /////////////////////////////////////////////////
     // simplificar esto, aunque sea multitouch se procesa
     // secuencialmente en JS así que no hay race conditions
@@ -159,9 +152,6 @@
                 ? self.SALTO_LINEA_CHAR
                 : String.fromCharCode(self.INICIO_TABLA_BRAILLE_UNICODE + valor);
     };
-
-
-
     function presiona(btn) {
         var idx = btn.data('idx');
         $(btn).addClass('btn-info');
@@ -198,7 +188,6 @@
     function aceptarCaracter(valor) {
         var caracterBraille = self.obtenerCaracterBraille(valor);
         var caracterLatino = obtenerCaracterLatino(valor);
-
         if (caracterLatino === "^") {
             self.modoMayuscula++;
             switch (self.modoMayuscula) {
@@ -368,7 +357,6 @@
         // backspace
         if (evt.which === 8)
             sueltaBorrarUltimoCaracter();
-
         return true;
     }
 
@@ -408,7 +396,6 @@
                 case 77:
                     handler($('#btnM'));
                     break;
-
                 default:
                     return true; // mantenemos F1..12
             }
@@ -452,7 +439,6 @@
                 || document.documentElement.mozRequestFullScreen
                 || document.documentElement.webkitRequestFullscreen
                 ) !== undefined;
-
     }
 
     /**
@@ -499,7 +485,6 @@
         }
         var fontSizeBotonera = letraBotonera.clientHeight * coef;
         $(".btnTeclado .fuenteBraille").css({"font-size": fontSizeBotonera + "px"});
-
         // sugerencia de fullscreen para pantallas pequeñas
         if (isFullScreenSupported()) {
             if (!fullScreenSugerido
@@ -521,10 +506,9 @@
         inicializarMapa(self.map);
         invertedMap = invertirArray(self.map);
     };
-
     /**
      * Inicializa el teclado
-     * TODO:.Debería estar en tecvlado.html, refactorizar este lío.
+     * TODO:.Debería estar en teclado.html, refactorizar este lío.
      * Podría ser:
      *   self.inicializar = function() {...
      * así lo invoca el main.js, pero tenemos dependencias de otros scripts
@@ -535,12 +519,10 @@
         $valorLatino = $('#valorLatino');
         $textoBraille = $('#textoBraille');
         $textoLatino = $('#textoLatino');
-
         $btnEspacio = $('#btnEspacio');
         $btnSaltoLinea = $('#btnSaltoLinea');
         $btnBorrarUltimoCaracter = $('#btnBorrar');
         $msgSugerenciaFullscreen = $("#msgSugerenciaFullscreen");
-
         $textoBrailleContainer = $("#textoBrailleContainer");
         $textoLatinoContainer = $("#textoLatinoContainer");
         $textoBrailleContainer.scroll(function () {
@@ -551,7 +533,6 @@
             $textoBrailleContainer.scrollTop(this.scrollTop);
             $textoBrailleContainer.scrollLeft(this.scrollLeft);
         });
-
         $('.btnBraile')
                 .bind('touchstart', presionaBoton)
                 .bind('touchend', sueltaBoton);
@@ -570,17 +551,13 @@
                 .bind('touchstart', presionaBorrarUltimoCaracter)
                 .bind('touchend', sueltaBorrarUltimoCaracter);
         $('#btnFullscreen').click(toggleFullScreen);
-
         limpiarTodo();
         fullScreenSugerido = false;
-
         mostrarInicializables();
         // TODO: seria mejor cuando cambia el orientation (ondeviceorientation existe pero no logro que se invoque), y tal vez no sea multiplataforma
         window.onresize = onWindowResize;
         onWindowResize();
     };
-
-
     /**
      * Deshabilita los event handlers de la página y libera los recursos que
      * use.

@@ -160,9 +160,10 @@ function cargarPagina(nombrePagina) {
             url: nombrePaginaReal + ".html",
             type: 'GET',
             cache: true, // Braillear funciona como offline single page application
-            async: true
+            async: true,
+            dataType: 'html'
         }).done(function (template) {
-            $contenedor.html(template);
+            $contenedor.html($(template));
             $contenedor.find(".toTop").click(subirAlComiezo);
             configurarEnlacesSPA($contenedor);
         }).fail(function () {
