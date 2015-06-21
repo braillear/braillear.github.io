@@ -4,7 +4,6 @@
   "type": "web",
   "launch_path": "/index.html",
   "appcache_path": "/braillear.appcache",
-  "fullscreen": "true",
   "default_locale": "es",
   "description": "Entrenador y teclado braille. Incluye guía rápida de escritura braille. Teclado touch de seis puntos, símil máquina pérkins, con pantalla braille y latina. Por el momento, con soporte inicial para braille español de España (puede notar algunas diferencias si está familiarizado con el braille utilizado en otro país).",
   "locales": {
