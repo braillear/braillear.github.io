@@ -15,12 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* TODO con appcache, los js de las secciones no se cachean...
- * al pedirlas $ les agrega un timestamp /js/braillear.js?_=1432093314606
- * para evitar el cacheo.
- * Para appcache hay que usar # en vez de ? para evitar eso
- */
-
 {
     var self = Braillear;
 

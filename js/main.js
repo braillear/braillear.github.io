@@ -138,7 +138,7 @@ function cargarPagina(nombrePagina) {
         window.location.reload();
     }
 
-    var nombrePaginaReal = nombrePagina = nombrePagina ? nombrePagina.substring(1) : "";
+    var nombrePagina = nombrePagina ? nombrePagina.substring(1) : "portada";
 
     $('ul.navbar-nav li').closest("li").removeClass("active");
     $contenedor.hide();
@@ -150,35 +150,37 @@ function cargarPagina(nombrePagina) {
 
     if (nombrePagina === 'portada') {
         $contenedorPortada.fadeIn("fast");
-        return;
-    } else if ($contenedorPortada.is(":visible")) {
-        $contenedorPortada.hide();
-    }
+    } else {
+        if ($contenedorPortada.is(":visible")) {
+            $contenedorPortada.hide();
+        }
 
-    $loader.fadeIn("fast", function () {
-        $.ajax({
-            url: nombrePaginaReal + ".html",
-            type: 'GET',
-            cache: true, // Braillear funciona como offline single page application
-            async: true,
-            dataType: 'html'
-        }).done(function (template) {
-            $contenedor.html(template);
-            $contenedor.find(".toTop").click(subirAlComiezo);
-            configurarEnlacesSPA($contenedor);
-        }).fail(function () {
-            mostrarError('#' + nombrePagina);
-        }).always(function () {
-            $('ul.navbar-nav li a[href=#' + nombrePagina + ']').closest("li").addClass("active");
-            $contenedor.fadeIn("fast", function () {
-                $loader.fadeOut("fast");
-                if (Braillear.inicializar) {
-                    Braillear.inicializar();
-                }
+        $loader.fadeIn("fast", function () {
+            $.ajax({
+                url: nombrePagina + ".html",
+                type: 'GET',
+                cache: true, // Braillear funciona como offline single page application
+                async: true,
+                dataType: 'html'
+            }).done(function (template) {
+                $contenedor.html(template);
+                $contenedor.find(".toTop").click(subirAlComiezo);
+                configurarEnlacesSPA($contenedor);
+            }).fail(function () {
+                mostrarError('#' + nombrePagina);
+            }).always(function () {
+                $('ul.navbar-nav li a[href=#' + nombrePagina + ']').closest("li").addClass("active");
+                $contenedor.fadeIn("fast", function () {
+                    $loader.fadeOut("fast");
+                    if (Braillear.inicializar) {
+                        Braillear.inicializar();
+                    }
+                });
             });
         });
-    });
-    return true;
+    }
+    
+    return;
 }
 
 /**
