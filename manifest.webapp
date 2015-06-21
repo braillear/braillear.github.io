@@ -1,5 +1,6 @@
 {
   "name": "Braillear",
+  "version": "0.1.3",
   "installs_allowed_from": ["*"],
   "type": "web",
   "launch_path": "/index.html",
