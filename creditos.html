@@ -17,7 +17,7 @@
         </ul>
 
         <h2>Licencia y recursos de terceros</h2>
-        <p>Braillear es <strong>software libre</strong> bajo licencia <a href="LICENSE.txt" rel="license" target="_blank" title="Se abrirá en nueva solapa">GPLv3 <span class="icon-fullscreen"></span></a>. Todo el código se encuentra alojado en nuestro <a href="https://github.com/braillear/braillear.github.io" title="Fork Braillear on GitHub!" target="_blank">repositorio público en GitHub <span class="icon-fullscreen"></span></a>.</p>
+        <p>Braillear es <strong>software libre</strong> bajo licencia <a id="licenciaBraillear" href="LICENSE.txt" rel="license" target="_blank" title="Licencia de Braillear (GPLv3)">GPLv3</a>. Todo el código se encuentra alojado en nuestro <a href="https://github.com/braillear/braillear.github.io" title="Fork Braillear on GitHub!" target="_blank">repositorio público en GitHub <span class="icon-fullscreen"></span></a>.</p>
         <p>Además, los siguientes recursos de terceros fueron utilizados:</p>
         <ul>
             <li>Librerías:
@@ -35,10 +35,52 @@
 
         <br/><br/><p><a class="btn toTop"><span class="caretUp"></span> Subir al comienzo de página</a></p><br/><br/>
 
+
+        <div class="modal fade " id="msgLicencia">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title">Licencia de Braillear</h4>
+                    </div>
+                    <div class="modal-body" style="max-height: 20em; overflow-y: scroll">
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnFullscreen" type="button" class="btn btn-primary" data-dismiss="modal">
+                            Aceptar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
             if (typeof Braillear === 'undefined') {
                 window.location = "index.html#creditos";
                 document.getElementsByTagName('body')[0].remove();
+            } else {
+                $('#licenciaBraillear').click(function (link) {
+                    var $msgLicencia = $('#msgLicencia');
+                    var $licenciaCuerpo = $msgLicencia.find(".modal-body");
+                    if ($licenciaCuerpo.text().trim() === '') {
+                        $.ajax({
+                            url: $(this).attr("href"),
+                            type: 'GET',
+                            cache: true, // Braillear funciona como offline single page application
+                            async: true,
+                            dataType: 'text'
+                        }).done(function (text) {
+                            $licenciaCuerpo.html(text.replace(/\n\n/g, "<br /><br />"));
+                            $msgLicencia.modal({show: true, keyboard: true});
+                        });
+                    } else {
+                        $msgLicencia.modal({show: true, keyboard: true});
+                    }
+
+                    return false;
+                });
             }
         </script>
     </body>
