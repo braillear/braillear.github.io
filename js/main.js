@@ -201,8 +201,8 @@ function cargarScriptCacheado(nombreScript) {
 }
 
 $(function () {
-    if(window.location.protocol === "http") {
-        window.location.protocol = "https";
+    if(window.location.protocol === "http:") {
+        window.location.protocol = "https:";
         return;
     }
     console.log('*** Bienvenido a Braillear ***');
