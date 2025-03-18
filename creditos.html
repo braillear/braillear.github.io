@@ -29,7 +29,7 @@
             <li><i lang="en">Framework</i> de presentación: <a href="http://getbootstrap.com" target="_blank" title="Sitio externo">Bootstrap <span class="icon-fullscreen"></span></a> (MIT License)</li>
             <li>Tipografía: <a href="https://dejavu-fonts.org" target="_blank" title="Sitio externo">DejaVuSerif <span class="icon-fullscreen"></span></a> (<a href="https://dejavu-fonts.org/wiki/License" target="_blank" title="Sitio externo">© Bitstream, Inc., cambios DejaVu en dominio público <span class="icon-fullscreen"></span></a>)</li>
             <li>Iconos:  <a href="https://launchpad.net/ubuntu-themes" target="_blank" title="Sitio externo">Ubuntu Mobile Icons <span class="icon-fullscreen"></span></a> (GNU GPL v3, Creative Commons - Attribution Share Alike)</li>
-            <li>Referencia Braille: <a href="http://www.once.es/new/servicios-especializados-en-discapacidad-visual/braille/documentos/DOCUMENTO%20TECNICO%20B2%20SIGNOGRAFIA%20BASICA%20%20V1.pdf" title="Sitio externo" target="_blank">Signografía Básica (PDF) <span class="icon-fullscreen"></span></a>, documento técnico B2 de la Comisión Braille Española (de la <a href="http://www.once.es" title="Sitio externo" target="_blank">Fundación ONCE <span class="icon-fullscreen"></span></a>)</li>
+            <li>Referencia Braille: <a href="https://www.once.es/servicios-sociales/braille" title="Sitio externo" target="_blank">Signografía Básica <span class="icon-fullscreen"></span></a>, documento técnico B2 de la Comisión Braille Española (de la <a href="http://www.once.es" title="Sitio externo" target="_blank">Fundación ONCE <span class="icon-fullscreen"></span></a>)</li>
         </ul>
 
 
@@ -68,7 +68,6 @@
                         $.ajax({
                             url: $(this).attr("href"),
                             type: 'GET',
-                            cache: true, // Braillear funciona como offline single page application
                             async: true,
                             dataType: 'text'
                         }).done(function (text) {

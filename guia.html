@@ -13,8 +13,8 @@
         <div class="alert alert-info">
             Esta guía es una referencia rápida introductoria, basada en el trabajo de la <a href="http://www.once.es" title="Sitio externo" target="_blank">Fundación ONCE <span class="icon-fullscreen"></span></a>, de España.
             <br/>
-            <a href="http://www.once.es/new/servicios-especializados-en-discapacidad-visual/braille/documentos/DOCUMENTO%20TECNICO%20B2%20SIGNOGRAFIA%20BASICA%20%20V1.pdf" title="Sitio externo" target="_blank">
-                Consulte el material original (PDF) <span class="icon-fullscreen"></span></a> si desea mayores detalles.
+            <a href="https://www.once.es/servicios-sociales/braille" title="Sitio externo" target="_blank">
+                Consulte el material original <span class="icon-fullscreen"></span></a> si desea mayores detalles.
         </div>
 
         <p>El sistema braille es una codificación basada en combinaciones de puntos en relieve sobre <em>celdas braille</em>; no es un lenguaje sino una forma de transcripción.</p>
@@ -279,7 +279,7 @@
                         <span class="referencia vertical"><span class="fuenteLatina" data-latino="#c,ad">#3,14</span></span>
                     </p>
 
-                    <p>Si deben combinarse dígitos y letras, es preciso "escapar" las diez primeras letras antecediéndolas con el símbolo de escape numérico (punto 5):</p>
+                    <p>Si deben combinarse dígitos y letras, es preciso "escapar" las diez primeras letras anteponiéndolas con el símbolo de escape numérico (punto 5):</p>
                     <span class="referencia"><span class="fuenteLatina" data-latino="@">Escape Numérico</span></span>
                     <p>Ejemplo:</p>
                     <p>
@@ -358,15 +358,15 @@
         <script>
             function deletrear(texto) {
                 var textoLen = texto.length;
-                var textoDeletrado = "", caracter = "";
+                var textoDeletreado = "", caracter = "";
 
                 for (var idx = 0; idx < textoLen; idx++) {
                     caracter = texto[idx];
                     caracter = '<span class="spanCaracter">' + caracter + '</span>';
-                    textoDeletrado = textoDeletrado + caracter;
+                    textoDeletreado = textoDeletreado + caracter;
                 }
 
-                return textoDeletrado;
+                return textoDeletreado;
             }
 
             function construirReferenciaBraille(textoLatino, vertical) {
@@ -387,8 +387,8 @@
                 // del teclado o donde esté, con boton de ver sólo
                 // la guía.
                 Braillear.inicializar = function () {
-                    $.when(cargarScriptCacheado("js/maps/es.js"),
-                            cargarScriptCacheado("js/braillear.js"))
+                    $.when(cargarScript("js/maps/es.js"),
+                            cargarScript("js/braillear.js"))
                             .fail(function () {
                                 mostrarError(obtenerNombrePaginaActual());
                             })

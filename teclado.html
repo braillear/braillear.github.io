@@ -121,9 +121,9 @@
                 document.getElementsByTagName('body')[0].remove();
             } else {
                 Braillear.inicializar = function () {
-                    $.when(cargarScriptCacheado("js/lib/thumbs.0.6.0.min.js"),
-                            cargarScriptCacheado("js/maps/es.js"),
-                            cargarScriptCacheado("js/braillear.js"))
+                    $.when(cargarScript("js/lib/thumbs.0.6.0.min.js"),
+                            cargarScript("js/maps/es.js"),
+                            cargarScript("js/braillear.js"))
                             .fail(function () {
                                 mostrarError(obtenerNombrePaginaActual());
                             })

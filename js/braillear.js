@@ -30,13 +30,13 @@
     self.SALTO_LINEA_CHARCODE = self.SALTO_LINEA_CHAR.charCodeAt(0);
     self.INICIO_TABLA_BRAILLE_UNICODE = 0x2800;
     self.INDICADOR_CARACTER_BRAILLE_DESCONOCIDO = "<small>�</small>";
-    // Mapa con valores estandar (se completa en archivos de maps)
+    // Mapa con valores estándar (se completa en archivos de maps)
     self.map = [];
     self.map[self.SALTO_LINEA] = self.SALTO_LINEA_CHAR;
     self.map[0] = " ";
     // Mapa inverso (se inicializa solo)
     var invertedMap = {};
-    // Modos de ingreso segun caracteres de comandos ingresados
+    // Modos de ingreso según caracteres de comandos ingresados
     self.modoMayuscula = 0;
     self.modoNumerico = 0;
     self.modoNumericoInterrupcion = 0;

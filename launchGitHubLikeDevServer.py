@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright (C) 2015 Lucas Capalbo Lavezzo
@@ -16,8 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-import SimpleHTTPServer
+import http.server
 import time
 
 """
@@ -25,10 +24,10 @@ Inicia un webserver configurado con los headers que retorna GitHub Pages(GHP):
     Expires: Fecha GMT actual    +10 minutos
     Cache-Control: max-age=600   =10 minutos
 """
-class GPlikeRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class GPlikeRequestHandler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
         self.githubpages_headers()
-        SimpleHTTPServer.SimpleHTTPRequestHandler.end_headers(self)
+        super().end_headers() #python3 version of the call
 
     """Agrega headers que usa GHP"""
     def githubpages_headers(self):
@@ -41,18 +40,7 @@ class GPlikeRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "max-age=600")
         self.send_header("Expires", s)
 
-    """Asegura el Content-type correcto para el manifest appcache (=GHP)"""
-    def guess_type(self, path):
-        mimetype = SimpleHTTPServer.SimpleHTTPRequestHandler.guess_type(
-            self, path
-        )
-        if path.endswith('.appcache'):
-            mimetype = 'text/cache-manifest'
-        return mimetype
-
-
-
 if __name__ == '__main__':
-    print "\n* Iniciando servidor local."
-    print "Puede iniciar este script indicando un numero de puerto si desea.\n"
-    SimpleHTTPServer.test(HandlerClass=GPlikeRequestHandler)
+    print("\n* Iniciando servidor local.")
+    print("Puede iniciar este script indicando un numero de puerto si desea.\n")
+    http.server.test(HandlerClass=GPlikeRequestHandler)

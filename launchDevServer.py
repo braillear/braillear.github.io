@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright (C) 2015 Lucas Capalbo Lavezzo
@@ -17,40 +17,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import SimpleHTTPServer
-
+import http.server
+import socketserver
 
 """
 Inicia un webserver configurado con los headers necesarios para evitar
-el cacheo del manifest en el cliente (evitaría que detecte los cambios), y el
-cacheo de recursos del manifest por parte del browser en el cache estandar,
-fuera del appCache (evitaría que descargue los recursos cuando detecte cambios
-en el manifest).
+el cacheo.
 No es exactamente lo que envía GitHub Pages, usar launchGitHubLikeDevServer.py
 """
-class CustomRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class CustomRequestHandler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
         self.custom_headers()
-        SimpleHTTPServer.SimpleHTTPRequestHandler.end_headers(self)
+        super().end_headers()
 
     def custom_headers(self):
-        # Cache-Control: no-store no sirve, no almacena ni al manifest (FF)
         self.send_header("Cache-Control", "no-cache, must-revalidate")
         self.send_header("Pragma", "no-cache")
         self.send_header("Expires", "0")
 
-    """Content-type correcto para el manifest .appcache"""
-    def guess_type(self, path):
-        mimetype = SimpleHTTPServer.SimpleHTTPRequestHandler.guess_type(
-            self, path
-        )
-        if path.endswith('.appcache'):
-            mimetype = 'text/cache-manifest'
-        return mimetype
-
-
-
 if __name__ == '__main__':
-    print "\n* Iniciando servidor local."
-    print "Puede iniciar este script indicando un numero de puerto si desea.\n"
-    SimpleHTTPServer.test(HandlerClass=CustomRequestHandler)
+    PORT = 8000
+    Handler = CustomRequestHandler
+
+    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+        print(f"serving at port {PORT}")
+        httpd.serve_forever()

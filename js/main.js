@@ -99,7 +99,7 @@ function obtenerURLPagina(pagina) {
  *
  * @returns {undefined}
  */
-function subirAlComiezo() {
+function subirAlComienzo() {
     $('html,body').animate({scrollTop: 0}, 'slow');
 }
 
@@ -159,12 +159,11 @@ function cargarPagina(nombrePagina) {
             $.ajax({
                 url: nombrePagina + ".html",
                 type: 'GET',
-                cache: true, // Braillear funciona como offline single page application
                 async: true,
                 dataType: 'html'
             }).done(function (template) {
                 $contenedor.html(template);
-                $contenedor.find(".toTop").click(subirAlComiezo);
+                $contenedor.find(".toTop").click(subirAlComienzo);
                 configurarEnlacesSPA($contenedor);
             }).fail(function () {
                 mostrarError('#' + nombrePagina);
@@ -190,12 +189,11 @@ function cargarPagina(nombrePagina) {
  * @param {String} nombreScript
  * @returns {jqXHR}
  */
-function cargarScriptCacheado(nombreScript) {
+function cargarScript(nombreScript) {
     return $.ajax({
         url: nombreScript,
         dataType: 'script',
         type: 'GET',
-        cache: true, // Braillear funciona como offline single page application
         async: true
     });
 }
