@@ -16,14 +16,13 @@
  */
 
 var $loader, $contenedor, $contenedorPortada;
-var appCache, hayActualizacionPendiente = false, timerAutoRefresh;
+var timerAutoRefresh;
 Braillear = null;
 
 /**
- * Muestra los elementos con señalados con clase inicializable
+ * Muestra los elementos señalados con clase inicializable
  *
- * @param {Element} $padre   Opcional. Elemento desde el cual buscar
- *                          inicializables.
+ * @param {Element} $padre   Opcional. Elemento desde el cual buscar inicializables.
  * @returns {jQuery}        Elementos inicializados.
  */
 function mostrarInicializables($padre) {
@@ -51,23 +50,6 @@ function mostrarError(nombrePagina) {
     timerAutoRefresh = setTimeout(function () {
         cargarPagina(nombrePagina);
     }, 30 * 1000);
-}
-
-/**
- * Handler, se ejecuta cuando hay una nueva versión de Braillear disponible
- * @returns {undefined}
- */
-function onUpdateReady() {
-    hayActualizacionPendiente = (appCache.status === appCache.UPDATEREADY);
-    console.log(hayActualizacionPendiente
-            ? 'Actualización pendiente detectada.'
-            : 'No hay actualizaciones pendientes.');
-}
-function onCheckingUpdate() {
-    console.log('Verificando actualizaciones..');
-}
-function onCacheUpgradeError(error) {
-    console.warn('Error al verificar actualizaciones', error);
 }
 
 /**
@@ -132,12 +114,6 @@ function cargarPagina(nombrePagina) {
         timerAutoRefresh = clearTimeout(timerAutoRefresh);
     }
 
-    if (hayActualizacionPendiente) {
-        appCache.swapCache();
-        window.location = obtenerURLPagina(nombrePagina);
-        window.location.reload();
-    }
-
     var nombrePagina = nombrePagina ? nombrePagina.substring(1) : "portada";
 
     $('ul.navbar-nav li').closest("li").removeClass("active");
@@ -183,8 +159,7 @@ function cargarPagina(nombrePagina) {
 }
 
 /**
- * Carga un script dinámicamente permitiendo su cacheo
- * (para poder usarlo offline)
+ * Carga un script dinámicamente
  *
  * @param {String} nombreScript
  * @returns {jqXHR}
@@ -199,22 +174,7 @@ function cargarScript(nombreScript) {
 }
 
 $(function () {
-    if(window.location.protocol === "http:") {
-        window.location.protocol = "https:";
-        return;
-    }
     console.log('*** Bienvenido a Braillear ***');
-    if ($('html').attr('manifest')) {
-        appCache = window.applicationCache;
-        appCache.addEventListener('updateready', onUpdateReady);
-        appCache.addEventListener('checking', onCheckingUpdate);
-        appCache.addEventListener('error', onCacheUpgradeError);
-        if (appCache.status === appCache.IDLE || appCache.status > appCache.DOWNLOADING) {
-            appCache.update();
-        }
-    } else {
-        console.warn('* Cache offline deshabilitado.');
-    }
 
     $contenedor = $('#contenedor');
     $contenedorPortada = $('#contenedorPortada');
