@@ -144,7 +144,7 @@ function cargarPagina(nombrePagina) {
             }).fail(function () {
                 mostrarError('#' + nombrePagina);
             }).always(function () {
-                $('ul.navbar-nav li a[href=#' + nombrePagina + ']').closest("li").addClass("active");
+                $('ul.navbar-nav li a[href="#' + nombrePagina + '"]').closest("li").addClass("active");
                 $contenedor.fadeIn("fast", function () {
                     $loader.fadeOut("fast");
                     if (Braillear.inicializar) {
