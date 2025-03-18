@@ -46,7 +46,7 @@ function mostrarError(nombrePagina) {
                         <li>Asegúrate de tener conexión;  Braillear se actualizará automáticamente.</li>\
                         <li>Intenta acceder a otras opciones del menú.</li>\
                     </ul>\
-                    <p>Si llegaste aquí por medio de un link en Braillear y el problema persiste, <a href = \"mailto:braillear@openmailbox.org\" title=\"Escríbenos un email\">avísanos</a> para que podamos solucionarlo.</p>\
+                    <p>Si llegaste aquí por medio de un link en Braillear y el problema persiste, <a href = \"mailto:lucas.capalbo+braillear@gmail.com\" title=\"Escríbenos un email\">avísanos</a> para que podamos solucionarlo.</p>\
                 </div>");
     timerAutoRefresh = setTimeout(function () {
         cargarPagina(nombrePagina);
